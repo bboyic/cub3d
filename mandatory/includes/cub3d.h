@@ -1,5 +1,5 @@
-#ifndef CUBE3D_H
-# define	CUBE3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 typedef struct	s_data {
 	void	*img;
@@ -32,5 +32,11 @@ typedef struct	s_vars {
 	void	*win;
 	t_player pl;
 }	t_vars;
+
+// first node is temp for correct order and have null params
+typedef struct s_list {
+	void			*key;
+	struct s_list	*next;
+}					*t_list;
 
 #endif
