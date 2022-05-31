@@ -11,6 +11,9 @@
 #define PI 3.14159265359
 #define RD 0.0174533
 
+// undefined
+# include <fcntl.h>
+
 /*
 * cleaner.c
 */
@@ -21,6 +24,8 @@ void	ft_cleaner(t_list *cleaner);
 /*
 * valid.c
 */
+int	ft_valid_file(char *file);
+
 
 /*
 * string.c

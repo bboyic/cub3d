@@ -39,4 +39,14 @@ typedef struct s_list {
 	struct s_list	*next;
 }					*t_list;
 
+typedef struct s_map {
+	char	*texture_of_north;
+	char	*texture_of_south;
+	char	*texture_of_west;
+	char	*texture_of_east;
+	int		rgb_floor[3];
+	int		rgb_ceiling[3];
+	
+}
+
 #endif
