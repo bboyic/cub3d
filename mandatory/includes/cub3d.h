@@ -58,9 +58,8 @@ typedef struct s_map
 	char	*texture_of_east;
 	int		rgb_floor[3];
 	int		rgb_ceiling[3];
-	t_dict	
-	char	**mmap;
+	t_dict	*mmap;
 	int		height;
-} t_map;
+}			t_map;
 
 #endif
