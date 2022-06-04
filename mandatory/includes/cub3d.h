@@ -40,9 +40,9 @@ typedef struct s_vars
 // first node is temp for correct order and have null params
 typedef struct s_list
 {
-	void *key;
-	struct s_list *next;
-} * t_list;
+	void			*key;
+	struct s_list	*next;
+}					t_list;
 
 typedef struct s_dict
 {

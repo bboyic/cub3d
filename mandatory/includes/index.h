@@ -36,5 +36,9 @@ void	*ft_write(int fd, char *message);
 int		ft_pos_strchr(const char *s, int c);
 int		ft_white(char *line);
 
+/*
+* split.c
+*/
+char	**ft_split(char const *s, char c);
 
 #endif
