@@ -15,3 +15,21 @@ int	ft_valid_file(char *file)
 	}
 	return (0);
 }
+
+int	ft_check_name(char *line)
+{
+	
+}
+
+int	ft_get_config(t_map *map_data, char **file_data)
+{
+	int	i;
+
+	i = -1;
+	while (file_data[++i])
+	{
+		if (ft_parse_line(map_data, file_data[i]))
+			return (1);
+	}
+	return (0);
+}

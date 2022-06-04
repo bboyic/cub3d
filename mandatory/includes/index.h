@@ -34,7 +34,7 @@ int		ft_strcmp(char *str1, char *str2);
 int		ft_strlen(const char *s);
 void	*ft_write(int fd, char *message);
 int		ft_pos_strchr(const char *s, int c);
-
+int		ft_white(char *line);
 
 
 #endif

@@ -49,3 +49,10 @@ void	*ft_write(int fd, char *message)
 {
 	write(fd, message, ft_strlen(message));
 }
+
+int	ft_white(char *line)
+{
+	if (ft_strlen(line) == 1 && line[0] == '\n')
+		return (0);
+	return (1);
+}
