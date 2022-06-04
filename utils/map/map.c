@@ -83,7 +83,7 @@ void	ft_free_mas(void	**mas) // change func direction
 	free(mas);
 }
 
-t_map	ft_map(char *file, t_list *cleaner)
+t_map	*ft_map(char *file, t_list *cleaner)
 {
 	t_map	*map_data;
 	char	**file_data;
@@ -91,11 +91,14 @@ t_map	ft_map(char *file, t_list *cleaner)
 	if (ft_valid_file(file) || ft_read_file(file, &file_data))
 		return (0);
 	map_data = malloc(sizeof(t_map) * 1);
-	if (!map_data || ft_get_config(map_data, file_data, cleaner))
+	if (!map_data
+		|| ft_get_config(map_data, file_data, cleaner)
+		|| ft_get_mmap(map_data, file_data, cleaner))
 	{
 		ft_free_mas(file_data);
 		return (0);
 	}
+	return (map_data);
 }
 
 // add all into different massive and then from end to start go check
