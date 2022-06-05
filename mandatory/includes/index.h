@@ -20,6 +20,7 @@
 int		ft_clslist_add_front(t_list *cleaner, void *param);
 t_list	*ft_new_clsnode(void *param);
 void	ft_cleaner(t_list *cleaner);
+void	ft_free_mas(void	**mas);
 
 /*
 * valid.c

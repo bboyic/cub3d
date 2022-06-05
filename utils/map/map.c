@@ -40,7 +40,7 @@ int	ft_get_file_height(char *file)
 	return (height);
 }
 
-int	ft_read_file(char *file, char ***file_data) // > 25 (26)
+int	ft_read_file(t_map *map_data, char *file, char ***file_data) // > 25 (26)
 {
 	int		height;
 	int		length;
@@ -55,6 +55,7 @@ int	ft_read_file(char *file, char ***file_data) // > 25 (26)
 		return (1);
 	*file_data = malloc(sizeof(char *) * (height + 1));
 	(*file_data)[height] = 0;
+	map_data->height = height - 6;
 	if (!(*file_data))
 		return (1)
 	height = -1;
@@ -70,30 +71,18 @@ int	ft_read_file(char *file, char ***file_data) // > 25 (26)
 	return (0)
 }
 
-void	ft_free_mas(void	**mas) // change func direction
-{
-	int	i;
-
-	i = -1;
-	while (mas[++i])
-	{
-		if (mas[i])
-			free(mas[i])
-	}
-	free(mas);
-}
-
 t_map	*ft_map(char *file, t_list *cleaner)
 {
 	t_map	*map_data;
 	char	**file_data;
 
-	if (ft_valid_file(file) || ft_read_file(file, &file_data))
-		return (0);
 	map_data = malloc(sizeof(t_map) * 1);
-	if (!map_data
-		|| ft_get_config(map_data, file_data, cleaner)
-		|| ft_get_mmap(map_data, file_data, cleaner))
+	if (!map_data || ft_clslist_add_front(cleaner, map_data))
+		return (1);
+	if (ft_valid_file(file) || ft_read_file(map_data, file, &file_data))
+		return (0);
+	if (ft_get_config(map_data, file_data, cleaner)
+		|| ft_get_mmap(map_data, file_data + 6, cleaner))
 	{
 		ft_free_mas(file_data);
 		return (0);

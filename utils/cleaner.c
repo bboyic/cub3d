@@ -36,3 +36,16 @@ void	ft_cleaner(t_list *cleaner)
 		cleaner = next_node;
 	}
 }
+
+void	ft_free_mas(void	**mas)
+{
+	int	i;
+
+	i = -1;
+	while (mas[++i])
+	{
+		if (mas[i])
+			free(mas[i])
+	}
+	free(mas);
+}
