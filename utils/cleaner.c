@@ -37,7 +37,7 @@ void	ft_cleaner(t_list *cleaner)
 	}
 }
 
-void	ft_free_mas(void	**mas)
+void	ft_free_mas(char	**mas)
 {
 	int	i;
 

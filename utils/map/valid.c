@@ -22,24 +22,24 @@ int	ft_check_name(t_map *map_data, char *line, t_list *cleaner)
 	int	fl;
 
 	fl = 1;
-	line += ft_skip_white(file_data[i]);
+	line += ft_skip_white(line);
 	if (!ft_strncmp(line, "NO", 2)
-		&& ft_get_texture(map_data->texture_of_north, line + 2, cleaner))
+		&& ft_get_texture(&map_data->texture_of_north, line + 2, cleaner, &fl))
 		return (-1);
 	if (!ft_strncmp(line, "SO",2)
-		&& ft_get_texture(map_data->texture_of_south, line + 2, cleaner))
+		&& ft_get_texture(&map_data->texture_of_south, line + 2, cleaner, &fl))
 		return (-1);
 	if (!ft_strncmp(line, "WE", 2)
-		&& ft_get_texture(map_data->texture_of_west, line + 2, cleaner))
+		&& ft_get_texture(&map_data->texture_of_west, line + 2, cleaner, &fl))
 		return (-1);
 	if (!ft_strncmp(line, "EA", 2)
-		&& ft_get_texture(map_data->texture_of_east, line + 2, cleaner))
+		&& ft_get_texture(&map_data->texture_of_east, line + 2, cleaner, &fl))
 		return (-1);
 	if (!ft_strncmp(line, "F", 1)
-		&& ft_get_rgb(&map_data->rgb_floor, line + 1))
+		&& ft_get_rgb(&map_data->rgb_floor, line + 1, &fl))
 		return (-1);
 	if (!ft_strncmp(line, "C", 1)
-		&& ft_get_rgb(&map_data->rgb_ceiling, line + 1))
+		&& ft_get_rgb(&map_data->rgb_ceiling, line + 1, &fl))
 		return (-1);
 	if (fl)
 		return (1);
@@ -65,8 +65,6 @@ int	ft_convert_rgb_num(const char *str)
 {
 	size_t		i;
 	int			nb;
-	int			count;
-	char		s[19];
 
 	i = 0;
 	nb = 0;
@@ -93,13 +91,15 @@ int	ft_border_line(char *line)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] != ' ' || line[i] != '1')
+		if (line[i] == '\n' && !line[i + 1])
+			return (0);
+		if (line[i] != ' ' && line[i] != '1')
 			return (1);
 	}
 	return (0);
 }
 
-int	ft_inside_line(char *file_data, char *line, int k, int *ct)
+int	ft_inside_line(char **file_data, char *line, int k, int *ct)
 {
 	int	i;
 

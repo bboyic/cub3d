@@ -78,7 +78,7 @@ t_map	*ft_map(char *file, t_list *cleaner)
 
 	map_data = malloc(sizeof(t_map) * 1);
 	if (!map_data || ft_clslist_add_front(cleaner, map_data))
-		return (0); //hmm, dont remember
+		return (0);
 	if (ft_valid_file(file) || ft_read_file(map_data, file, &file_data))
 		return (0);
 	if (ft_get_config(map_data, file_data, cleaner)

@@ -47,7 +47,7 @@ typedef struct s_list
 typedef struct s_dict
 {
 	int		len;
-	void	*line;
+	char	*line;
 }		t_dict;
 
 typedef struct s_map

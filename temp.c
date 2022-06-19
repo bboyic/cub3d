@@ -69,4 +69,5 @@ int main()
 
 	cleaner = malloc(sizeof(t_list) * 1);
 	t_map *map_data = ft_map("beu_map.cub", cleaner);
+	printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
 }

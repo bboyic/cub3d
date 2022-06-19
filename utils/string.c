@@ -33,7 +33,7 @@ int	ft_strncmp(char *str1, char *str2, int n)
 	while (str1[i] != '\0' && str2[i] != '\0' && str1[i] == str2[i]
 		&& i < n)
 		i++;
-	if (str1[i] == str2[i])
+	if (i == n && str1[i - 1] == str2[i - 1])
 		return (0);
 	return (1);
 }
