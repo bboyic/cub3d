@@ -45,7 +45,7 @@ void	ft_free_mas(void	**mas)
 	while (mas[++i])
 	{
 		if (mas[i])
-			free(mas[i])
+			free(mas[i]);
 	}
 	free(mas);
 }
