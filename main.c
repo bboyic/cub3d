@@ -1,25 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 06:37:54 by aconchit          #+#    #+#             */
-/*   Updated: 2022/02/25 16:41:17 by aconchit         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <mlx.h>
-#include <unistd.h>
-#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#define PI 3.14159265359
-#define RD 0.0174533
+#include <mlx.h>
+#include <math.h>
 
-typedef struct	s_data {
+#define PI 3.14159265359
+#define RAD 0.0174533
+
+typedef struct	s_data 
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -27,26 +14,29 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-typedef struct	s_obj {
-	int	x;
-	int	y;
-}	t_obj;
-
-
-typedef struct	s_vars {
-	t_data	img;
-	void	*mlx;
-	void	*win;
-	char *data;
-}	t_vars;
-
-typedef struct	s_player {
+typedef struct s_player {
 	float	x;
-	float 	y;
-	float 	dx;
-	float 	dy;
-	float	a;
+	float	y;
+	float	dx;
+	float	dy;
 }	t_player;
+
+typedef struct s_vars 
+{
+	float		degrees;
+	int			front;
+	int			turn_left;
+	int			turn_right;
+	int			back;
+	int			left;
+	int			right;
+	int			sprint;
+	char		**map;
+	void		*mlx;
+	void		*mlx_win;
+	t_player	player;
+	t_data		img;
+}	t_vars;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -56,318 +46,238 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	draw_all(t_vars *vars)
+int	key_hook(int keycode, t_vars *mlx)
 {
-
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (y < 700)
-	{
-		x = 0;
-		while (x < 2000)
-		{
-			my_mlx_pixel_put(&vars->img, x, y, 0xf8f8f7);
-			++x;
-		}
-		++y;
-	}
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	return (0);
-}
-
-int	check_touch(int x, int y, t_obj obj)
-{
-	//printf("%d %d , %d %d\n", x ,y , obj.x, obj.y);
-	if (x > obj.x - 5 && x < obj.x + 5 && y > obj.y -5 && y < obj.y + 5)
-	{
-	//	printf("%d %d , %d %d\n", x ,y , obj.x, obj.y);
-		return (1);
-	}
-	return (0);
-}
-
-int	draw_his(int size, t_vars *vars)
-{
-	int	x;
-	int	y;
-
-	y = 479;
-	while (y > 340 + size)
-	{
-		x = 639;
-		while (x > 500 + size)
-		{
-			my_mlx_pixel_put(&vars->img, x, y, 0x00FF0000);
-			--x;
-		}
-		--y;
-	}
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	return (0);
-}
-
-int	check_border_y(float y, float yindex)
-{
-	return ((y + yindex) / 64);
-}
-
-int	check_border_x(float x, float xindex)
-{
-	return ((x + xindex) / 64);
-}
-
-double	rays(float yindex, float xindex, t_player player, int *map, t_vars *vars)
-{
-	static int 	index = 0;
-	int 	i = 0;
-	int j = 0;
-	while (map[(check_border_y(player.y, yindex) * 8) + (check_border_y(player.x, xindex) + 1) - 1] != 1)//check_x == check_border_x(x, xindex) && check_y == check_border_y(y, yindex))
-	{
-		my_mlx_pixel_put(&vars->img, ((player.x) + xindex) , player.y + yindex, 0x00BC00);
-		xindex += player.dx;
-		yindex += player.dy;
-	}
-	++index;
-	//printf("ray %d: x=%f | y=%f size = %f\n", index, xindex, yindex, sqrt((xindex * xindex) + (yindex * yindex)));
-	if (index ==  1280)
-		index = 0;
-	if (index > 1)
-	{
-		while (i++ < (15000 / sqrtf((xindex * xindex) + (yindex * yindex))))
-		{
-			j = 0;
-			while (j < 1)
-			{
-				my_mlx_pixel_put(&vars->img, ( (index / 2) + j) + 1000 , 25 + i, (0x00BC00 + sqrt((xindex * xindex) + (yindex * yindex))));
-				j++;
-			}
-		}
-		while (i++ < 1000)
-		{
-			j = 0;
-			while (j < 1)
-			{
-				my_mlx_pixel_put(&vars->img, ( (index / 2) + j) + 1000 , 25 + i, 0x00BCF0);
-				j++;
-			}
-		}
-	}
-	// if (index >= 40)
-	// {
-	// 	while (i++ < (15000 / sqrt((xindex * xindex) + (yindex * yindex))))
-	// 		my_mlx_pixel_put(&vars->img, ( index * 5) + 1000 , 100 + i, 0x00BC00);
-	// }
-	// if (index > 40)
-	// {
-	// 	while (i++ < 500 - sqrt((xindex * xindex) + (yindex * yindex)))
-	// 		my_mlx_pixel_put(&vars->img, ((80 - index) * 5 ) + 1000 , 100 + i, 0x00BCF0);
-	// }
-	printf("%d\n", index);
-	return (sqrt((player.x + xindex * player.x + xindex) + (player.y + yindex + player.y + yindex)));
-}
-
-
-int	player(t_player player, t_vars *vars, int *map)
-{
-	float	xindex;
-	float	yindex;
-	int		index;
-	float	x = player.x;
-	float	y = player.y;
-
-
-	xindex = 0;
-	yindex = 0;
-
-	while (yindex < 10)
-	{
-		xindex = 0;
-		while (xindex < 10)
-		{
-			my_mlx_pixel_put(&vars->img, (x + xindex), (y + yindex), 0x000F0000);
-			++xindex ;
-		}
-		++yindex;
-	}
-	xindex = 0;
-	yindex = 0;
-	index = 0;
-	int check_x;
-	int	check_y;
-	float ra;
-	float dist;
-
-	check_x = (player.x + xindex) / 64;
-	check_y = (player.y + yindex) / 64;
-	xindex = player.dx;
-	yindex = player.dy;
-	player.x += 5;
-	ra = player.a - RD * 40;
-	while (index++ < 1280)
-	{
-		if (ra < 0)
-			ra += 2 * PI;
-		if (ra > 2 * PI)
-			ra -= 2 * PI;
-		dist = rays(player.dx, player.dy, player, map, vars);	
-		player.dx = cos(ra);
-		player.dy = sin(ra);
-		ra += RD / 20;
-	}
-	return (0);
-}
-
-int	draw_obj(t_obj obj, t_vars *vars)
-{
-	my_mlx_pixel_put(&vars->img, obj.x, obj.y, 0x00FF0000);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	return (0);
-}
-
-int draw_cub(int color, int x, int y, t_vars *vars)
-{
-	int x_index;
-	int	y_index;
-
-	y_index = 0;
-	while (y_index < 63)
-	{
-		x_index = 0;
-		while (x_index < 63)
-		{
-			my_mlx_pixel_put(&vars->img, x_index + (x * 64), y_index + (y * 64), color);
-			++x_index;
-		}
-		++y_index;
-	}
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	return (0);
-}
-
-int	draw_map(int *map, t_vars *vars)
-{
-	int x;
-	int	y = 0;
-	int	index = 0;
-	
-	while (y < 8)
-	{
-		x = 0;
-		while (x < 8)
-		{
-			if (map[index] == 1)
-				draw_cub(0x76776e, x , y, vars);
-			else if (map[index] == 0)
-				draw_cub(0xcaccbd, x , y, vars);
-			++x;
-			index++;
-		}
-		++y;
-	}
-	return (0);
-}
-
-int	game(int keycode, t_vars *vars)
-{
-	t_obj 		obj;
-	static t_player	pl;
-
-	if (pl.x == 0)
-	{
-		vars->pl.x = 300;
-		vars->pl.y = 300;
-		vars->pl.a = 0;
-		vars->pl.dx = cos(pl.a);
-		vars->pl.dy = sin(pl.a);
-	}
-	int map[] = 
-	{
-		1, 1, 1, 1, 1, 1, 1, 1,
-		1, 0, 1, 0, 0, 0, 0, 1,
-		1, 0, 1, 0, 0, 0, 0, 1,
-		1, 0, 1, 1, 0, 0, 0, 1,
-		1, 0, 0, 0, 0, 0, 0, 1,
-		1, 0, 0, 0, 0, 1, 0, 1,
-		1, 0, 0, 0, 0, 0, 0, 1,
-		1, 1, 1, 1, 1, 1, 1, 1,
-	};
-	obj.x = 100;
-	obj.y = 100;
-	
-	draw_all(vars);
-	if (keycode == 2 && pl.x < 720)
-	{
-		pl.a += 0.1;
-		if (pl.a > 0)
-			pl.a -= 2*PI;
-		pl.dx = cos(pl.a);
-		pl.dy = sin(pl.a);
-	}
-	if (keycode == 0 && pl.x < 720)
-	{
-		pl.a -= 0.1;
-		if (pl.a < 0)
-			pl.a += 2*PI;
-		pl.dx = cos(pl.a);
-		pl.dy = sin(pl.a);
-	}
-	if (keycode == 13 && pl.y < 540)
-	{
-		pl.x += pl.dx * 5;
-		pl.y += pl.dy * 5;
-	}
-	if (keycode == 1 && pl.y < 540)
-	{
-		pl.x -= pl.dx * 5;
-		pl.y -= pl.dy * 5;
-	}
+	printf("Hello from key_hook %d!\n", keycode);
+	if (keycode == 0)
+		mlx->left = 1;
+	if (keycode == 1)
+		mlx->back = 1;
+	if (keycode == 2)
+		mlx->right = 1;
+	if (keycode == 13)
+		mlx->front = 1;
+	if (keycode == 257)
+		mlx->sprint = 2;
 	if (keycode == 12)
-	{
-		pl.a -= 0.1;
-		if (pl.a < 0)
-			pl.a += 2*PI;
-		pl.dx = cos(pl.a) * 5;
-		pl.dy = sin(pl.a) * 5;
-	}
+		mlx->turn_left = 1;
 	if (keycode == 14)
-	{
-		pl.a += 0.1;
-		if (pl.a > 2*PI)
-			pl.a -= 2*PI;
-		pl.dx = cos(pl.a);
-		pl.dy = sin(pl.a);
-	}
-	//player(x, y, vars);	
-	//printf ("|==%d==\n", map[13]);
-	draw_map(map, vars);
-	//printf ("|==%d==\n", map[13]);
-	player(pl, vars, map);
-	//my_mlx_pixel_put(&vars->img, pl.x + pl.dx, pl.y + pl.dy, 0x00FF0000);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
-	vars->data = strdup("hello\n");
-	if (keycode == 53)
-		exit(0);
-	printf("%d\n", keycode);
+		mlx->turn_right = 1;
 	return (0);
 }
 
-int	main(void)
+int	key_down(int keycode, t_vars *mlx)
 {
-	t_data	img;
-	t_vars 	vars;
+	printf("Hello from key_hook %d!\n", keycode);
+	if (keycode == 0)
+		mlx->left = 0;
+	if (keycode == 1)
+		mlx->back = 0;
+	if (keycode == 2)
+		mlx->right = 0;
+	if (keycode == 13)
+		mlx->front = 0;
+	if (keycode == 257)
+		mlx->sprint = 1;
+	if (keycode == 12)
+		mlx->turn_left = 0;
+	if (keycode == 14)
+		mlx->turn_right = 0;
+	return (0);
+}
 
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 2000, 700, "Hello world!");
-	img.img = mlx_new_image(vars.mlx, 2000, 700);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	vars.img = img;
-	//my_mlx_pixel_put(&vars.img, 5, 5, 0x00FF0000);
-	mlx_hook(vars.win, 2, 1L<<0, game, &vars);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_loop(vars.mlx);
+int	check_cube(t_vars *mlx, int x, int y)
+{
+	if (y / 16 < 8 && x / 16 < 12 && mlx->map[y / 16][x / 16] == '1')
+		return (1);
+	else
+		return (0);
+}
+
+void	draw_background(t_vars *mlx)
+{
+	int	max_x;
+	int	max_y;
+	int	x;
+	int	y;
+
+	max_y = 300;
+	max_x = 300;
+	y = 0;
+	while (y < max_y)
+	{
+		x = 0;
+		while (x < max_x)
+		{
+			if (check_cube(mlx, x, y))
+			{
+				my_mlx_pixel_put(&mlx->img, x, y, 0x000000FF);
+			} 
+			else
+				my_mlx_pixel_put(&mlx->img, x, y, 0x00000000);
+			++x;
+		}
+		++y;
+	}
+}
+
+void	draw_player(t_vars *mlx)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < 5) 
+	{
+		x = 0;
+		while (x < 5)
+		{
+			my_mlx_pixel_put(&mlx->img, mlx->player.x + x, mlx->player.y + y, 0x00FF0000);
+			++x;
+		}
+		++y;
+	}
+}
+
+void	sample_move(t_vars *mlx)
+{
+	if (mlx->front == 1)
+	{
+		mlx->player.x += mlx->player.dx * mlx->sprint; 
+		mlx->player.y -= mlx->player.dy * mlx->sprint;
+	}
+	if (mlx->back == 1)
+	{
+		mlx->player.x -= mlx->player.dx * mlx->sprint; 
+		mlx->player.y += mlx->player.dy * mlx->sprint;
+	}
+	if (mlx->left == 1)
+	{
+		mlx->player.x -= mlx->player.dy * mlx->sprint;
+		mlx->player.y -= mlx->player.dx * mlx->sprint;
+	}
+	if (mlx->right == 1)
+	{
+		mlx->player.x += mlx->player.dy * mlx->sprint;
+		mlx->player.y += mlx->player.dx * mlx->sprint;
+	}
+}
+
+void	turn_move(t_vars *mlx)
+{
+	if (mlx->turn_left == 1)
+	{
+		mlx->degrees -= 2;
+		mlx->player.dy = cos(mlx->degrees * RAD);
+		mlx->player.dx = sin(mlx->degrees * RAD);
+		if (mlx->degrees <= 0)
+			mlx->degrees = 360;
+	}
+	if (mlx->turn_right == 1)
+	{
+		mlx->degrees += 2;
+		mlx->player.dy = cos(mlx->degrees * RAD);
+		mlx->player.dx = sin(mlx->degrees * RAD);
+		if (mlx->degrees >= 360)
+			mlx->degrees = 0;
+	}
+}
+
+void	check_move(t_vars *mlx)
+{
+	sample_move(mlx);
+	turn_move(mlx);
+}
+
+void	print_line(t_vars *mlx, float degrees, double x, double y) 
+{
+	double	dx;
+	double	dy;
+	float	len;
+
+	len = 0;
+	x = 2;
+	y = -2;
+	dy = -cos(degrees * RAD);
+	dx = sin(degrees * RAD);
+	while (mlx->player.x + x < 300 && mlx->player.y + y < 300 && mlx->player.x + x > 0 && mlx->player.y + y > 0 && !check_cube(mlx, mlx->player.x + x, mlx->player.y + y))
+	{
+		my_mlx_pixel_put(&mlx->img, (double)mlx->player.x + x,  (double)mlx->player.y + y, 0x0000FF00);
+		x += dx;
+		y += dy;
+		len += 1;
+	}
+	//printf("%f\n", sqrt(pow(y, 2) + pow(x, 2)));
+}
+
+void	draw_ray(t_vars *mlx)
+{
+	int	ray_len;
+	float degrees;
+
+	degrees = mlx->degrees; 
+	ray_len = 0;
+	while (ray_len++ < 60)
+	{
+		print_line(mlx, degrees, mlx->player.x, mlx->player.y);
+		print_line(mlx, degrees - 15, mlx->player.x, mlx->player.y);
+		degrees += 0.25;
+	}
+}
+
+int	render_next_frame(void *data) {
+	t_vars *mlx;
+
+	mlx = (t_vars *)data;
+	check_move(mlx);
+	draw_background(mlx);
+	draw_player(mlx);
+	draw_ray(mlx);
+	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img.img, 0, 0);
+	return (0);
+}
+
+void	palyer_init(t_vars *mlx)
+{
+	mlx->degrees = 0;
+	mlx->player.dy = cos(mlx->degrees * PI / 180);
+	mlx->player.dx = sin(mlx->degrees * PI / 180);
+	mlx->player.x = 150;
+	mlx->player.y = 150;
+	mlx->front = 0;
+	mlx->back = 0;
+	mlx->left = 0;
+	mlx->right = 0;
+	mlx->sprint = 1;
+	mlx->turn_left = 0;
+	mlx->turn_right = 0;
+	mlx->map[0] = "111111111111";
+	mlx->map[1] = "100000000001";
+	mlx->map[2] = "100100100001";
+	mlx->map[3] = "100100000001";
+	mlx->map[4] = "100100100001";
+	mlx->map[5] = "100000000001";
+	mlx->map[6] = "100010010001";
+	mlx->map[7] = "111111111111";
+}
+
+void	my_mlx_init(t_vars *mlx)
+{
+	mlx->mlx = mlx_init();
+	mlx->mlx_win = mlx_new_window(mlx->mlx, 300, 300, "Hello world!");
+	mlx->img.img = mlx_new_image(mlx->mlx, 300, 300);
+	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &(mlx->img.bits_per_pixel), &(mlx->img.line_length),
+								&(mlx->img.endian));
+	palyer_init(mlx);
+	mlx_hook(mlx->mlx_win, 2, 1L<<0, key_hook, mlx);
+	mlx_key_hook(mlx->mlx_win, key_down, mlx);
+	mlx_loop_hook(mlx->mlx, render_next_frame, mlx);
+	mlx_loop(mlx->mlx);
+}
+
+int	main(void) 
+{
+	t_vars mlx;
+	my_mlx_init(&mlx);
 	return (0);
 }
