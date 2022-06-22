@@ -19,6 +19,7 @@ typedef struct s_player {
 	float	y;
 	float	dx;
 	float	dy;
+	float	da;
 }	t_player;
 
 typedef struct s_vars 
@@ -48,7 +49,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 int	key_hook(int keycode, t_vars *mlx)
 {
-	printf("Hello from key_hook %d!\n", keycode);
+	//printf("Hello from key_hook %d!\n", keycode);
 	if (keycode == 0)
 		mlx->left = 1;
 	if (keycode == 1)
@@ -68,7 +69,7 @@ int	key_hook(int keycode, t_vars *mlx)
 
 int	key_down(int keycode, t_vars *mlx)
 {
-	printf("Hello from key_hook %d!\n", keycode);
+	//printf("Hello from key_hook %d!\n", keycode);
 	if (keycode == 0)
 		mlx->left = 0;
 	if (keycode == 1)
@@ -102,7 +103,7 @@ void	draw_background(t_vars *mlx)
 	int	y;
 
 	max_y = 300;
-	max_x = 300;
+	max_x = 1000;
 	y = 0;
 	while (y < max_y)
 	{
@@ -189,39 +190,64 @@ void	check_move(t_vars *mlx)
 	turn_move(mlx);
 }
 
-void	print_line(t_vars *mlx, float degrees, double x, double y) 
+float	print_line(t_vars *mlx, float degrees, double x, double y) 
 {
 	double	dx;
 	double	dy;
-	float	len;
+	float	lenth;
+	float	fish_fix;
 
-	len = 0;
 	x = 2;
 	y = -2;
 	dy = -cos(degrees * RAD);
 	dx = sin(degrees * RAD);
-	while (mlx->player.x + x < 300 && mlx->player.y + y < 300 && mlx->player.x + x > 0 && mlx->player.y + y > 0 && !check_cube(mlx, mlx->player.x + x, mlx->player.y + y))
+	while (mlx->player.x + x < 1000 && mlx->player.y + y < 300 && mlx->player.x + x > 0 && mlx->player.y + y > 0 && !check_cube(mlx, mlx->player.x + x, mlx->player.y + y))
 	{
 		my_mlx_pixel_put(&mlx->img, (double)mlx->player.x + x,  (double)mlx->player.y + y, 0x0000FF00);
 		x += dx;
 		y += dy;
-		len += 1;
 	}
-	//printf("%f\n", sqrt(pow(y, 2) + pow(x, 2)));
+	fish_fix = cos((degrees - mlx->degrees) * RAD);
+	lenth = sqrt(pow(y, 2.0) + pow(x, 2.0)) ;
+	return (lenth * fish_fix);
+}
+
+void ray_cast(float ray_len, int ray_index, t_vars *mlx) {
+	int y;
+
+	y = 0;
+	while (y < 100 && y < 2000 / (int)ray_len)
+	{
+		my_mlx_pixel_put(&mlx->img, 500 + (ray_index), 100 - y , 0x0000FF00);
+		my_mlx_pixel_put(&mlx->img, 500 + (ray_index),  100 + y , 0x0000FF00);
+		++y;
+	}
 }
 
 void	draw_ray(t_vars *mlx)
 {
 	int	ray_len;
+	float ray_index;
 	float degrees;
 
-	degrees = mlx->degrees; 
+	ray_index = 0;
+	degrees = mlx->degrees;
+	if (degrees >= 360)
+		degrees = 0;
+	if (degrees <= 0)
+		degrees = 360;
 	ray_len = 0;
-	while (ray_len++ < 60)
+	while (ray_len++ < 500)
 	{
-		print_line(mlx, degrees, mlx->player.x, mlx->player.y);
-		print_line(mlx, degrees - 15, mlx->player.x, mlx->player.y);
-		degrees += 0.25;
+		//ray_cast(print_line(mlx, degrees, mlx->player.x, mlx->player.y), ray_index + 60, mlx);
+		ray_cast(print_line(mlx, degrees - 15, mlx->player.x, mlx->player.y), ray_index, mlx);
+		ray_index += 0.5;
+		degrees += 0.1;
+
+		// if (degrees > 360 || degrees < 0)
+		// 	printf("ERROR1 %f\n", degrees);
+		// if (degrees > 360 || degrees < 0)
+		// 	printf("ERROR1\n");
 	}
 }
 
@@ -240,8 +266,9 @@ int	render_next_frame(void *data) {
 void	palyer_init(t_vars *mlx)
 {
 	mlx->degrees = 0;
-	mlx->player.dy = cos(mlx->degrees * PI / 180);
-	mlx->player.dx = sin(mlx->degrees * PI / 180);
+	mlx->player.da = 0;
+	mlx->player.dy = cos(0);
+	mlx->player.dx = sin(0);
 	mlx->player.x = 150;
 	mlx->player.y = 150;
 	mlx->front = 0;
@@ -264,8 +291,8 @@ void	palyer_init(t_vars *mlx)
 void	my_mlx_init(t_vars *mlx)
 {
 	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, 300, 300, "Hello world!");
-	mlx->img.img = mlx_new_image(mlx->mlx, 300, 300);
+	mlx->mlx_win = mlx_new_window(mlx->mlx, 1000, 300, "Hello world!");
+	mlx->img.img = mlx_new_image(mlx->mlx, 1000, 300);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &(mlx->img.bits_per_pixel), &(mlx->img.line_length),
 								&(mlx->img.endian));
 	palyer_init(mlx);
