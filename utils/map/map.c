@@ -84,6 +84,7 @@ t_map	*ft_map(char *file, t_list *cleaner)
 	if (ft_get_config(map_data, file_data, cleaner)
 		|| ft_get_mmap(map_data, file_data + 6, cleaner))
 	{
+		printf("something wrong in last check\n");
 		ft_free_mas(file_data);
 		return (0);
 	}

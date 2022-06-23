@@ -69,5 +69,14 @@ int main()
 
 	cleaner = malloc(sizeof(t_list) * 1);
 	t_map *map_data = ft_map("beu_map.cub", cleaner);
+	if (!map_data)
+		return (0);
 	printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
+	printf("floor=%d,%d,%d\n", map_data->rgb_floor[0], map_data->rgb_floor[1], map_data->rgb_floor[2]);
+	printf("ceiling=%d,%d,%d\n", map_data->rgb_ceiling[0], map_data->rgb_ceiling[1], map_data->rgb_ceiling[2]);
+	int i = 0;
+	while (map_data->mmap[i]){
+		printf("%s", map_data->mmap[i]->line);
+		i++;
+	}
 }

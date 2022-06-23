@@ -23,25 +23,25 @@ int	ft_check_name(t_map *map_data, char *line, t_list *cleaner)
 
 	fl = 1;
 	line += ft_skip_white(line);
-	if (!ft_strncmp(line, "NO", 2)
+	if (!ft_strncmp(line, "NO ", 3)
 		&& ft_get_texture(&map_data->texture_of_north, line + 2, cleaner, &fl))
 		return (-1);
-	if (!ft_strncmp(line, "SO",2)
+	if (!ft_strncmp(line, "SO ", 3)
 		&& ft_get_texture(&map_data->texture_of_south, line + 2, cleaner, &fl))
 		return (-1);
-	if (!ft_strncmp(line, "WE", 2)
+	if (!ft_strncmp(line, "WE ", 3)
 		&& ft_get_texture(&map_data->texture_of_west, line + 2, cleaner, &fl))
 		return (-1);
-	if (!ft_strncmp(line, "EA", 2)
+	if (!ft_strncmp(line, "EA ", 3)
 		&& ft_get_texture(&map_data->texture_of_east, line + 2, cleaner, &fl))
 		return (-1);
-	if (!ft_strncmp(line, "F", 1)
+	if (!ft_strncmp(line, "F ", 2)
 		&& ft_get_rgb(&map_data->rgb_floor, line + 1, &fl))
 		return (-1);
-	if (!ft_strncmp(line, "C", 1)
+	if (!ft_strncmp(line, "C ", 2)
 		&& ft_get_rgb(&map_data->rgb_ceiling, line + 1, &fl))
 		return (-1);
-	if (fl)
+	if (fl) // add wrong message
 		return (1);
 	return (0);
 }
@@ -65,9 +65,11 @@ int	ft_convert_rgb_num(const char *str)
 {
 	size_t		i;
 	int			nb;
+	int			fl;
 
 	i = 0;
 	nb = 0;
+	fl = 0;
 	while (str[i] == ' ')
 		i++;
 	if (ft_strlen(str + i) > 3) // only *** nums
@@ -75,9 +77,10 @@ int	ft_convert_rgb_num(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = (nb * 10) + (str[i]) - 48;
+		fl = 1;
 		i++;
 	}
-	if (str[i] != '\0')
+	if (str[i] != '\0' || fl == 0)
 		return (-1);
 	if (nb > 255)
 		return (-1);
@@ -91,7 +94,7 @@ int	ft_border_line(char *line)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] == '\n' && !line[i + 1])
+		if (line[i] == '\n' && line[i + 1] == '\0')
 			return (0);
 		if (line[i] != ' ' && line[i] != '1')
 			return (1);

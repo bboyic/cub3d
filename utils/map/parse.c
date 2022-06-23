@@ -59,7 +59,7 @@ int	ft_get_rgb(int	(*rgb_int)[], char *line, int *fl)
 	size = -1;
 	while (rgb_char[++size])
 	{
-		(*rgb_int)[size] = ft_convert_rgb_num(rgb_char[size]); // todo add atoi
+		(*rgb_int)[size] = ft_convert_rgb_num(rgb_char[size]); // if white spaces after last num it is not correct right now
 		if ((*rgb_int)[size] < 0)
 		{
 			ft_write(2, "RGB error\n");
@@ -81,7 +81,6 @@ int	ft_get_config(t_map *map_data, char **file_data, t_list *cleaner)
 	count = 0;
 	while (file_data[++i])
 	{
-		printf("%s\n", file_data[i]);
 		if (count == 6)
 			break ;
 		if (ft_check_name(map_data, file_data[i], cleaner)) // check it
@@ -101,7 +100,7 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	int	j;
 
 	j = -1;
-	printf("i am in copy\n");
+	printf("i am in ft_copy_into_mmap\n");
 	map_data->mmap[i] = malloc(sizeof(t_dict) * 1);
 	if (!map_data->mmap[i]
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]))
@@ -126,12 +125,12 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_list *cleaner)
 
 	i = -1;
 	ct = 0;
-	map_data->mmap = malloc(sizeof(t_dict *) * (map_data->height));
+	map_data->mmap = malloc(sizeof(t_dict *) * (map_data->height + 1));
 	if (!map_data->mmap || ft_clslist_add_front(cleaner, map_data->mmap))
 		return (1);
+	map_data->mmap[map_data->height] = 0;
 	while (file_data[++i])
 	{
-		printf("map=%s\n", file_data[i]);
 		if ((i == 0 || !file_data[i + 1])
 			&& ft_border_line(file_data[i]))
 			return (1);
