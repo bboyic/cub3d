@@ -15,6 +15,8 @@
 // undefined
 # include <fcntl.h>
 
+void	print_lol();
+
 /*
 * cleaner.c
 */

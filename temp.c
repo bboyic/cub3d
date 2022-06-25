@@ -61,22 +61,30 @@
 
 // gcc -I mandatory/includes/ utils/map/*.c utils/*.c temp.c
 
-#include "index.h"
+
+//gcc -Lmlx_linux -lmlx_Linux -I mandatory/includes/ -Imlx_linux -lXext -lX11 -lm -lz utils/map/*.c utils/*.c temp.c
+// #include "index.h"
+#include "mlx.h"
 
 int main()
 {
-	t_list *cleaner;
+	// t_list *cleaner;
 
-	cleaner = malloc(sizeof(t_list) * 1);
-	t_map *map_data = ft_map("beu_map.cub", cleaner);
-	if (!map_data)
-		return (0);
-	printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
-	printf("floor=%d,%d,%d\n", map_data->rgb_floor[0], map_data->rgb_floor[1], map_data->rgb_floor[2]);
-	printf("ceiling=%d,%d,%d\n", map_data->rgb_ceiling[0], map_data->rgb_ceiling[1], map_data->rgb_ceiling[2]);
-	int i = 0;
-	while (map_data->mmap[i]){
-		printf("%s", map_data->mmap[i]->line);
-		i++;
-	}
+	// cleaner = malloc(sizeof(t_list) * 1);
+	// t_map *map_data = ft_map("beu_map.cub", cleaner);
+	// if (!map_data)
+	// 	return (0);
+	// printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
+	// printf("floor=%d,%d,%d\n", map_data->rgb_floor[0], map_data->rgb_floor[1], map_data->rgb_floor[2]);
+	// printf("ceiling=%d,%d,%d\n", map_data->rgb_ceiling[0], map_data->rgb_ceiling[1], map_data->rgb_ceiling[2]);
+	// int i = 0;
+	// while (map_data->mmap[i]){
+	// 	printf("%s", map_data->mmap[i]->line);
+	// 	i++;
+	// }
+	void *mlx = mlx_init();
+	void *mlx_win = mlx_new_window(mlx, 600, 404, "Hello world!");
+	mlx_loop(mlx);
+	// printf("not lol\n");
+	// print_lol();
 }
