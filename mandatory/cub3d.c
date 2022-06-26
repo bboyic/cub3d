@@ -110,49 +110,56 @@ int	render_next_frame(void *data) {
 	return (0);
 }
 
-void	palyer_init(t_vars *mlx)
+void	palyer_init(t_vars *game)
 {
-	mlx->degrees = 0;
-	mlx->player.da = 0;
-	mlx->player.dy = cos(0);
-	mlx->player.dx = sin(0);
-	mlx->player.x = 150;
-	mlx->player.y = 150;
-	mlx->front = 0;
-	mlx->back = 0;
-	mlx->left = 0;
-	mlx->right = 0;
-	mlx->sprint = 1;
-	mlx->turn_left = 0;
-	mlx->turn_right = 0;
-	mlx->map[0] = "111111111111";
-	mlx->map[1] = "100000000001";
-	mlx->map[2] = "100100100001";
-	mlx->map[3] = "100100000001";
-	mlx->map[4] = "100100100001";
-	mlx->map[5] = "100000000001";
-	mlx->map[6] = "100010010001";
-	mlx->map[7] = "111111111111";
+	game->degrees = 0;
+	game->player.da = 0;
+	game->player.dy = cos(0);
+	game->player.dx = sin(0);
+	game->player.x = 150;
+	game->player.y = 150;
+	game->front = 0;
+	game->back = 0;
+	game->left = 0;
+	game->right = 0;
+	game->sprint = 1;
+	game->turn_left = 0;
+	game->turn_right = 0;
+	game->map = 
 }
 
-void	my_mlx_init(t_vars *mlx)
+void	my_mlx_init(t_vars *game)
 {
-	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, 1000, 300, "Hello world!");
-	mlx->img.img = mlx_new_image(mlx->mlx, 1000, 300);
-	mlx->img.addr = mlx_get_data_addr(mlx->img.img, &(mlx->img.bits_per_pixel), &(mlx->img.line_length),
-								&(mlx->img.endian));
-	palyer_init(mlx);
-	mlx_hook(mlx->mlx_win, 2, 1L<<0, key_hook, mlx);
-	mlx_key_hook(mlx->mlx_win, key_down, mlx);
-	mlx_loop_hook(mlx->mlx, render_next_frame, mlx);
-	mlx_loop(mlx->mlx);
+	game->mlx = mlx_init();
+	game->mlx_win = mlx_new_window(game->mlx, 1000, 300, "Hello world!");
+	game->img.img = mlx_new_image(game->mlx, 1000, 300);
+	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bits_per_pixel), &(game->img.line_length),
+								&(game->img.endian));
+	palyer_init(game);
+	mlx_hook(game->mlx_win, 2, 1L<<0, key_hook, mlx);
+	mlx_key_hook(game->mlx_win, key_down, mlx);
+	mlx_loop_hook(game->mlx, render_next_frame, mlx);
+	mlx_loop(game->mlx);
 }
 
 int	main(void) 
 {
-	t_vars mlx;
-	my_mlx_init(&mlx);
-	printf("hey it is check static param = %d\n", mlx.back);
+	t_vars	game;
+	t_list *cleaner;
+
+	cleaner = malloc(sizeof(t_list) * 1);
+	t_map *map_data = ft_map("beu_map.cub", cleaner);
+	if (!map_data)
+		return (0);
+	printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
+	printf("floor=%d,%d,%d\n", map_data->rgb_floor[0], map_data->rgb_floor[1], map_data->rgb_floor[2]);
+	printf("ceiling=%d,%d,%d\n", map_data->rgb_ceiling[0], map_data->rgb_ceiling[1], map_data->rgb_ceiling[2]);
+	int i = 0;
+	while (map_data->mmap[i]){
+		printf("%s", map_data->mmap[i]->line);
+		i++;
+	}
+	my_mlx_init(&game);
+	// printf("hey it is check static param = %d\n", mlx.back);
 	return (0);
 }

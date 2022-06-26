@@ -36,7 +36,7 @@ void	draw_background(t_vars *mlx)
 		{
 			if (check_cube(mlx, x, y))
 			{
-				my_mlx_pixel_put(&mlx->img, x, y, 0x000000FF);
+				my_mlx_pixel_put(&mlx->img, x, y, 0x000F000F);
 			} 
 			else
 				my_mlx_pixel_put(&mlx->img, x, y, 0x00000000);

@@ -34,7 +34,7 @@ typedef struct s_vars
 	int			left;
 	int			right;
 	int			sprint;
-	char		**map;
+	t_map		map;
 	void		*mlx;
 	void		*mlx_win;
 	t_player	player;
