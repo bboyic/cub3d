@@ -111,7 +111,7 @@ int	ft_inside_line(char **file_data, char *line, int k, int *ct)
 	{
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'W' || line[i] == 'E')
-			*ct++;
+			(*ct)++;
 		if (line[i] == '0' || line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'W' || line[i] == 'E')
 		{

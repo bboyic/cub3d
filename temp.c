@@ -62,6 +62,9 @@
 // gcc -I mandatory/includes/ utils/map/*.c utils/*.c temp.c
 
 #include "index.h"
+#include "mlx.h"
+
+//gcc -I mlx -I mandatory/includes -L mlx temp.c -lmlx -framework OpenGL -framework AppKit utils/*.c utils/map/*.c
 
 int main()
 {
@@ -79,4 +82,7 @@ int main()
 		printf("%s", map_data->mmap[i]->line);
 		i++;
 	}
+	void *mlx = mlx_init();
+	void *mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
+	mlx_loop(mlx);
 }
