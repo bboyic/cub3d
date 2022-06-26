@@ -34,10 +34,12 @@ void	draw_background(t_vars *mlx)
 		x = 0;
 		while (x < max_x)
 		{
-			if (check_cube(mlx, x, y))
-			{
-				my_mlx_pixel_put(&mlx->img, x, y, 0x000F000F);
-			} 
+			// тут надо решить, перерисовываем ли мы пиксели под место, зарезервированное под миникарту
+			// сделаем наложение, миникарту отрисуем в конце
+			// if (check_cube(mlx, x, y))
+			// {
+			// 	my_mlx_pixel_put(&mlx->img, x, y, 0x000F000F);
+			// } 
 			else
 				my_mlx_pixel_put(&mlx->img, x, y, 0x00000000);
 			++x;

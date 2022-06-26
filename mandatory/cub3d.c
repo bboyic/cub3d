@@ -90,13 +90,13 @@
 
 #include "index.h"
 
-int	check_cube(t_vars *mlx, int x, int y)
-{
-	if (y / 16 < 8 && x / 16 < 12 && mlx->map[y / 16][x / 16] == '1')
-		return (1);
-	else
-		return (0);
-}
+// int	check_cube(t_vars *mlx, int x, int y)
+// {
+// 	if (y / 16 < 8 && x / 16 < 12 && mlx->map[y / 16][x / 16] == '1')
+// 		return (1);
+// 	else
+// 		return (0);
+// }
 
 int	render_next_frame(void *data) {
 	t_vars *mlx;
@@ -110,7 +110,7 @@ int	render_next_frame(void *data) {
 	return (0);
 }
 
-void	palyer_init(t_vars *game)
+void	player_init(t_vars *game)
 {
 	game->degrees = 0;
 	game->player.da = 0;
@@ -125,17 +125,17 @@ void	palyer_init(t_vars *game)
 	game->sprint = 1;
 	game->turn_left = 0;
 	game->turn_right = 0;
-	game->map = 0;
 }
 
-void	my_mlx_init(t_vars *game)
+void	my_mlx_init(t_vars *game, t_map *map_data)
 {
 	game->mlx = mlx_init();
 	game->mlx_win = mlx_new_window(game->mlx, 1000, 300, "Hello world!");
 	game->img.img = mlx_new_image(game->mlx, 1000, 300);
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bits_per_pixel), &(game->img.line_length),
 								&(game->img.endian));
-	palyer_init(game);
+	game->map_data = map_data;
+	player_init(game);
 	mlx_hook(game->mlx_win, 2, 1L<<0, key_hook, game);
 	mlx_key_hook(game->mlx_win, key_down, game);
 	mlx_loop_hook(game->mlx, render_next_frame, game);
@@ -159,6 +159,6 @@ int	main(void)
 		printf("%s", map_data->mmap[i]->line);
 		i++;
 	}
-	my_mlx_init(&game);
+	my_mlx_init(&game, map_data);
 	return (0);
 }
