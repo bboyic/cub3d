@@ -58,7 +58,7 @@ int	ft_pos_strchr(const char *s, int c)
 	return (k + 1);
 }
 
-void	*ft_write(int fd, char *message)
+void	ft_write(int fd, char *message)
 {
 	write(fd, message, ft_strlen(message));
 }

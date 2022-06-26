@@ -1,20 +1,32 @@
-NAME		= cub3d
-C_DIR		= ./
-OBJ_DIR		= ./
-C_F 		= main.c
-INCLUDES	= ./
-INCLUDES_F	= $(INCLUDES)/index.h $(INCLUDES)/cub3d.h
-C_FILES 	= $(addprefix $(C_DIR), $(C_F))
-T_OBJ 		= $(C_FILES:.c=.o)
-OBJ			= $(T_OBJ:$(C_DIR)=$(OBJ_DIR))
+NAME	= cub3d
+
+CC		= gcc
+# CFLAGS	= -Wall -Wextra -Werror
+
+# mandatory files
+VPATH	:= ./mandatory:./utils:./utils/map:./engine
+
+SRCS_M =	cub3d.c \
+			map.c parse.c valid.c cleaner.c get_next_line_utils.c get_next_line.c \
+			split.c string.c draw.c hook.c move.c pixel.c raycast.c
+
+OBJ_DIR_M		= ./obj/mandatory
+
+OBJS_M = $(patsubst %,$(OBJ_DIR_M)/%,$(SRCS_M:.c=.o))
+
+INC_DIR	= ./mandatory/includes
+
+INCLUDES	= get_next_line.h cub3d.h index.h
+HEADERS		= $(addprefix $(INC_DIR), $(INCLUDES))
 
 all: $(NAME)
 
-%.o: %.c 
-	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $(OBJ) -I $(INCLUDES)
+$(OBJ_DIR_M)/%.o : %.c
+	@mkdir -p $(OBJ_DIR_M)
+	$(CC) -Imlx -I$(INC_DIR) -o $@ -c $<
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+$(NAME): $(OBJS_M)
+	$(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
 clean:
 	rm -rf $(OBJ)

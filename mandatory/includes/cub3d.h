@@ -16,26 +16,30 @@ typedef struct s_obj
 	int y;
 } t_obj;
 
-typedef struct s_player
-{
-	float x;
-	float y;
-	float dx;
-	float dy;
-	float a;
-	float ra;
-	int z;
-} t_player;
+typedef struct s_player {
+	float	x;
+	float	y;
+	float	dx;
+	float	dy;
+	float	da;
+}	t_player;
 
-typedef struct s_vars
+typedef struct s_vars 
 {
-	t_data img;
-	t_data textute;
-	t_data hands;
-	void *mlx;
-	void *win;
-	t_player pl;
-} t_vars;
+	float		degrees;
+	int			front;
+	int			turn_left;
+	int			turn_right;
+	int			back;
+	int			left;
+	int			right;
+	int			sprint;
+	t_map		map;
+	void		*mlx;
+	void		*mlx_win;
+	t_player	player;
+	t_data		img;
+}	t_vars;
 
 // first node is temp for correct order and have null params
 typedef struct s_list
