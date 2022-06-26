@@ -11,7 +11,7 @@ float	print_line(t_vars *mlx, float degrees, double x, double y)
 	y = -2;
 	dy = -cos(degrees * RAD);
 	dx = sin(degrees * RAD);
-	while (mlx->player.x + x < 1000 && mlx->player.y + y < 300 && mlx->player.x + x > 0 && mlx->player.y + y > 0 && !check_cube(mlx, mlx->player.x + x, mlx->player.y + y))
+	while (mlx->player.x + x < WIN_W && mlx->player.y + y < WIN_H && mlx->player.x + x > 0 && mlx->player.y + y > 0 && !check_cube(mlx, mlx->player.x + x, mlx->player.y + y))
 	{
 		my_mlx_pixel_put(&mlx->img, (double)mlx->player.x + x,  (double)mlx->player.y + y, 0x0000FF00);
 		x += dx;

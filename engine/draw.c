@@ -26,13 +26,13 @@ void	draw_background(t_vars *mlx)
 	int	x;
 	int	y;
 
-	max_y = 300;
-	max_x = 1000;
+	// max_y = 400;
+	// max_x = 600;
 	y = 0;
-	while (y < max_y)
+	while (y < WIN_H)
 	{
 		x = 0;
-		while (x < max_x)
+		while (x < WIN_W)
 		{
 			// тут надо решить, перерисовываем ли мы пиксели под место, зарезервированное под миникарту
 			// сделаем наложение, миникарту отрисуем в конце
@@ -40,8 +40,8 @@ void	draw_background(t_vars *mlx)
 			// {
 			// 	my_mlx_pixel_put(&mlx->img, x, y, 0x000F000F);
 			// } 
-			else
-				my_mlx_pixel_put(&mlx->img, x, y, 0x00000000);
+			// else
+			my_mlx_pixel_put(&mlx->img, x, y, 0x00000000);
 			++x;
 		}
 		++y;
@@ -64,4 +64,10 @@ void	draw_player(t_vars *mlx)
 		}
 		++y;
 	}
+}
+
+void	draw_map(t_vars *game)
+{
+	int		x;
+	int		y;
 }

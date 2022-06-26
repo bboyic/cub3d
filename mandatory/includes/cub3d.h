@@ -24,24 +24,6 @@ typedef struct s_player {
 	float	da;
 }	t_player;
 
-typedef struct s_vars 
-{
-	float		degrees;
-	int			front;
-	int			turn_left;
-	int			turn_right;
-	int			back;
-	int			left;
-	int			right;
-	int			sprint;
-	t_map		*map_data;
-	// char		**map;
-	void		*mlx;
-	void		*mlx_win;
-	t_player	player;
-	t_data		img;
-}	t_vars;
-
 // first node is temp for correct order and have null params
 typedef struct s_list
 {
@@ -66,5 +48,23 @@ typedef struct s_map
 	t_dict	**mmap;
 	int		height;
 }			t_map;
+
+typedef struct s_vars 
+{
+	float		degrees;
+	int			front;
+	int			turn_left;
+	int			turn_right;
+	int			back;
+	int			left;
+	int			right;
+	int			sprint;
+	t_map		*map_data;
+	// char		**map;
+	void		*mlx;
+	void		*mlx_win;
+	t_player	player;
+	t_data		img;
+}	t_vars;
 
 #endif

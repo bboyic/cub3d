@@ -90,23 +90,23 @@
 
 #include "index.h"
 
-// int	check_cube(t_vars *mlx, int x, int y)
-// {
-// 	if (y / 16 < 8 && x / 16 < 12 && mlx->map[y / 16][x / 16] == '1')
-// 		return (1);
-// 	else
-// 		return (0);
-// }
+int	check_cube(t_vars *mlx, int x, int y)
+{
+	// if (y / 16 < 8 && x / 16 < 12 && mlx->map[y / 16][x / 16] == '1')
+	// 	return (1);
+	// else
+	return (0);
+}
 
 int	render_next_frame(void *data) {
-	t_vars *mlx;
+	t_vars *game;
 
-	mlx = (t_vars *)data;
-	check_move(mlx);
-	draw_background(mlx);
-	draw_player(mlx);
-	draw_ray(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, mlx->img.img, 0, 0);
+	game = (t_vars *)data;
+	check_move(game);
+	draw_background(game);
+	draw_player(game);
+	draw_ray(game);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	return (0);
 }
 
@@ -130,8 +130,8 @@ void	player_init(t_vars *game)
 void	my_mlx_init(t_vars *game, t_map *map_data)
 {
 	game->mlx = mlx_init();
-	game->mlx_win = mlx_new_window(game->mlx, 1000, 300, "Hello world!");
-	game->img.img = mlx_new_image(game->mlx, 1000, 300);
+	game->mlx_win = mlx_new_window(game->mlx, WIN_H, WIN_W, "Hello world!");
+	game->img.img = mlx_new_image(game->mlx, WIN_H, WIN_W);
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bits_per_pixel), &(game->img.line_length),
 								&(game->img.endian));
 	game->map_data = map_data;

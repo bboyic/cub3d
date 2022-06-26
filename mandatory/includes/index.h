@@ -14,6 +14,8 @@
 #define RAD 0.0174533
 #define MINI_H 10
 #define MINI_W 10
+#define WIN_H 400
+#define WIN_W 600
 
 // undefined
 # include <fcntl.h>
