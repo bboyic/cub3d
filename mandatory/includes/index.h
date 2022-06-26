@@ -8,9 +8,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "cub3d.h"
+#include "mlx.h"
 #include "get_next_line.h"
 #define PI 3.14159265359
-#define RD 0.0174533
+#define RAD 0.0174533
+#define MINI_H 10
+#define MINI_W 10
 
 // undefined
 # include <fcntl.h>
@@ -64,6 +67,41 @@ int	ft_rgb_size(char **rgb_char);
 int	ft_convert_rgb_num(const char *str);
 int	ft_border_line(char *line);
 int	ft_inside_line(char **file_data, char *line, int k, int *ct);
+
+/*
+* draw.c
+*/
+void	draw_background(t_vars *mlx);
+void	draw_player(t_vars *mlx);
+
+/*
+* move.c
+*/
+void	sample_move(t_vars *mlx);
+void	turn_move(t_vars *mlx);
+void	check_move(t_vars *mlx);
+
+/*
+* raycast.c
+*/
+float	print_line(t_vars *mlx, float degrees, double x, double y) ;
+void	ray_cast(float ray_len, int ray_index, t_vars *mlx);
+void	draw_ray(t_vars *mlx);
+
+/*
+* pixel.c
+*/
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int			get_pixel(t_data *img, int x, int y);
+
+/*
+* hook.c
+*/
+int	key_hook(int keycode, t_vars *mlx);
+int	key_down(int keycode, t_vars *mlx);
+
+
+int	check_cube(t_vars *mlx, int x, int y);
 
 
 #endif

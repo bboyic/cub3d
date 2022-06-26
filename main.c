@@ -306,5 +306,6 @@ int	main(void)
 {
 	t_vars mlx;
 	my_mlx_init(&mlx);
+	printf("hey it is check static param = %d\n", mlx.back);
 	return (0);
 }
