@@ -125,7 +125,7 @@ void	palyer_init(t_vars *game)
 	game->sprint = 1;
 	game->turn_left = 0;
 	game->turn_right = 0;
-	game->map = 
+	game->map = 0;
 }
 
 void	my_mlx_init(t_vars *game)
@@ -136,9 +136,9 @@ void	my_mlx_init(t_vars *game)
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bits_per_pixel), &(game->img.line_length),
 								&(game->img.endian));
 	palyer_init(game);
-	mlx_hook(game->mlx_win, 2, 1L<<0, key_hook, mlx);
-	mlx_key_hook(game->mlx_win, key_down, mlx);
-	mlx_loop_hook(game->mlx, render_next_frame, mlx);
+	mlx_hook(game->mlx_win, 2, 1L<<0, key_hook, game);
+	mlx_key_hook(game->mlx_win, key_down, game);
+	mlx_loop_hook(game->mlx, render_next_frame, game);
 	mlx_loop(game->mlx);
 }
 
@@ -160,6 +160,5 @@ int	main(void)
 		i++;
 	}
 	my_mlx_init(&game);
-	// printf("hey it is check static param = %d\n", mlx.back);
 	return (0);
 }
