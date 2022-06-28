@@ -73,9 +73,9 @@ void	draw_minimap(t_vars *game)
 	int	mini_x;
 	int	mini_y;
 
-	mini_x = game->player.x - MINI_W / 2;
-	mini_y = game->player.y - MINI_H / 2;
-	check_scale(game->map_data, mini_x, mini_y);
+	mini_x = game->player.x / BLOCK_SIZE - MINI_W / 2; // get current position on map
+	mini_y = game->player.y / BLOCK_SIZE - MINI_H / 2;
+	// check_scale(game->map_data, mini_x, mini_y);
 	y = 0;
 	while (y / BLOCK_SIZE < MINI_H)
 	{

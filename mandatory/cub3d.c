@@ -105,6 +105,7 @@ int	render_next_frame(void *data) {
 	check_move(game);
 
 	// function draw minimap
+	// draw_minimap(game);
 	draw_background(game);
 	draw_player(game);
 	draw_ray(game);
@@ -119,7 +120,7 @@ void	player_init(t_vars *game)
 	game->player.dy = cos(0);
 	game->player.dx = sin(0);
 	game->player.x = 150; // у тебя позиция это пиксель или на карте координата ( мне нужна координата на карте и я не понимаю как считать тогда )
-	game->player.y = 150;
+	game->player.y = 150; // лучше конечно позицию на карте!!!!!! (потому что потом надо определять новое смещение, а оно не дает ответа !!!)
 	game->front = 0;
 	game->back = 0;
 	game->left = 0;

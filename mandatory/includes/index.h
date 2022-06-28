@@ -78,6 +78,7 @@ int	ft_inside_line(char **file_data, char *line, int k, int *ct);
 */
 void	draw_background(t_vars *mlx);
 void	draw_player(t_vars *mlx);
+void	draw_minimap(t_vars *game);
 
 /*
 * move.c
