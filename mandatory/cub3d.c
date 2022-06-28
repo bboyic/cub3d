@@ -103,6 +103,8 @@ int	render_next_frame(void *data) {
 
 	game = (t_vars *)data;
 	check_move(game);
+
+	// function draw minimap
 	draw_background(game);
 	draw_player(game);
 	draw_ray(game);
@@ -116,7 +118,7 @@ void	player_init(t_vars *game)
 	game->player.da = 0;
 	game->player.dy = cos(0);
 	game->player.dx = sin(0);
-	game->player.x = 150;
+	game->player.x = 150; // у тебя позиция это пиксель или на карте координата ( мне нужна координата на карте и я не понимаю как считать тогда )
 	game->player.y = 150;
 	game->front = 0;
 	game->back = 0;
@@ -125,6 +127,7 @@ void	player_init(t_vars *game)
 	game->sprint = 1;
 	game->turn_left = 0;
 	game->turn_right = 0;
+	// find player position and change map field
 }
 
 void	my_mlx_init(t_vars *game, t_map *map_data)

@@ -12,6 +12,9 @@
 #include "get_next_line.h"
 #define PI 3.14159265359
 #define RAD 0.0174533
+#define START_MAP_X 0
+#define START_MAP_Y 0
+#define BLOCK_SIZE 16
 #define MINI_H 10
 #define MINI_W 10
 #define WIN_H 400
