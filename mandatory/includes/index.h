@@ -17,8 +17,8 @@
 #define BLOCK_SIZE 16
 #define MINI_H 10
 #define MINI_W 10
-#define WIN_H 400
-#define WIN_W 600
+#define WIN_H 1000
+#define WIN_W 1000
 
 // undefined
 # include <fcntl.h>

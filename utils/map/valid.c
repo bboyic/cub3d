@@ -102,18 +102,17 @@ int	ft_border_line(char *line)
 	return (0);
 }
 
-int	ft_inside_line(char **file_data, char *line, int k, int *ct)
+int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 {
 	int	i;
 
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] == 'N' || line[i] == 'S'
-			|| line[i] == 'W' || line[i] == 'E')
-			(*ct)++;
-		if (line[i] == '0' || line[i] == 'N' || line[i] == 'S'
-			|| line[i] == 'W' || line[i] == 'E')
+		if (line[i] != 'N' || line[i] != 'S' || line[i] != '0'
+			|| line[i] == 'W' || line[i] == 'E' || line[i] != '1')
+			return (1);
+		if (line[i] != '1')
 		{
 			if (i == 0 || !line[i + 1])
 				return (1);
@@ -126,6 +125,18 @@ int	ft_inside_line(char **file_data, char *line, int k, int *ct)
 				|| file_data[k + 1][i + 1] == ' '
 				|| file_data[k + 1][i - 1] == ' ')
 				return (1);
+		}
+		if (line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'W' || line[i] == 'E')
+		{
+			if (player->x != -1)
+				return (1);
+			else
+			{
+				player->x = line[i];
+				player->y = k;
+				// add dx and dy depend on symbol
+			}
 		}
 	}
 	return (0);
