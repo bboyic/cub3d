@@ -2,25 +2,28 @@
 
 void	sample_move(t_vars *mlx)
 {
+	int speed;
+
+	speed = 10;
 	if (mlx->front == 1)
 	{
-		mlx->player.x += mlx->player.dx * mlx->sprint; 
-		mlx->player.y -= mlx->player.dy * mlx->sprint;
+		mlx->player.x += mlx->player.dx * mlx->sprint * speed; 
+		mlx->player.y -= mlx->player.dy * mlx->sprint * speed;
 	}
 	if (mlx->back == 1)
 	{
-		mlx->player.x -= mlx->player.dx * mlx->sprint; 
-		mlx->player.y += mlx->player.dy * mlx->sprint;
+		mlx->player.x -= mlx->player.dx * mlx->sprint * speed; 
+		mlx->player.y += mlx->player.dy * mlx->sprint * speed;
 	}
 	if (mlx->left == 1)
 	{
-		mlx->player.x -= mlx->player.dy * mlx->sprint;
-		mlx->player.y -= mlx->player.dx * mlx->sprint;
+		mlx->player.x -= mlx->player.dy * mlx->sprint * speed;
+		mlx->player.y -= mlx->player.dx * mlx->sprint * speed;
 	}
 	if (mlx->right == 1)
 	{
-		mlx->player.x += mlx->player.dy * mlx->sprint;
-		mlx->player.y += mlx->player.dx * mlx->sprint;
+		mlx->player.x += mlx->player.dy * mlx->sprint * speed;
+		mlx->player.y += mlx->player.dx * mlx->sprint * speed;
 	}
 }
 

@@ -1,6 +1,6 @@
 NAME	= cub3d
 
-CC		= gcc
+CC		= gcc -O1 -g
 # CFLAGS	= -Wall -Wextra -Werror
 
 # mandatory files

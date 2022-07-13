@@ -14,8 +14,8 @@
 #define RAD 0.0174533
 #define MINI_H 10
 #define MINI_W 10
-#define WIN_H 400
-#define WIN_W 600
+#define WIN_H 1000
+#define WIN_W 1000
 
 // undefined
 # include <fcntl.h>
@@ -86,8 +86,8 @@ void	check_move(t_vars *mlx);
 /*
 * raycast.c
 */
-float	print_line(t_vars *mlx, float degrees, double x, double y) ;
-void	ray_cast(float ray_len, int ray_index, t_vars *mlx);
+t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y) ;
+void	ray_cast(t_rayinfo ray_len, int ray_index, t_vars *mlx);
 void	draw_ray(t_vars *mlx);
 
 /*

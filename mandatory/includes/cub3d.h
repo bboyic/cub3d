@@ -60,11 +60,18 @@ typedef struct s_vars
 	int			right;
 	int			sprint;
 	t_map		*map_data;
+	t_data		texture;
 	// char		**map;
 	void		*mlx;
 	void		*mlx_win;
 	t_player	player;
 	t_data		img;
 }	t_vars;
+
+typedef struct s_rayinfo {
+	float	ray_len;
+	float	x;
+	float	y;
+} t_rayinfo;
 
 #endif
