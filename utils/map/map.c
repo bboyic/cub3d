@@ -71,7 +71,7 @@ int	ft_read_file(t_map *map_data, char *file, char ***file_data) // > 25 (26)
 	return (0);
 }
 
-t_map	*ft_map(char *file, t_list *cleaner)
+t_map	*ft_map(char *file, t_player *player, t_list *cleaner)
 {
 	t_map	*map_data;
 	char	**file_data;
@@ -82,7 +82,7 @@ t_map	*ft_map(char *file, t_list *cleaner)
 	if (ft_valid_file(file) || ft_read_file(map_data, file, &file_data))
 		return (0);
 	if (ft_get_config(map_data, file_data, cleaner)
-		|| ft_get_mmap(map_data, file_data + 6, cleaner))
+		|| ft_get_mmap(map_data, file_data + 6, player, cleaner))
 	{
 		printf("something wrong in last check\n");
 		ft_free_mas(file_data);

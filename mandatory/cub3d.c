@@ -107,8 +107,8 @@ int	render_next_frame(void *data) {
 	// function draw minimap
 	// draw_minimap(game);
 	draw_background(game);
-	draw_player(game);
-	draw_minimap(game);
+	// draw_player(game);
+	// draw_minimap(game);
 	draw_ray(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	//mlx_put_image_to_window(game->mlx, game->mlx_win, game->texture.img, 0, 0);
@@ -159,7 +159,9 @@ int	main(void)
 	t_list *cleaner;
 
 	cleaner = malloc(sizeof(t_list) * 1);
-	t_map *map_data = ft_map("beu_map.cub", cleaner);
+	game.player.x = -1;
+	game.player.y = -1;
+	t_map *map_data = ft_map("beu_map.cub", &game.player, cleaner);
 	if (!map_data)
 		return (0);
 	printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);

@@ -109,10 +109,13 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] != 'N' || line[i] != 'S' || line[i] != '0'
-			|| line[i] == 'W' || line[i] == 'E' || line[i] != '1')
+		// add check other symbols and break it
+		printf("Nice coding symbol->%c<-\n", line[i]);
+		if (line[i] != 'N' && line[i] != 'S' && line[i] != '0' && line[i] != '\n'
+			&& line[i] != 'W' && line[i] != 'E' && line[i] != '1' && line[i] != ' ')
 			return (1);
-		if (line[i] != '1')
+		printf("Nice coding2\n");
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
 		{
 			if (i == 0 || !line[i + 1])
 				return (1);
@@ -129,6 +132,7 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'W' || line[i] == 'E')
 		{
+			printf("pos x->%f\n", player->x);
 			if (player->x != -1)
 				return (1);
 			else

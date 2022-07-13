@@ -49,7 +49,7 @@ char	**ft_split(char const *s, char c);
 /*
 * map.c
 */
-t_map	*ft_map(char *file, t_list *cleaner);
+t_map	*ft_map(char *file, t_player *player, t_list *cleaner);
 int	ft_read_file(t_map *map_data, char *file, char ***file_data);
 int	ft_get_file_height(char *file);
 int	ft_try_open(char *file);
@@ -62,7 +62,8 @@ int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl);
 int	ft_get_rgb(int	(*rgb_int)[], char *line, int *fl);
 int	ft_get_config(t_map *map_data, char **file_data, t_list *cleaner);
 int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i);
-int	ft_get_mmap(t_map *map_data, char **file_data, t_list *cleaner);
+int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cleaner);
+
 /*
 * valid.c
 */

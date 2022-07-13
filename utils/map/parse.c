@@ -118,7 +118,7 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 }
 
 // add error mgs
-int	ft_get_mmap(t_map *map_data, char **file_data, t_list *cleaner)
+int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cleaner)
 {
 	int	i;
 	int	ct;
@@ -135,7 +135,7 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_list *cleaner)
 			&& ft_border_line(file_data[i]))
 			return (1);
 		if ((i > 0 && file_data[i + 1])
-			&& ft_inside_line(file_data, file_data[i], i, &ct))
+			&& ft_inside_line(file_data, file_data[i], i, player))
 			return (1);
 		if (ct > 1)
 			return (1);
