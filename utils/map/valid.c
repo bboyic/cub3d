@@ -137,7 +137,7 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 				return (1);
 			else
 			{
-				player->x = line[i];
+				player->x = i;
 				player->y = k;
 				// add dx and dy depend on symbol
 			}

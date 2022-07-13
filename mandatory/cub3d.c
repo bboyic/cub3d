@@ -108,8 +108,8 @@ int	render_next_frame(void *data) {
 	// draw_minimap(game);
 	draw_background(game);
 	// draw_player(game);
-	// draw_minimap(game);
 	draw_ray(game);
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	//mlx_put_image_to_window(game->mlx, game->mlx_win, game->texture.img, 0, 0);
 	return (0);
@@ -124,8 +124,8 @@ void	player_init(t_vars *game)
 	game->player.da = 0;
 	game->player.dy = cos(0);
 	game->player.dx = sin(0);
-	game->player.x = 500;
-	game->player.y = 1000;
+	game->player.x = game->player.x * BLOCK_SIZE;
+	game->player.y = game->player.y * BLOCK_SIZE;
 	game->front = 0;
 	game->back = 0;
 	game->left = 0;

@@ -14,9 +14,10 @@
 #define RAD 0.0174533
 #define START_MAP_X 0
 #define START_MAP_Y 0
-#define BLOCK_SIZE 16
-#define MINI_H 10
-#define MINI_W 10
+#define BLOCK_SIZE 512
+#define MINI_BLOCK_SIZE 10
+#define MINI_H 6
+#define MINI_W 6
 #define WIN_H 1000
 #define WIN_W 1000
 
