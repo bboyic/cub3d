@@ -71,7 +71,7 @@ int	ft_check_name(t_map *map_data, char *line, t_list *cleaner);
 int	ft_rgb_size(char **rgb_char);
 int	ft_convert_rgb_num(const char *str);
 int	ft_border_line(char *line);
-int	ft_inside_line(char **file_data, char *line, int k, int *ct);
+int	ft_inside_line(char **file_data, char *line, int k, t_player *player);
 
 /*
 * draw.c
@@ -90,8 +90,8 @@ void	check_move(t_vars *mlx);
 /*
 * raycast.c
 */
-float	print_line(t_vars *mlx, float degrees, double x, double y) ;
-void	ray_cast(float ray_len, int ray_index, t_vars *mlx);
+t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y) ;
+void	ray_cast(t_rayinfo ray_len, int ray_index, t_vars *mlx);
 void	draw_ray(t_vars *mlx);
 
 /*

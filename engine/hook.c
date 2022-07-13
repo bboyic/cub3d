@@ -4,7 +4,22 @@ int	key_hook(int keycode, t_vars *game)
 {
 	printf("Hello from key_hook %d!\n", keycode);
 	// linux
-	if (keycode == 100)
+	// if (keycode == 100)
+	// 	game->left = 1;
+	// if (keycode == 115)
+	// 	game->back = 1;
+	// if (keycode == 97)
+	// 	game->right = 1;
+	// if (keycode == 119)
+	// 	game->front = 1;
+	// if (keycode == 65505)
+	// 	game->sprint = 2;
+	// if (keycode == 12) // q
+	// 	game->turn_left = 1;
+	// if (keycode == 14) // e
+	// 	game->turn_right = 1;
+	// mac
+	if (keycode == 0)
 		game->left = 1;
 	if (keycode == 115)
 		game->back = 1;

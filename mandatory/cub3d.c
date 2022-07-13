@@ -88,14 +88,14 @@
 // 	mlx_loop(mlx);
 // }
 
-#include "index.h"
+#include "includes/index.h"
 
 int	check_cube(t_vars *mlx, int x, int y)
 {
-	// if (y / 16 < 8 && x / 16 < 12 && mlx->map[y / 16][x / 16] == '1')
-	// 	return (1);
-	// else
-	return (0);
+	if (y / 512 < mlx->map_data->height && x / 512 < mlx->map_data->mmap[y/512]->len && mlx->map_data->mmap[y/512]->line[x/512] == '1')
+		return (1);
+	else
+		return (0);
 }
 
 int	render_next_frame(void *data) {
@@ -111,17 +111,21 @@ int	render_next_frame(void *data) {
 	draw_minimap(game);
 	draw_ray(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
+	//mlx_put_image_to_window(game->mlx, game->mlx_win, game->texture.img, 0, 0);
 	return (0);
 }
 
 void	player_init(t_vars *game)
 {
+	int	w;
+	int	h;
+
 	game->degrees = 0;
 	game->player.da = 0;
 	game->player.dy = cos(0);
 	game->player.dx = sin(0);
-	game->player.x = 150;
-	game->player.y = 150;
+	game->player.x = 500;
+	game->player.y = 1000;
 	game->front = 0;
 	game->back = 0;
 	game->left = 0;
@@ -129,14 +133,16 @@ void	player_init(t_vars *game)
 	game->sprint = 1;
 	game->turn_left = 0;
 	game->turn_right = 0;
-	// find player position and change map field
+	game->texture.img = mlx_new_image(game->mlx, 512, 512);
+	game->texture.img = mlx_xpm_file_to_image(game->mlx, "wall.xpm", &w, &h);
+	game->texture.addr = mlx_get_data_addr(game->texture.img, &game->texture.bits_per_pixel, &game->texture.line_length, &game->texture.endian);
 }
 
 void	my_mlx_init(t_vars *game, t_map *map_data)
 {
 	game->mlx = mlx_init();
-	game->mlx_win = mlx_new_window(game->mlx, WIN_H, WIN_W, "Hello world!");
-	game->img.img = mlx_new_image(game->mlx, WIN_H, WIN_W);
+	game->mlx_win = mlx_new_window(game->mlx, WIN_W, WIN_H, "Hello world!");
+	game->img.img = mlx_new_image(game->mlx, WIN_W, WIN_H);
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bits_per_pixel), &(game->img.line_length),
 								&(game->img.endian));
 	game->map_data = map_data;
@@ -164,6 +170,7 @@ int	main(void)
 		printf("%s", map_data->mmap[i]->line);
 		i++;
 	}
+	game.map_data = map_data;
 	my_mlx_init(&game, map_data);
 	return (0);
 }
