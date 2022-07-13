@@ -2,5 +2,6 @@
 
 obj/
 
-mlx/
+mlx/*.o
+mlx_linux/obj/*.o
 a.out

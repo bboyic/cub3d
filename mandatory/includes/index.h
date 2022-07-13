@@ -12,6 +12,9 @@
 #include "get_next_line.h"
 #define PI 3.14159265359
 #define RAD 0.0174533
+#define START_MAP_X 0
+#define START_MAP_Y 0
+#define BLOCK_SIZE 16
 #define MINI_H 10
 #define MINI_W 10
 #define WIN_H 1000
@@ -68,13 +71,14 @@ int	ft_check_name(t_map *map_data, char *line, t_list *cleaner);
 int	ft_rgb_size(char **rgb_char);
 int	ft_convert_rgb_num(const char *str);
 int	ft_border_line(char *line);
-int	ft_inside_line(char **file_data, char *line, int k, int *ct);
+int	ft_inside_line(char **file_data, char *line, int k, t_player *player);
 
 /*
 * draw.c
 */
 void	draw_background(t_vars *mlx);
 void	draw_player(t_vars *mlx);
+void	draw_minimap(t_vars *game);
 
 /*
 * move.c

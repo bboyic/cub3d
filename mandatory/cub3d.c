@@ -104,9 +104,11 @@ int	render_next_frame(void *data) {
 	game = (t_vars *)data;
 	check_move(game);
 
-	// render mimnimap
+	// function draw minimap
+	// draw_minimap(game);
 	draw_background(game);
-	//draw_player(game);
+	draw_player(game);
+	draw_minimap(game);
 	draw_ray(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	//mlx_put_image_to_window(game->mlx, game->mlx_win, game->texture.img, 0, 0);
@@ -151,7 +153,7 @@ void	my_mlx_init(t_vars *game, t_map *map_data)
 	mlx_loop(game->mlx);
 }
 
-int	main(void) 
+int	main(void)
 {
 	t_vars	game;
 	t_list *cleaner;
