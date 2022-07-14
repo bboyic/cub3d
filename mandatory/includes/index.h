@@ -15,7 +15,7 @@
 #define START_MAP_X 0
 #define START_MAP_Y 0
 #define BLOCK_SIZE 512
-#define MINI_BLOCK_SIZE 10
+#define MINI_BLOCK_SIZE 30
 #define MINI_H 6
 #define MINI_W 6
 #define WIN_H 1000
@@ -81,7 +81,7 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player);
 void	draw_background(t_vars *mlx);
 void	draw_player(t_vars *mlx);
 void	draw_minimap(t_vars *game);
-
+void	draw_mini_cub(t_vars *game, int mini_x, int mini_y, int color);
 /*
 * move.c
 */

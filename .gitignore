@@ -1,6 +1,7 @@
 .vscode/
 
 obj/
+cub3d
 
 mlx/*.o
 mlx_linux/obj/*.o
