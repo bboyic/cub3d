@@ -180,7 +180,7 @@ double	rays(float yindex, float xindex, t_player player, int *map, t_vars *vars)
 				color = 0x00ff00;
 				// if (y > 50)
 				// 	y = 1;
-				color = get_pixel(&vars->textute, (cubx - floor(cubx)) * 512, (y + watch) / ((lineH) / 512));
+				color = get_pixel(&varws->textute, (cubx - floor(cubx)) * 512, (y + watch) / ((lineH) / 512));
 				// if (index == 256)
 				// 	color = 0x00ff00;
 				// if (cubx >= 57.0 && cubx < 58.0)

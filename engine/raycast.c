@@ -37,12 +37,17 @@ t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y)
 // 	return (color);
 // }
 
+float	check_border(float y, float yindex) {
+	return ((y + yindex) / 512);
+}
+
 void ray_cast(t_rayinfo ray, int ray_index, t_vars *mlx)
 {
-	int y;
+	float y;
 	static int old_wall;
 	int	new_wall;
 	int	color;
+	int	color2;
 	float cubx;
 	float cuby;
 
@@ -61,19 +66,27 @@ void ray_cast(t_rayinfo ray, int ray_index, t_vars *mlx)
 	// cubx = (ray.x + mlx->player.x) / 512.0 ;
 	cubx = (ray.x + mlx->player.x) / 512.0 ; // какой куб по Х по счету
 	cuby = (ray.y + mlx->player.y) / 512.0; // какой куб по У по счету
+	//printf("%f %f %f \n", cubx, cuby, );
+	if ((int)floor(check_border(mlx->player.x, ray.x + 1)) != (int)floor(cubx) || (int)floor(check_border(mlx->player.x, ray.x - 1)) != (int)floor(cubx))
+	{
+		cubx = cuby;
+		//printf("%d %d\n", (int)floor(check_border(mlx->player.x, ray.x - mlx->player.dx)), (int)floor(cubx));
+	}
 	while (y < WIN_H - 500 && y < new_wall)
 	{
 		color = 0x0000FF00;
 		
 		//printf("%d\n", new_wall / 2);
-		color = get_pixel(&mlx->texture, (cubx - floor(cubx)) * 512 ,  y * (cuby / 512));
+		color = get_pixel(&mlx->texture, (cubx - floor(cubx)) * 128 ,  (y ) / new_wall * 128);
+		color2 = get_pixel(&mlx->texture, (cubx - floor(cubx)) * 128 + 265,  (y ) / new_wall * 128 + 256);
+		//printf("%f \n", y / new_wall);
 		//color = get_pixel(&mlx->texture, (cuby - floor(cuby)) * 512 ,  y);
 		// if (y  > 0)
 		// 	printf("%d\n", y);
 		//printf("%d\n", mlx->texture.bits_per_pixel);
 		//color = 0x0000FF00;
 		my_mlx_pixel_put(&mlx->img, (ray_index), 500 - y , color);
-		my_mlx_pixel_put(&mlx->img, (ray_index),  500 + y, color);
+		my_mlx_pixel_put(&mlx->img, (ray_index),  500 + y, color2);
 		old_wall = new_wall;
 		++y;
 	}
