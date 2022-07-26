@@ -108,6 +108,7 @@ int	render_next_frame(void *data) {
 	draw_background(game);
 	//draw_player(game);
 	draw_ray(game);
+	// draw_sky(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	//mlx_put_image_to_window(game->mlx, game->mlx_win, game->texture.img, 0, 0);
 	return (0);
@@ -118,12 +119,13 @@ void	player_init(t_vars *game)
 	int	w;
 	int	h;
 
+	game->sky = 500;// количество неба
 	game->degrees = 0;
 	game->player.da = 0;
 	game->player.dy = cos(0);
 	game->player.dx = sin(0);
-	game->player.x = 500;
-	game->player.y = 1000;
+	game->player.x = 2270;
+	game->player.y = 5351;
 	game->front = 0;
 	game->back = 0;
 	game->left = 0;
@@ -147,6 +149,7 @@ void	my_mlx_init(t_vars *game, t_map *map_data)
 	player_init(game);
 	mlx_hook(game->mlx_win, 2, 1L<<0, key_hook, game);
 	mlx_key_hook(game->mlx_win, key_down, game);
+	mlx_hook(game->mlx_win, 6, 1L<<0, mouse_hook, game);
 	mlx_loop_hook(game->mlx, render_next_frame, game);
 	mlx_loop(game->mlx);
 }

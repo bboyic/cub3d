@@ -1,28 +1,39 @@
 #include "index.h"
 
+float	check_border(float y, float yindex) {
+	return ((y + yindex) / 512);
+}
+
 t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y) 
 {
 	float		dx;
 	float		dy;
+	int			sky_y;
 	float		lenth;
 	float		fish_fix;
+	float		cubx;
+	float		cuby;
 	t_rayinfo	ray;
+	static int			ray_index;
+	int color;
 
-	x = 2;
-	y = -2;
+	ray.x = 2;
+	ray.y = -2;
 	dy = -cos(degrees * RAD);
 	dx = sin(degrees * RAD);
-	while (mlx->player.x + x < 100000 && mlx->player.y + y < 100000 && mlx->player.x + x > 0 && mlx->player.y + y > 0 && !check_cube(mlx, mlx->player.x + x, mlx->player.y + y))
+	while (mlx->player.x + ray.x < 100000 && mlx->player.y + ray.y < 100000 && mlx->player.x + ray.x > 0 && mlx->player.y + ray.y > 0 && !check_cube(mlx, mlx->player.x + ray.x, mlx->player.y + ray.y))
 	{
 		//my_mlx_pixel_put(&mlx->img, (double)mlx->player.x + x,  (double)mlx->player.y + y, 0x0000FF00);
-		x += dx;
-		y += dy;
+		ray.x += dx;
+		ray.y += dy;
+		//my_mlx_pixel_put(&mlx->img, (ray_index), 500 - y , color);
 	}
 	fish_fix = cos((degrees - mlx->degrees) * RAD);
-	lenth = sqrt(pow(y, 2.0) + pow(x, 2.0));
+	lenth = sqrt(pow(ray.y, 2.0) + pow(ray.x, 2.0));
 	ray.ray_len = lenth * fish_fix;
-	ray.x = x;
-	ray.y = y;
+	++ray_index;
+	if (ray_index > 500)
+		ray_index = 0;
 	return (ray);
 }
 
@@ -37,13 +48,36 @@ t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y)
 // 	return (color);
 // }
 
-float	check_border(float y, float yindex) {
-	return ((y + yindex) / 512);
+int	draw_sky(t_vars *mlx, float y, int ray_index)
+{
+	int color;
+	
+	color = 0x00bfff;
+	while (y < WIN_H - mlx->sky)
+	{
+		my_mlx_pixel_put(&mlx->img, (ray_index),  500 - y, color);
+		++y;
+	}
+	return (0);
+}
+
+int	draw_floor(t_vars *mlx, float y, int ray_index)
+{
+	int color;
+	
+	color = 0x505050;
+	while (y < WIN_H - (WIN_H - mlx->sky))
+	{
+		my_mlx_pixel_put(&mlx->img, (ray_index),  500 + y, color);
+		++y;
+	}
+	return (0);
 }
 
 void ray_cast(t_rayinfo ray, int ray_index, t_vars *mlx)
 {
-	float y;
+	float	y;
+	float	texture_y = 0 ;
 	static int old_wall;
 	int	new_wall;
 	int	color;
@@ -72,24 +106,27 @@ void ray_cast(t_rayinfo ray, int ray_index, t_vars *mlx)
 		cubx = cuby;
 		//printf("%d %d\n", (int)floor(check_border(mlx->player.x, ray.x - mlx->player.dx)), (int)floor(cubx));
 	}
+	y = 0;
 	while (y < WIN_H - 500 && y < new_wall)
 	{
-		color = 0x0000FF00;
-		
-		//printf("%d\n", new_wall / 2);
 		color = get_pixel(&mlx->texture, (cubx - floor(cubx)) * 128 ,  (y ) / new_wall * 128);
-		color2 = get_pixel(&mlx->texture, (cubx - floor(cubx)) * 128 + 265,  (y ) / new_wall * 128 + 256);
-		//printf("%f \n", y / new_wall);
-		//color = get_pixel(&mlx->texture, (cuby - floor(cuby)) * 512 ,  y);
-		// if (y  > 0)
-		// 	printf("%d\n", y);
-		//printf("%d\n", mlx->texture.bits_per_pixel);
-		//color = 0x0000FF00;
+		color2 = get_pixel(&mlx->texture, (cubx - floor(cubx)) * 128 + 256,  (y ) / new_wall * 128 + 256);
 		my_mlx_pixel_put(&mlx->img, (ray_index), 500 - y , color);
 		my_mlx_pixel_put(&mlx->img, (ray_index),  500 + y, color2);
 		old_wall = new_wall;
 		++y;
 	}
+	draw_sky(mlx, y, ray_index);
+	draw_floor(mlx, y, ray_index);
+	// color = 0x00bfff;
+	// color2 = 0x505050;
+	// while (y < WIN_H - mlx->sky)
+	// {
+	// 	my_mlx_pixel_put(&mlx->img, (ray_index), 500 - y , color);
+	// 	if (y < WIN_H - mlx->sky)
+	// 	my_mlx_pixel_put(&mlx->img, (ray_index),  500 + y, color2);
+	// 	++y;
+	//}
 }
 
 void	draw_ray(t_vars *mlx)
