@@ -65,6 +65,27 @@ void	draw_background(t_vars *mlx)
 // 		++y;
 // 	}
 // }
+void	draw_player_cub(t_vars *game, int mini_x, int mini_y, int color)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < MINI_BLOCK_SIZE)
+	{
+		x = 0;
+		while (x < MINI_BLOCK_SIZE)
+		{
+			// printf("%d %d\n", x + mini_x * MINI_BLOCK_SIZE, y + mini_y * MINI_BLOCK_SIZE);
+			if (x > MINI_BLOCK_SIZE / 2 - 5 && x < MINI_BLOCK_SIZE / 2 + 5
+			 && y > MINI_BLOCK_SIZE / 2 - 5 && y < MINI_BLOCK_SIZE / 2 + 5)
+				my_mlx_pixel_put(&game->img, x + mini_x * MINI_BLOCK_SIZE,
+						y + mini_y * MINI_BLOCK_SIZE, color);
+			x++;
+		}
+		y++;
+	}
+}
 
 void	draw_minimap(t_vars *game)
 {
@@ -89,13 +110,21 @@ void	draw_minimap(t_vars *game)
 			// if success provide to draw_mini_map, that only draw scale pixel
 			// if (game->map_data->mmap[(int)floor(mini_y) + y / BLOCK_SIZE]->line[
 			// 	(int)floor(mini_x) + x / BLOCK_SIZE] == '1')
-			if (game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == '0')
-				draw_mini_cub(game, x, y, 0x00FF000F);
-			if (game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == '1')
+			// printf("mini_y -> %d ", (int)floor(mini_y));
+			// printf("check height -> %d ", (int)floor(mini_y) + y);
+			// printf("check width -> %d\n", (int)floor(mini_x) + x);
+			if ((int)floor(mini_y) + y < 0 || (int)floor(mini_x) + x < 0 ||
+				(int)floor(mini_y) + y >= game->map_data->height ||
+				(int)floor(mini_x) + x >= game->map_data->mmap[(int)floor(mini_y) + y]->len ||
+				game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == ' ')
+				x = x;
+			else if (game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == '1')
 				draw_mini_cub(game, x, y, 0x000F000F);
-			// printf("first -> %f second -> %f\n", mini_x + x, game->player.x / BLOCK_SIZE);
+			else if (game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == '0')
+				draw_mini_cub(game, x, y, 0x00FF000F);
 			if (mini_x + x == game->player.x / BLOCK_SIZE && mini_y + y == game->player.y / BLOCK_SIZE)
 				draw_player_cub(game, x, y, 0x000FF00F);
+			// printf("first -> %f second -> %f\n", mini_x + x, game->player.x / BLOCK_SIZE);
 			// printf("%d %d\n", x, y);
 			x++;
 		}
@@ -117,28 +146,6 @@ void	draw_mini_cub(t_vars *game, int mini_x, int mini_y, int color)
 			// printf("%d %d\n", x + mini_x * MINI_BLOCK_SIZE, y + mini_y * MINI_BLOCK_SIZE);
 			my_mlx_pixel_put(&game->img, x + mini_x * MINI_BLOCK_SIZE,
 					y + mini_y * MINI_BLOCK_SIZE, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	draw_player_cub(t_vars *game, int mini_x, int mini_y, int color)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < MINI_BLOCK_SIZE)
-	{
-		x = 0;
-		while (x < MINI_BLOCK_SIZE)
-		{
-			// printf("%d %d\n", x + mini_x * MINI_BLOCK_SIZE, y + mini_y * MINI_BLOCK_SIZE);
-			if (x > MINI_BLOCK_SIZE / 2 - 5 && x < MINI_BLOCK_SIZE / 2 + 5
-			 && y > MINI_BLOCK_SIZE / 2 - 5 && y < MINI_BLOCK_SIZE / 2 + 5)
-				my_mlx_pixel_put(&game->img, x + mini_x * MINI_BLOCK_SIZE,
-						y + mini_y * MINI_BLOCK_SIZE, color);
 			x++;
 		}
 		y++;

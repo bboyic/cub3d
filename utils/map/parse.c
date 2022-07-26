@@ -25,7 +25,7 @@ int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl)
 	int		fd; //xmm or not?
 
 	line += ft_skip_white(line);
-	printf("%s\n", line);
+	// printf("%s\n", line);
 	*texture = malloc(sizeof(char) * (ft_strlen(line) + 1));
 	if (!(*texture) || ft_clslist_add_front(cleaner, (*texture)))
 		return (1);
@@ -100,12 +100,12 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	int	j;
 
 	j = -1;
-	printf("i am in ft_copy_into_mmap\n");
+	// printf("i am in ft_copy_into_mmap\n");
 	map_data->mmap[i] = malloc(sizeof(t_dict) * 1);
 	if (!map_data->mmap[i]
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]))
 		return (1);
-	map_data->mmap[i]->len = ft_strlen(file_data[i]);
+	map_data->mmap[i]->len = ft_strlen(file_data[i]) - 1;
 	map_data->mmap[i]->line
 		= malloc(sizeof(char) * (map_data->mmap[i]->len + 1));
 	if (!map_data->mmap[i]->line
@@ -142,5 +142,7 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cle
 		if (ft_copy_into_mmap(map_data, file_data, cleaner, i))
 			return (1);
 	}
+	if (file_data[i - 1][map_data->mmap[map_data->height - 1]->len] != '\n')
+		map_data->mmap[map_data->height - 1]->len++;
 	return (0);
 }
