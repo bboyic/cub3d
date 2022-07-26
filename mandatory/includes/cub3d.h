@@ -51,6 +51,7 @@ typedef struct s_map
 
 typedef struct s_vars 
 {
+	int			sky;
 	float		degrees;
 	int			front;
 	int			turn_left;

@@ -107,6 +107,7 @@ int			get_pixel(t_data *img, int x, int y);
 */
 int	key_hook(int keycode, t_vars *mlx);
 int	key_down(int keycode, t_vars *mlx);
+int	mouse_hook(int x, int y, t_vars *mlx);
 
 
 int	check_cube(t_vars *mlx, int x, int y);
