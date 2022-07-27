@@ -62,6 +62,9 @@ typedef struct s_vars
 	int			sprint;
 	t_map		*map_data;
 	t_data		texture;
+	t_data		texture1;
+	t_data		texture2;
+	t_data		texture3;
 	// char		**map;
 	void		*mlx;
 	void		*mlx_win;
