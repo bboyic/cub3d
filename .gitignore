@@ -1,8 +1,9 @@
-.vscode/
+.vscode/*
 
 obj/
-cub3d
-
 mlx/*.o
 mlx_linux/obj/*.o
-a.out
+
+cub3d
+main.c
+temp.c
