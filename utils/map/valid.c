@@ -119,14 +119,7 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 		{
 			if (i == 0 || !line[i + 1])
 				return (1);
-			if ((ft_strlen(file_data[k - 1]) < i + 2)
-				|| (ft_strlen(file_data[k + 1]) < i + 2))
-				return (1);
-			if (file_data[k - 1][i] == ' ' || file_data[k - 1][i + 1] == ' '
-				|| file_data[k - 1][i - 1] == ' ' || file_data[k][i - 1] == ' '
-				|| file_data[k][i + 1] == ' ' || file_data[k + 1][i] == ' '
-				|| file_data[k + 1][i + 1] == ' '
-				|| file_data[k + 1][i - 1] == ' ')
+			if (watch_dogs(file_data, k, i))
 				return (1);
 		}
 		if (line[i] == 'N' || line[i] == 'S'

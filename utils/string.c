@@ -69,3 +69,32 @@ int	ft_white(char *line)
 		return (0);
 	return (1);
 }
+
+int	watch_dogs(char **file_data, int k, int i)
+{
+	if ((ft_strlen(file_data[k - 1]) < i + 2)
+		|| (ft_strlen(file_data[k + 1]) < i + 2))
+		return (1);
+	if (file_data[k - 1][i] == ' ' || file_data[k - 1][i + 1] == ' '
+		|| file_data[k - 1][i - 1] == ' ' || file_data[k][i - 1] == ' '
+		|| file_data[k][i + 1] == ' ' || file_data[k + 1][i] == ' '
+		|| file_data[k + 1][i + 1] == ' '
+		|| file_data[k + 1][i - 1] == ' ')
+		return (1);
+}
+
+int	watch_dogs_legion(t_dict **mmap, int k, int i)
+{
+	if (k - 1 > 0 && i < mmap[k]->len && mmap[k]->line[i] == '0')
+		mmap[k]->line[i] = 'N';
+		
+	if ((ft_strlen(file_data[k - 1]) < i + 2)
+		|| (ft_strlen(file_data[k + 1]) < i + 2))
+		return (1);
+	if (file_data[k - 1][i] == ' ' || file_data[k - 1][i + 1] == ' '
+		|| file_data[k - 1][i - 1] == ' ' || file_data[k][i - 1] == ' '
+		|| file_data[k][i + 1] == ' ' || file_data[k + 1][i] == ' '
+		|| file_data[k + 1][i + 1] == ' '
+		|| file_data[k + 1][i - 1] == ' ')
+		return (1);
+}
