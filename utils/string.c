@@ -81,20 +81,20 @@ int	watch_dogs(char **file_data, int k, int i)
 		|| file_data[k + 1][i + 1] == ' '
 		|| file_data[k + 1][i - 1] == ' ')
 		return (1);
+	return (0);
 }
 
-int	watch_dogs_legion(t_dict **mmap, int k, int i)
+int	watch_dogs_legion(t_dict **mmap, int height, int k, int i)
 {
-	if (k - 1 > 0 && i < mmap[k]->len && mmap[k]->line[i] == '0')
-		mmap[k]->line[i] = 'N';
-		
-	if ((ft_strlen(file_data[k - 1]) < i + 2)
-		|| (ft_strlen(file_data[k + 1]) < i + 2))
+	if (k - 1 > 0 && i < mmap[k - 1]->len && mmap[k - 1]->line[i] == '0')
+		mmap[k - 1]->line[i] = 'N';
+	else if (i - 1 > 0 && mmap[k]->line[i - 1] == '0')
+		mmap[k]->line[i - 1] = 'W';
+	else if (i + 1 < mmap[k]->len && mmap[k]->line[i + 1] == '0')
+		mmap[k]->line[i - 1] = 'E';
+	else if (k + 1 < height, i < mmap[k + 1]->len && mmap[k + 1]->line[i] == '0')
+		mmap[k]->line[i - 1] = 'S';
+	else
 		return (1);
-	if (file_data[k - 1][i] == ' ' || file_data[k - 1][i + 1] == ' '
-		|| file_data[k - 1][i - 1] == ' ' || file_data[k][i - 1] == ' '
-		|| file_data[k][i + 1] == ' ' || file_data[k + 1][i] == ' '
-		|| file_data[k + 1][i + 1] == ' '
-		|| file_data[k + 1][i - 1] == ' ')
-		return (1);
+	return (0);
 }

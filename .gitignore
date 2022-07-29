@@ -7,3 +7,4 @@ mlx_linux/obj/*.o
 cub3d
 main.c
 temp.c
+a.out

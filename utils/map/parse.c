@@ -100,7 +100,7 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	int	j;
 
 	j = -1;
-	// printf("i am in ft_copy_into_mmap\n");
+	printf("i am in ft_copy_into_mmap\n");
 	map_data->mmap[i] = malloc(sizeof(t_dict) * 1);
 	if (!map_data->mmap[i]
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]))
@@ -111,6 +111,7 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	if (!map_data->mmap[i]->line
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]->line))
 		return (1);
+	printf("what?\n");
 	map_data->mmap[i]->line[map_data->mmap[i]->len] = 0;
 	while (file_data[i][++j])
 		map_data->mmap[i]->line[j] = file_data[i][j];
@@ -137,6 +138,7 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cle
 		if ((i > 0 && file_data[i + 1])
 			&& ft_inside_line(file_data, file_data[i], i, player))
 			return (1);
+		printf("here\n");
 		if (ct > 1)
 			return (1);
 		if (ft_copy_into_mmap(map_data, file_data, cleaner, i))

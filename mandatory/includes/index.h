@@ -41,6 +41,8 @@ int		ft_strlen(const char *s);
 void	ft_write(int fd, char *message);
 int		ft_pos_strchr(const char *s, int c);
 int		ft_white(char *line);
+int		watch_dogs(char **file_data, int k, int i);
+int		watch_dogs_legion(t_dict **mmap, int height, int k, int i);
 
 /*
 * split.c
@@ -51,9 +53,9 @@ char	**ft_split(char const *s, char c);
 * map.c
 */
 t_map	*ft_map(char *file, t_player *player, t_list *cleaner);
-int	ft_read_file(t_map *map_data, char *file, char ***file_data);
-int	ft_get_file_height(char *file);
-int	ft_try_open(char *file);
+int		ft_read_file(t_map *map_data, char *file, char ***file_data);
+int		ft_get_file_height(char *file);
+int		ft_try_open(char *file);
 
 /*
 * parse.c
@@ -93,13 +95,13 @@ void	check_move(t_vars *mlx);
 * raycast.c
 */
 t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y) ;
-void	ray_cast(t_rayinfo ray_len, int ray_index, t_vars *mlx);
-void	draw_ray(t_vars *mlx);
+void		ray_cast(t_rayinfo ray_len, int ray_index, t_vars *mlx);
+void		draw_ray(t_vars *mlx);
 
 /*
 * pixel.c
 */
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int			get_pixel(t_data *img, int x, int y);
 
 /*
@@ -112,5 +114,10 @@ int	mouse_hook(int x, int y, t_vars *mlx);
 
 int	check_cube(t_vars *mlx, int x, int y);
 
+/*
+* objects.c
+*/
+int	c_rand(int in);
+void		objects_init(t_vars *game);
 
 #endif

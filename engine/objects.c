@@ -1,20 +1,15 @@
 #include "index.h"
 
-unsigned rand()
+int	c_rand(int in)
 {
-	unsigned short lfsr = 0xACE1u;
-	unsigned bit;
-
-	bit  = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5) ) & 1;
-	return lfsr =  (lfsr >> 1) | (bit << 15);
+	srand((unsigned int)in);
+	int a = rand() % 30;
+	printf("%d\n", a);
+	return (a);
 }
 
-int	get_door(t_map *map_data, int i, int j)
+void	objects_init(t_vars *game)
 {
-	if ()
-}
-
-void	objects_init(t_vars *game) {
 	int	i;
 	int	j;
 	int	door;
@@ -26,11 +21,12 @@ void	objects_init(t_vars *game) {
 		j = -1;
 		while (++j < game->map_data->mmap[i]->len)
 		{
-			if (game->map_data->mmap[i]->line[j] == "0"
-				&& rand() > 2)
-				game->map_data->mmap[i]->line[j] = "C";
-			if (game->map_data->mmap[i]->line[j] == "1" && !door
-				&& rand() > 4 && set_door(game->map_data->mmap, i, j))
+			if (game->map_data->mmap[i]->line[j] == '0'
+				&& (c_rand(game->map_data->height * i + j) == 3))
+				game->map_data->mmap[i]->line[j] = 'C';
+			if (game->map_data->mmap[i]->line[j] == '1' && !door
+				&& !(c_rand(game->map_data->height + j * i) % 5) && watch_dogs_legion(game->map_data->mmap,
+					game->map_data->height, i, j))
 				door++;
 		}
 	}

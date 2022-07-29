@@ -8,7 +8,7 @@ VPATH	:= ./mandatory:./utils:./utils/map:./engine
 
 SRCS_M =	cub3d.c \
 			map.c parse.c valid.c cleaner.c get_next_line_utils.c get_next_line.c \
-			split.c string.c draw.c hook.c move.c pixel.c raycast.c
+			split.c string.c draw.c hook.c move.c pixel.c raycast.c objects.c
 
 OBJ_DIR_M		= ./obj/mandatory
 
