@@ -6,11 +6,13 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 19:54:17 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/06/19 23:28:32 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/07/30 13:00:38 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "index.h"
+
+// TODO: check gnl mallocs
 
 char	*get_next_line(int fd)
 {

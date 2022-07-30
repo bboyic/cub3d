@@ -6,11 +6,12 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:50:38 by ptopping          #+#    #+#             */
-/*   Updated: 2022/06/05 00:15:07 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/07/30 13:00:24 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "index.h"
+// TODO: check split mallocs
 
 static int	count_words(const char *s, char c)
 {

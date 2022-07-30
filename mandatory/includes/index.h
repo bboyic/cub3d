@@ -84,6 +84,7 @@ void	draw_background(t_vars *mlx);
 void	draw_player(t_vars *mlx);
 void	draw_minimap(t_vars *game);
 void	draw_mini_cub(t_vars *game, int mini_x, int mini_y, int color);
+
 /*
 * move.c
 */
@@ -117,7 +118,12 @@ int	check_cube(t_vars *mlx, int x, int y);
 /*
 * objects.c
 */
-int	c_rand(int in);
-void		objects_init(t_vars *game);
+int		c_rand(int spread, int i);
+void	add_random(t_vars *game, t_coin *coins, t_door *doors, int d);
+void	door_init(t_door *doors, int *current, int j, int i);
+void	coin_init(t_coin *coins, int *current, int j, int i);
+void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors);
+void	objects_count(t_vars *game, int *c, int *d);
+int		objects_init(t_vars *game, t_list *cleaner);
 
 #endif

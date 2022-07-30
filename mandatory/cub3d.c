@@ -106,6 +106,7 @@ int	render_next_frame(void *data) {
 
 	// function draw minimap
 	// draw_minimap(game);
+	// printf("fuck you\n");
 	draw_background(game);
 	// draw_player(game);
 	draw_ray(game);
@@ -151,7 +152,6 @@ void	my_mlx_init(t_vars *game, t_map *map_data)
 								&(game->img.endian));
 	game->map_data = map_data;
 	player_init(game);
-	objects_init(game);
 	mlx_hook(game->mlx_win, 2, 1L<<0, key_hook, game);
 	mlx_key_hook(game->mlx_win, key_down, game);
 	mlx_hook(game->mlx_win, 6, 1L<<0, mouse_hook, game);
@@ -165,10 +165,12 @@ int	main(void)
 	t_list *cleaner;
 
 	cleaner = malloc(sizeof(t_list) * 1);
+	if (!cleaner)
+		return (1);
 	game.player.x = -1;
 	game.player.y = -1;
 	t_map *map_data = ft_map("beu_map.cub", &game.player, cleaner);
-	if (!map_data)
+	if (!map_data) // TODO:add clean before return
 		return (0);
 	// printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
 	// printf("floor=%d,%d,%d\n", map_data->rgb_floor[0], map_data->rgb_floor[1], map_data->rgb_floor[2]);
@@ -179,6 +181,9 @@ int	main(void)
 	// 	i++;
 	// }
 	game.map_data = map_data;
+	// printf("i am before objects\n");
+	if (objects_init(&game, cleaner))
+		return (1); // TODO:add clean before return
 	my_mlx_init(&game, map_data);
 	return (0);
 }

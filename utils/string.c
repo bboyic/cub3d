@@ -87,14 +87,12 @@ int	watch_dogs(char **file_data, int k, int i)
 int	watch_dogs_legion(t_dict **mmap, int height, int k, int i)
 {
 	if (k - 1 > 0 && i < mmap[k - 1]->len && mmap[k - 1]->line[i] == '0')
-		mmap[k - 1]->line[i] = 'N';
-	else if (i - 1 > 0 && mmap[k]->line[i - 1] == '0')
-		mmap[k]->line[i - 1] = 'W';
-	else if (i + 1 < mmap[k]->len && mmap[k]->line[i + 1] == '0')
-		mmap[k]->line[i - 1] = 'E';
-	else if (k + 1 < height, i < mmap[k + 1]->len && mmap[k + 1]->line[i] == '0')
-		mmap[k]->line[i - 1] = 'S';
-	else
-		return (1);
+		return 'N';
+	if (i - 1 > 0 && mmap[k]->line[i - 1] == '0')
+		return 'W';
+	if (i + 1 < mmap[k]->len && mmap[k]->line[i + 1] == '0')
+		return 'E';
+	if (k + 1 < height && i < mmap[k + 1]->len && mmap[k + 1]->line[i] == '0')
+		return 'S';
 	return (0);
 }

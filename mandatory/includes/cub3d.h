@@ -24,6 +24,20 @@ typedef struct s_player {
 	float	da;
 }	t_player;
 
+typedef struct s_coin {
+	int	x;
+	int	y;
+	// TODO:add field for sprite
+}	t_coin;
+
+typedef struct s_door {
+	int		x;
+	int		y;
+	int		unlock;
+	char	side;
+	// TODO:add field for sprite
+}	t_door;
+
 // first node is temp for correct order and have null params
 typedef struct s_list
 {
@@ -62,10 +76,12 @@ typedef struct s_vars
 	int			sprint;
 	t_map		*map_data;
 	t_data		texture;
-	// char		**map;
 	void		*mlx;
 	void		*mlx_win;
 	t_player	player;
+	t_coin		*coins;
+	int			coins_count;
+	t_door		door;
 	t_data		img;
 }	t_vars;
 
