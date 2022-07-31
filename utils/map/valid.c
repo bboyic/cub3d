@@ -9,14 +9,10 @@ int	ft_valid_file(char *file)
 	shift = ft_pos_strchr(file, '/');
 	len = ft_strlen(file);
 	if (len - shift < 5 || ft_strcmp(file + len - 4, ".cub"))
-	{
-		ft_write(2, "Error: Bad filename\n");
-		return (1);
-	}
+		return (ft_write(2, "Error: Bad filename\n"));
 	return (0);
 }
 
-// is not right construct (if -> else)
 int	ft_check_name(t_map *map_data, char *line, t_list *cleaner)
 {
 	int	fl;
@@ -25,39 +21,24 @@ int	ft_check_name(t_map *map_data, char *line, t_list *cleaner)
 	line += ft_skip_white(line);
 	if (!ft_strncmp(line, "NO ", 3)
 		&& ft_get_texture(&map_data->texture_of_north, line + 2, cleaner, &fl))
-		return (-1);
+		return (ft_write(2, "Error: North texture is incorrect\n"));
 	if (!ft_strncmp(line, "SO ", 3)
 		&& ft_get_texture(&map_data->texture_of_south, line + 2, cleaner, &fl))
-		return (-1);
+		return (ft_write(2, "Error: South texture is incorrect\n"));
 	if (!ft_strncmp(line, "WE ", 3)
 		&& ft_get_texture(&map_data->texture_of_west, line + 2, cleaner, &fl))
-		return (-1);
+		return (ft_write(2, "Error: West texture is incorrect\n"));
 	if (!ft_strncmp(line, "EA ", 3)
 		&& ft_get_texture(&map_data->texture_of_east, line + 2, cleaner, &fl))
-		return (-1);
+		return (ft_write(2, "Error: East texture is incorrect\n"));
 	if (!ft_strncmp(line, "F ", 2)
 		&& ft_get_rgb(&map_data->rgb_floor, line + 1, &fl))
-		return (-1);
+		return (ft_write(2, "Error: Floor rgb is incorrect\n"));
 	if (!ft_strncmp(line, "C ", 2)
 		&& ft_get_rgb(&map_data->rgb_ceiling, line + 1, &fl))
-		return (-1);
-	if (fl) // add wrong message
+		return (ft_write(2, "Error: Ceiling rgb is incorrect\n"));
+	if (fl)
 		return (1);
-	return (0);
-}
-
-int	ft_rgb_size(char **rgb_char)
-{
-	int	size;
-
-	size = 0;
-	while (rgb_char[size])
-		size++;
-	if (size != 3)
-	{
-		ft_free_mas(rgb_char);
-		return (1);
-	}
 	return (0);
 }
 
@@ -109,32 +90,21 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 	i = -1;
 	while (line[++i])
 	{
-		// add check other symbols and break it
-		// printf("Nice coding symbol->%c<-\n", line[i]);
-		if (line[i] != 'N' && line[i] != 'S' && line[i] != '0' && line[i] != '\n'
-			&& line[i] != 'W' && line[i] != 'E' && line[i] != '1' && line[i] != ' ')
+		if (line[i] != 'N' && line[i] != 'S' && line[i] != '0'
+			&& line[i] != '\n' && line[i] != 'W' // todo: \n is correct to search
+			&& line[i] != 'E' && line[i] != '1' && line[i] != ' ')
 			return (1);
-		// printf("Nice coding2\n");
-		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n') // todo: \n is correct to search
 		{
 			if (i == 0 || !line[i + 1])
 				return (1);
 			if (watch_dogs(file_data, k, i))
 				return (1);
 		}
-		if (line[i] == 'N' || line[i] == 'S'
+		if ((line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'W' || line[i] == 'E')
-		{
-			// printf("pos x->%f\n", player->x);
-			if (player->x != -1)
+			&& player_init(player, i, k, line[i]))
 				return (1);
-			else
-			{
-				player->x = i;
-				player->y = k;
-				// add dx and dy depend on symbol
-			}
-		}
 	}
 	return (0);
 }

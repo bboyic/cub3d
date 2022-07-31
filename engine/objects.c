@@ -133,3 +133,24 @@ int	objects_init(t_vars *game, t_list *cleaner)
 	// todo: clean doors
 	return (0);
 }
+
+int	player_init(t_player *player, int i, int k, char side)
+{
+	printf("i am init player\n");
+	if (player->x != -1)
+		return (1);
+	player->da = 0;
+	if (side == 'N')
+		player->degrees = 0;
+	if (side == 'E')
+		player->degrees = 90;
+	if (side == 'S')
+		player->degrees = 180;
+	if (side == 'W')
+		player->degrees = 270;
+	player->x = i * BLOCK_SIZE;
+	player->y = k * BLOCK_SIZE;
+	return (0);
+	// game->player.x = 2270;
+	// game->player.y = 5351;
+}

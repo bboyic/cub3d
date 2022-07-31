@@ -1,39 +1,19 @@
 #include "index.h"
 
-int	ft_skip_white(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] == ' ')
-		i++;
-	return (i);
-}
-
-// int	ft_parse_line(t_map map_data, char *line, t_list *cleaner)
-// {
-// 	int	res;
-
-// 	res = ft_check_name(map_data, line + ft_skip_white(line), cleaner);
-// 	if (res > 0)
-// 		return (1);
-// }
-
 int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl)
 {
 	int		i;
-	int		fd; //xmm or not?
+	int		fd;
 
 	line += ft_skip_white(line);
-	// printf("%s\n", line);
-	*texture = malloc(sizeof(char) * (ft_strlen(line) + 1));
+	*texture = malloc(sizeof(char) * (ft_strlen(line))); // todo: check \n in tests
 	if (!(*texture) || ft_clslist_add_front(cleaner, (*texture)))
 		return (1);
 	(*texture)[ft_strlen(line)] = 0;
 	i = -1;
 	while (line[++i])
 		(*texture)[i] = line[i];
-	// fd = open((*texture), O_RDONLY);
+	// fd = open((*texture), O_RDONLY); //todo: uncomment it in real
 	// if (fd == -1)
 	// {
 	// 	ft_write(2, "Can't open the texture");
@@ -91,10 +71,6 @@ int	ft_get_config(t_map *map_data, char **file_data, t_list *cleaner)
 	return (0);
 }
 
-
-// think about
-// every (0) must not have any ' ' around
-
 int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 {
 	int	j;
@@ -104,21 +80,20 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	map_data->mmap[i] = malloc(sizeof(t_dict) * 1);
 	if (!map_data->mmap[i]
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]))
-		return (1);
+		return (ft_write(2, "Error: Allocate mmap[i]\n"));
 	map_data->mmap[i]->len = ft_strlen(file_data[i]) - 1;
 	map_data->mmap[i]->line
 		= malloc(sizeof(char) * (map_data->mmap[i]->len + 1));
 	if (!map_data->mmap[i]->line
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]->line))
-		return (1);
-	printf("what?\n");
+		return (ft_write(2, "Error: Allocate line\n"));
 	map_data->mmap[i]->line[map_data->mmap[i]->len] = 0;
 	while (file_data[i][++j])
 		map_data->mmap[i]->line[j] = file_data[i][j];
 	return (0);
 }
 
-// add error mgs
+// todo: add error msg
 int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cleaner)
 {
 	int	i;
@@ -128,19 +103,18 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cle
 	ct = 0;
 	map_data->mmap = malloc(sizeof(t_dict *) * (map_data->height + 1));
 	if (!map_data->mmap || ft_clslist_add_front(cleaner, map_data->mmap))
-		return (1);
+		return (ft_write(2, "Error: Allocate mmap\n"));
 	map_data->mmap[map_data->height] = 0;
 	while (file_data[++i])
 	{
 		if ((i == 0 || !file_data[i + 1])
 			&& ft_border_line(file_data[i]))
-			return (1);
+			return (ft_write(2, "Error: Map get in trouble\n"));
 		if ((i > 0 && file_data[i + 1])
 			&& ft_inside_line(file_data, file_data[i], i, player))
-			return (1);
-		printf("here\n");
+			return (ft_write(2, "Error: Map get in trouble\n"));
 		if (ct > 1)
-			return (1);
+			return (ft_write(2, "Error: Map get in trouble\n"));
 		if (ft_copy_into_mmap(map_data, file_data, cleaner, i))
 			return (1);
 	}

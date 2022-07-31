@@ -22,6 +22,7 @@ typedef struct s_player {
 	float	dx;
 	float	dy;
 	float	da;
+	float	degrees;
 }	t_player;
 
 typedef struct s_coin {

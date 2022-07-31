@@ -35,14 +35,18 @@ void	ft_free_mas(char **mas);
 /*
 * string.c
 */
-int		ft_strcmp(char *str1, char *str2);
-int		ft_strncmp(char *str1, char *str2, int n);
-int		ft_strlen(const char *s);
-void	ft_write(int fd, char *message);
-int		ft_pos_strchr(const char *s, int c);
+int		ft_write(int fd, char *message);
 int		ft_white(char *line);
 int		watch_dogs(char **file_data, int k, int i);
 int		watch_dogs_legion(t_dict **mmap, int height, int k, int i);
+
+/*
+* string_utils.c
+*/
+int		ft_strcmp(char *str1, char *str2);
+int		ft_strncmp(char *str1, char *str2, int n);
+int		ft_strlen(const char *s);
+int		ft_pos_strchr(const char *s, int c);
 
 /*
 * split.c
@@ -54,8 +58,8 @@ char	**ft_split(char const *s, char c);
 */
 t_map	*ft_map(char *file, t_player *player, t_list *cleaner);
 int		ft_read_file(t_map *map_data, char *file, char ***file_data);
-int		ft_get_file_height(char *file);
-int		ft_try_open(char *file);
+int		ft_get_file_height(char *file, int *height);
+int		ft_try_open(char *file, int *fd);
 
 /*
 * parse.c
@@ -125,5 +129,6 @@ void	coin_init(t_coin *coins, int *current, int j, int i);
 void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors);
 void	objects_count(t_vars *game, int *c, int *d);
 int		objects_init(t_vars *game, t_list *cleaner);
+int	player_init(t_player *player, int i, int k, char side);
 
 #endif

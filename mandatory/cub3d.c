@@ -117,20 +117,13 @@ int	render_next_frame(void *data) {
 	return (0);
 }
 
-void	player_init(t_vars *game)
+void	game_init(t_vars *game)
 {
 	int	w;
 	int	h;
 
 	game->sky = 500;// количество неба
-	game->degrees = 0;
-	game->player.da = 0;
-	game->player.dy = cos(0);
-	game->player.dx = sin(0);
-	game->player.x = game->player.x * BLOCK_SIZE;
-	game->player.y = game->player.y * BLOCK_SIZE;
-	// game->player.x = 2270;
-	// game->player.y = 5351;
+	game->degrees = game->player.degrees;
 	game->front = 0;
 	game->back = 0;
 	game->left = 0;
@@ -151,7 +144,7 @@ void	my_mlx_init(t_vars *game, t_map *map_data)
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bits_per_pixel), &(game->img.line_length),
 								&(game->img.endian));
 	game->map_data = map_data;
-	player_init(game);
+	game_init(game);
 	mlx_hook(game->mlx_win, 2, 1L<<0, key_hook, game);
 	mlx_key_hook(game->mlx_win, key_down, game);
 	mlx_hook(game->mlx_win, 6, 1L<<0, mouse_hook, game);
@@ -169,7 +162,7 @@ int	main(void)
 		return (1);
 	game.player.x = -1;
 	game.player.y = -1;
-	t_map *map_data = ft_map("beu_map.cub", &game.player, cleaner);
+	t_map *map_data = ft_map("beu_map.cub", &game.player, cleaner); // todo: check leaks
 	if (!map_data) // TODO:add clean before return
 		return (0);
 	// printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
