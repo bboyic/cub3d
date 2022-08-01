@@ -93,7 +93,6 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	return (0);
 }
 
-// todo: add error msg
 int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cleaner)
 {
 	int	i;

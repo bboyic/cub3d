@@ -1,4 +1,5 @@
 #include "index.h"
+#include "time.h"
 
 int	c_rand(int spread, int i)
 {

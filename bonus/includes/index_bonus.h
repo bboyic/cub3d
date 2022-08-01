@@ -20,7 +20,7 @@
 #define MINI_W 6
 #define WIN_H 1000
 #define WIN_W 1000
-#define BONUS 9
+#define BONUS 11
 
 // undefined
 # include <fcntl.h>

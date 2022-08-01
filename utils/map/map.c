@@ -30,12 +30,12 @@ int	ft_get_file_height(char *file, int *height)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	if (height < 9)
+	if (*height < BONUS)
 		return (ft_write(2, "Error: Map to small\n"));
 	return (0);
 }
 
-int	ft_read_file(t_map *map_data, char *file, char ***file_data) // > 25 (26)
+int	ft_read_file(t_map *map_data, char *file, char ***file_data)
 {
 	int		height;
 	int		length;
@@ -70,13 +70,15 @@ t_map	*ft_map(char *file, t_player *player, t_list *cleaner)
 	char	**file_data;
 
 	map_data = malloc(sizeof(t_map) * 1);
-	if (!map_data || ft_clslist_add_front(cleaner, map_data))
-		return (!ft_write(2, "Error: Allocate map_data\n"));
+	if ((!map_data || ft_clslist_add_front(cleaner, map_data))
+		&& ft_write(2, "Error: Allocate map_data\n"))
+		return (0);
 	if (ft_valid_file(file) || ft_read_file(map_data, file, &file_data))
 		return (0);
 	if (ft_get_config(map_data, file_data, cleaner)
 		|| ft_get_mmap(map_data, file_data + 6, player, cleaner))
 	{
+		printf("wrong\n");
 		ft_free_mas(file_data);
 		return (0);
 	}

@@ -58,8 +58,6 @@ typedef struct s_map
 	char	*texture_of_south;
 	char	*texture_of_west;
 	char	*texture_of_east;
-	char	*sprite_of_coin;
-	char	*sprite_of_door;
 	int		rgb_floor[3];
 	int		rgb_ceiling[3];
 	t_dict	**mmap;

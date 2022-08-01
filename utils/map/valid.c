@@ -13,24 +13,38 @@ int	ft_valid_file(char *file)
 	return (0);
 }
 
+int	ft_check_texture_name(t_map *map_data, char *line, t_list *cleaner,
+	int *fl)
+{
+	if (!ft_strncmp(line, "NO ", 3)
+		&& ft_get_texture(&map_data->texture_of_north, line + 2, cleaner, fl))
+		return (ft_write(2, "Error: North texture is incorrect\n"));
+	if (!ft_strncmp(line, "SO ", 3)
+		&& ft_get_texture(&map_data->texture_of_south, line + 2, cleaner, fl))
+		return (ft_write(2, "Error: South texture is incorrect\n"));
+	if (!ft_strncmp(line, "WE ", 3)
+		&& ft_get_texture(&map_data->texture_of_west, line + 2, cleaner, fl))
+		return (ft_write(2, "Error: West texture is incorrect\n"));
+	if (!ft_strncmp(line, "EA ", 3)
+		&& ft_get_texture(&map_data->texture_of_east, line + 2, cleaner, fl))
+		return (ft_write(2, "Error: East texture is incorrect\n"));
+	return (0);
+}
+
 int	ft_check_name(t_map *map_data, char *line, t_list *cleaner)
 {
 	int	fl;
 
 	fl = 1;
 	line += ft_skip_white(line);
-	if (!ft_strncmp(line, "NO ", 3)
-		&& ft_get_texture(&map_data->texture_of_north, line + 2, cleaner, &fl))
-		return (ft_write(2, "Error: North texture is incorrect\n"));
-	if (!ft_strncmp(line, "SO ", 3)
-		&& ft_get_texture(&map_data->texture_of_south, line + 2, cleaner, &fl))
-		return (ft_write(2, "Error: South texture is incorrect\n"));
-	if (!ft_strncmp(line, "WE ", 3)
-		&& ft_get_texture(&map_data->texture_of_west, line + 2, cleaner, &fl))
-		return (ft_write(2, "Error: West texture is incorrect\n"));
-	if (!ft_strncmp(line, "EA ", 3)
-		&& ft_get_texture(&map_data->texture_of_east, line + 2, cleaner, &fl))
-		return (ft_write(2, "Error: East texture is incorrect\n"));
+	if (ft_check_texture_name(map_data, line, cleaner, &fl))
+		return (1);
+	if (BONUS == 11 && !ft_strncmp(line, "M ", 2)
+		&& ft_get_texture(&map_data->sprite_of_coin, line + 1, cleaner, &fl))
+		return (ft_write(2, "Error: Money sprite is incorrect\n"));
+	if (BONUS == 11 && !ft_strncmp(line, "D ", 2)
+		&& ft_get_texture(&map_data->sprite_of_door, line + 1, cleaner, &fl))
+		return (ft_write(2, "Error: Door sprite is incorrect\n"));
 	if (!ft_strncmp(line, "F ", 2)
 		&& ft_get_rgb(&map_data->rgb_floor, line + 1, &fl))
 		return (ft_write(2, "Error: Floor rgb is incorrect\n"));
