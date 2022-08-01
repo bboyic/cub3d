@@ -9,10 +9,10 @@ int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl)
 	*texture = malloc(sizeof(char) * (ft_strlen(line))); // todo: check \n in tests
 	if (!(*texture) || ft_clslist_add_front(cleaner, (*texture)))
 		return (1);
-	(*texture)[ft_strlen(line)] = 0;
 	i = -1;
 	while (line[++i])
 		(*texture)[i] = line[i];
+	(*texture)[ft_strlen(line) - 1] = 0;
 	// fd = open((*texture), O_RDONLY); //todo: uncomment it in real
 	// if (fd == -1)
 	// {
@@ -65,8 +65,7 @@ int	ft_get_config(t_map *map_data, char **file_data, t_list *cleaner)
 			break ;
 		if (ft_check_name(map_data, file_data[i], cleaner)) // check it
 			return (1);
-		else
-			count++;
+		count++;
 	}
 	return (0);
 }
