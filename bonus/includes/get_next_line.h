@@ -6,12 +6,12 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 19:54:20 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/06/19 16:38:10 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/01 22:47:21 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 16

@@ -131,27 +131,25 @@ int	objects_init(t_vars *game, t_list *cleaner)
 	while (++i < game->coins_count)
 		game->map_data->mmap[game->coins[i].y]->line[game->coins[i].x] = 'C';
 	game->map_data->mmap[game->door.y]->line[game->door.x] = game->door.side;
-	// todo: clean doors
+	free(doors);
 	return (0);
 }
 
-int	player_init(t_player *player, int i, int k, char side)
+int	player_init(t_player *player, int i, int k, char *side)
 {
-	printf("i am init player\n");
 	if (player->x != -1)
 		return (1);
 	player->da = 0;
-	if (side == 'N')
+	if (*side == 'N')
 		player->degrees = 0;
-	if (side == 'E')
+	if (*side == 'E')
 		player->degrees = 90;
-	if (side == 'S')
+	if (*side == 'S')
 		player->degrees = 180;
-	if (side == 'W')
+	if (*side == 'W')
 		player->degrees = 270;
+	*side = '0';
 	player->x = i * BLOCK_SIZE;
 	player->y = k * BLOCK_SIZE;
 	return (0);
-	// game->player.x = 2270;
-	// game->player.y = 5351;
 }

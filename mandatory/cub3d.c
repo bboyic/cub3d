@@ -98,20 +98,37 @@ int	check_cube(t_vars *mlx, int x, int y)
 		return (0);
 }
 
+
+int	player_init(t_player *player, int i, int k, char *side)
+{
+	if (player->x != -1)
+		return (1);
+	player->da = 0;
+	if (*side == 'N')
+		player->degrees = 0;
+	if (*side == 'E')
+		player->degrees = 90;
+	if (*side == 'S')
+		player->degrees = 180;
+	if (*side == 'W')
+		player->degrees = 270;
+	*side = '0';
+	player->x = i * BLOCK_SIZE;
+	player->y = k * BLOCK_SIZE;
+	return (0);
+}
+
 int	render_next_frame(void *data) {
 	t_vars *game;
 
 	game = (t_vars *)data;
 	check_move(game);
 
-	// function draw minimap
-	// draw_minimap(game);
-	// printf("fuck you\n");
 	draw_background(game);
 	// draw_player(game);
 	draw_ray(game);
 	// draw_sky(game);
-	draw_minimap(game);
+	// add sprite, measure the time; change sprite and reset time after reaching the value
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	//mlx_put_image_to_window(game->mlx, game->mlx_win, game->texture.img, 0, 0);
 	return (0);
@@ -150,7 +167,7 @@ void	game_init(t_vars *game)
 	game->sprint = 1;
 	game->turn_left = 0;
 	game->turn_right = 0;
-    wall_init(game);
+	wall_init(game);
 }
 
 void	my_mlx_init(t_vars *game, t_map *map_data)
@@ -179,23 +196,14 @@ int	main(void)
 		return (1);
 	game.player.x = -1;
 	game.player.y = -1;
-	printf("lol\n");
 	t_map *map_data = ft_map("beu_map.cub", &game.player, cleaner); // todo: check leaks
-	if (!map_data) // TODO:add clean before return
+	if (!map_data)
+	{
+		ft_cleaner(cleaner);
 		return (0);
-	printf("%s%s%s%s", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
-	printf("floor=%d,%d,%d\n", map_data->rgb_floor[0], map_data->rgb_floor[1], map_data->rgb_floor[2]);
-	printf("ceiling=%d,%d,%d\n", map_data->rgb_ceiling[0], map_data->rgb_ceiling[1], map_data->rgb_ceiling[2]);
-	int i = 0;
-	while (map_data->mmap[i]){
-		printf("%s", map_data->mmap[i]->line);
-		i++;
 	}
-	printf("\n");
 	game.map_data = map_data;
-	// printf("i am before objects\n");
-	if (objects_init(&game, cleaner))
-		return (1); // TODO:add clean before return
 	my_mlx_init(&game, map_data);
+	ft_cleaner(cleaner);
 	return (0);
 }

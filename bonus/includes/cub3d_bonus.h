@@ -1,5 +1,5 @@
-#ifndef CUB3D_H
-#define	CUB3D_H
+#ifndef CUB3D_BONUS_H
+#define	CUB3D_BONUS_H
 
 typedef struct s_data
 {
@@ -28,6 +28,7 @@ typedef struct s_player {
 typedef struct s_coin {
 	int	x;
 	int	y;
+	int	is;
 	// TODO:add field for sprite
 }	t_coin;
 
@@ -58,6 +59,8 @@ typedef struct s_map
 	char	*texture_of_south;
 	char	*texture_of_west;
 	char	*texture_of_east;
+	char	*sprite_of_coin;
+	char	*sprite_of_door;
 	int		rgb_floor[3];
 	int		rgb_ceiling[3];
 	t_dict	**mmap;
@@ -77,11 +80,15 @@ typedef struct s_vars
 	int			sprint;
 	t_map		*map_data;
 	t_data		texture;
+	t_data		texture1;
+	t_data		texture2;
+	t_data		texture3;
 	void		*mlx;
 	void		*mlx_win;
 	t_player	player;
 	t_coin		*coins;
 	int			coins_count;
+	int			collected;
 	t_door		door;
 	t_data		img;
 }	t_vars;

@@ -63,7 +63,7 @@ int	ft_get_config(t_map *map_data, char **file_data, t_list *cleaner)
 	{
 		if (count == 6)
 			break ;
-		if (ft_check_name(map_data, file_data[i], cleaner)) // check it
+		if (ft_check_name(map_data, file_data[i], cleaner))
 			return (1);
 		count++;
 	}
@@ -75,7 +75,6 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	int	j;
 
 	j = -1;
-	printf("i am in ft_copy_into_mmap\n");
 	map_data->mmap[i] = malloc(sizeof(t_dict) * 1);
 	if (!map_data->mmap[i]
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]))

@@ -1,13 +1,12 @@
-#ifndef MAIN_H
-# define	MAIN_H
+#ifndef MAIN_BONUS_H
+# define	MAIN_BONUS_H
 
-// #include <mlx.h>
 #include <unistd.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 #include "mlx.h"
 #include "get_next_line.h"
 #define PI 3.14159265359
@@ -86,7 +85,7 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player);
 * draw.c
 */
 void	draw_background(t_vars *mlx);
-void	draw_player(t_vars *mlx);
+void	draw_in_cub(t_vars *game, int mini_x, int mini_y, int color);
 void	draw_minimap(t_vars *game);
 void	draw_mini_cub(t_vars *game, int mini_x, int mini_y, int color);
 
@@ -117,8 +116,12 @@ int	key_hook(int keycode, t_vars *mlx);
 int	key_down(int keycode, t_vars *mlx);
 int	mouse_hook(int x, int y, t_vars *mlx);
 
-
 int	check_cube(t_vars *mlx, int x, int y);
+
+/*
+* get.c
+*/
+void	get_money(t_vars *game);
 
 /*
 * objects.c
@@ -130,6 +133,6 @@ void	coin_init(t_coin *coins, int *current, int j, int i);
 void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors);
 void	objects_count(t_vars *game, int *c, int *d);
 int		objects_init(t_vars *game, t_list *cleaner);
-int	player_init(t_player *player, int i, int k, char side);
+int		player_init(t_player *player, int i, int k, char *side);
 
 #endif

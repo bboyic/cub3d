@@ -14,7 +14,7 @@ typedef struct s_obj
 {
 	int x;
 	int y;
-} t_obj;
+}	t_obj;
 
 typedef struct s_player {
 	float	x;
@@ -24,20 +24,6 @@ typedef struct s_player {
 	float	da;
 	float	degrees;
 }	t_player;
-
-typedef struct s_coin {
-	int	x;
-	int	y;
-	// TODO:add field for sprite
-}	t_coin;
-
-typedef struct s_door {
-	int		x;
-	int		y;
-	int		unlock;
-	char	side;
-	// TODO:add field for sprite
-}	t_door;
 
 // first node is temp for correct order and have null params
 typedef struct s_list
@@ -86,9 +72,6 @@ typedef struct s_vars
 	void		*mlx;
 	void		*mlx_win;
 	t_player	player;
-	t_coin		*coins;
-	int			coins_count;
-	t_door		door;
 	t_data		img;
 }	t_vars;
 

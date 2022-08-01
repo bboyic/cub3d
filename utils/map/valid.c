@@ -117,7 +117,7 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 		}
 		if ((line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'W' || line[i] == 'E')
-			&& player_init(player, i, k, line[i]))
+			&& player_init(player, i, k, &line[i]))
 				return (1);
 	}
 	return (0);

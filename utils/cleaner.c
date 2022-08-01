@@ -1,5 +1,12 @@
 #include "index.h"
 
+int	ft_exit(int ex, t_list *cleaner)
+{
+	ft_cleaner(cleaner);
+	printf("Exit with code: %d\n", ex);
+	exit(ex);
+}
+
 int	ft_clslist_add_front(t_list *cleaner, void *param)
 {
 	t_list	*new_node;
