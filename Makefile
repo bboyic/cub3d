@@ -23,12 +23,13 @@ all: $(NAME)
 
 $(OBJ_DIR_M)/%.o : %.c
 	@mkdir -p $(OBJ_DIR_M)
-	$(CC) -Imlx -I$(INC_DIR) -Imlx_linux -O3 -o $@ -c $< 
-# $(CC) -Imlx -I$(INC_DIR) -o $@ -c $<
+	$(CC) -Imlx -I$(INC_DIR) -o $@ -c $<
+#	$(CC) -Imlx -I$(INC_DIR) -Imlx_linux -O3 -o $@ -c $< 
+ 
 
 $(NAME): $(OBJS_M)
-	$(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
-# $(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
+	$(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
+#	$(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
 
 clean:
 	rm -rf $(OBJS_M)

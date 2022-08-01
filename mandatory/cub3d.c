@@ -117,6 +117,25 @@ int	render_next_frame(void *data) {
 	return (0);
 }
 
+void	wall_init(t_vars *game)
+{
+	int	w;
+	int	h;
+
+	game->texture.img = mlx_new_image(game->mlx, 512, 512);
+	game->texture.img = mlx_xpm_file_to_image(game->mlx, "wall.xpm", &w, &h);
+	game->texture.addr = mlx_get_data_addr(game->texture.img, &game->texture.bits_per_pixel, &game->texture.line_length, &game->texture.endian);
+	game->texture1.img = mlx_new_image(game->mlx, 512, 512);
+	game->texture1.img = mlx_xpm_file_to_image(game->mlx, "wall1.xpm", &w, &h);
+	game->texture1.addr = mlx_get_data_addr(game->texture1.img, &game->texture1.bits_per_pixel, &game->texture1.line_length, &game->texture1.endian);
+	game->texture2.img = mlx_new_image(game->mlx, 512, 512);
+	game->texture2.img = mlx_xpm_file_to_image(game->mlx, "wall2.xpm", &w, &h);
+	game->texture2.addr = mlx_get_data_addr(game->texture2.img, &game->texture2.bits_per_pixel, &game->texture2.line_length, &game->texture2.endian);
+	game->texture3.img = mlx_new_image(game->mlx, 512, 512);
+	game->texture3.img = mlx_xpm_file_to_image(game->mlx, "wall3.xpm", &w, &h);
+	game->texture3.addr = mlx_get_data_addr(game->texture3.img, &game->texture3.bits_per_pixel, &game->texture3.line_length, &game->texture3.endian);
+}
+
 void	game_init(t_vars *game)
 {
 	int	w;
@@ -131,9 +150,7 @@ void	game_init(t_vars *game)
 	game->sprint = 1;
 	game->turn_left = 0;
 	game->turn_right = 0;
-	game->texture.img = mlx_new_image(game->mlx, 512, 512);
-	game->texture.img = mlx_xpm_file_to_image(game->mlx, "wall.xpm", &w, &h);
-	game->texture.addr = mlx_get_data_addr(game->texture.img, &game->texture.bits_per_pixel, &game->texture.line_length, &game->texture.endian);
+    wall_init(game);
 }
 
 void	my_mlx_init(t_vars *game, t_map *map_data)
