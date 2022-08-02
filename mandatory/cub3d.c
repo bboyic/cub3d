@@ -98,7 +98,6 @@ int	check_cube(t_vars *mlx, int x, int y)
 		return (0);
 }
 
-
 int	player_init(t_player *player, int i, int k, char *side)
 {
 	if (player->x != -1)

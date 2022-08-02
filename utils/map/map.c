@@ -1,5 +1,31 @@
 #include "index.h"
 
+int	ft_convert_rgb_num(const char *str)
+{
+	size_t		i;
+	int			nb;
+	int			fl;
+
+	i = 0;
+	nb = 0;
+	fl = 0;
+	while (str[i] == ' ')
+		i++;
+	if (ft_strlen(str + i) > 3)
+		return (-1);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nb = (nb * 10) + (str[i]) - 48;
+		fl = 1;
+		i++;
+	}
+	if (str[i] != '\0' || fl == 0)
+		return (-1);
+	if (nb > 255)
+		return (-1);
+	return (nb);
+}
+
 int	ft_try_open(char *file, int *fd)
 {
 	*fd = open(file, O_RDONLY);

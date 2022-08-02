@@ -43,6 +43,7 @@ int		watch_dogs_legion(t_dict **mmap, int height, int k, int i);
 /*
 * string_utils.c
 */
+int		ft_skip_white(char *line);
 int		ft_strcmp(char *str1, char *str2);
 int		ft_strncmp(char *str1, char *str2, int n);
 int		ft_strlen(const char *s);
@@ -60,11 +61,11 @@ t_map	*ft_map(char *file, t_player *player, t_list *cleaner);
 int		ft_read_file(t_map *map_data, char *file, char ***file_data);
 int		ft_get_file_height(char *file, int *height);
 int		ft_try_open(char *file, int *fd);
+int		ft_convert_rgb_num(const char *str);
 
 /*
 * parse.c
 */
-int	ft_skip_white(char *line);
 int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl);
 int	ft_get_rgb(int	(*rgb_int)[], char *line, int *fl);
 int	ft_get_config(t_map *map_data, char **file_data, t_list *cleaner);
@@ -77,17 +78,23 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cle
 int	ft_valid_file(char *file);
 int	ft_check_name(t_map *map_data, char *line, t_list *cleaner);
 int	ft_rgb_size(char **rgb_char);
-int	ft_convert_rgb_num(const char *str);
 int	ft_border_line(char *line);
 int	ft_inside_line(char **file_data, char *line, int k, t_player *player);
+
+/*
+* minimap.c
+*/
+void	draw_in_cub(t_vars *game, int mini_x, int mini_y, int color);
+void	draw_minimap(t_vars *game);
+void	draw_mini_cub(t_vars *game, int mini_x, int mini_y, int color);
+void	draw_mini_block(t_vars *game, int x, int y);
 
 /*
 * draw.c
 */
 void	draw_background(t_vars *mlx);
-void	draw_in_cub(t_vars *game, int mini_x, int mini_y, int color);
-void	draw_minimap(t_vars *game);
-void	draw_mini_cub(t_vars *game, int mini_x, int mini_y, int color);
+int		draw_sky(t_vars *mlx, float y, int ray_index);
+int		draw_floor(t_vars *mlx, float y, int ray_index);
 
 /*
 * move.c
@@ -128,10 +135,14 @@ void	get_money(t_vars *game);
 */
 int		c_rand(int spread, int i);
 void	add_random(t_vars *game, t_coin *coins, t_door *doors, int d);
-void	door_init(t_door *doors, int *current, int j, int i);
-void	coin_init(t_coin *coins, int *current, int j, int i);
 void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors);
 void	objects_count(t_vars *game, int *c, int *d);
+
+/*
+* objects_init.c
+*/
+void	door_init(t_door *doors, int *current, int j, int i);
+void	coin_init(t_coin *coins, int *current, int j, int i);
 int		objects_init(t_vars *game, t_list *cleaner);
 int		player_init(t_player *player, int i, int k, char *side);
 

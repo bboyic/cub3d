@@ -49,81 +49,28 @@ void	draw_background(t_vars *mlx)
 	}
 }
 
-void	draw_in_cub(t_vars *game, int mini_x, int mini_y, int color)
+int	draw_sky(t_vars *mlx, float y, int ray_index)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < MINI_BLOCK_SIZE)
+	int color;
+	
+	color = 0x00bfff;
+	while (y < WIN_H - mlx->sky)
 	{
-		x = 0;
-		while (x < MINI_BLOCK_SIZE)
-		{
-			// printf("%d %d\n", x + mini_x * MINI_BLOCK_SIZE, y + mini_y * MINI_BLOCK_SIZE);
-			if (x > MINI_BLOCK_SIZE / 2 - 5 && x < MINI_BLOCK_SIZE / 2 + 5
-			 && y > MINI_BLOCK_SIZE / 2 - 5 && y < MINI_BLOCK_SIZE / 2 + 5)
-				my_mlx_pixel_put(&game->img, x + mini_x * MINI_BLOCK_SIZE,
-						y + mini_y * MINI_BLOCK_SIZE, color);
-			x++;
-		}
-		y++;
+		my_mlx_pixel_put(&mlx->img, (ray_index),  500 - y, color);
+		++y;
 	}
+	return (0);
 }
 
-void	draw_mini_cub(t_vars *game, int mini_x, int mini_y, int color)
+int	draw_floor(t_vars *mlx, float y, int ray_index)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < MINI_BLOCK_SIZE)
+	int color;
+	
+	color = 0x505050;
+	while (y < WIN_H - (WIN_H - mlx->sky))
 	{
-		x = 0;
-		while (x < MINI_BLOCK_SIZE)
-		{
-			// printf("%d %d\n", x + mini_x * MINI_BLOCK_SIZE, y + mini_y * MINI_BLOCK_SIZE);
-			my_mlx_pixel_put(&game->img, x + mini_x * MINI_BLOCK_SIZE,
-					y + mini_y * MINI_BLOCK_SIZE, color);
-			x++;
-		}
-		y++;
+		my_mlx_pixel_put(&mlx->img, (ray_index),  500 + y, color);
+		++y;
 	}
-}
-
-void	draw_minimap(t_vars *game)
-{
-	int	x;
-	int	y;
-	float	mini_x;
-	float	mini_y;
-
-	mini_x = game->player.x / BLOCK_SIZE - MINI_W / 2; // get start position minimap (cut block map for draw)
-	mini_y = game->player.y / BLOCK_SIZE - MINI_H / 2;
-	y = 0;
-	while (y < MINI_H)
-	{
-		x = 0;
-		while (x < MINI_W)
-		{
-			if ((int)floor(mini_y) + y < 0 || (int)floor(mini_x) + x < 0 ||
-				(int)floor(mini_y) + y >= game->map_data->height ||
-				(int)floor(mini_x) + x >= game->map_data->mmap[(int)floor(mini_y) + y]->len ||
-				game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == ' ')
-				x = x;
-			else if (game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == '1')
-				draw_mini_cub(game, x, y, 0x00696969);
-			else if (game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == '0')
-				draw_mini_cub(game, x, y, 0x00008B8B);
-			else if (game->map_data->mmap[(int)floor(mini_y) + y]->line[(int)floor(mini_x) + x] == 'C')
-			{
-				draw_mini_cub(game, x, y, 0x00008B8B);
-				draw_in_cub(game, x, y, 0x00FFDB58);
-			}
-			if (mini_x + x == game->player.x / BLOCK_SIZE && mini_y + y == game->player.y / BLOCK_SIZE)
-				draw_in_cub(game, x, y, 0x000FF00F);
-			x++;
-		}
-		y++;
-	}
+	return (0);
 }

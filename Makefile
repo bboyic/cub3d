@@ -12,7 +12,7 @@ SRCS_M	=	cub3d.c \
 			split.c string.c string_utils.c draw.c hook.c move.c pixel.c raycast.c
 SRCS_B	=	cub3d_bonus.c \
 			map.c parse.c valid.c cleaner.c get_next_line_utils.c get_next_line.c \
-			split.c string.c string_utils.c draw.c hook.c move.c pixel.c raycast.c objects.c get.c
+			split.c string.c string_utils.c draw.c hook.c move.c pixel.c raycast.c objects.c objects_init.c get.c minimap.c
 
 OBJ_DIR		= ./obj
 OBJ_DIR_M	= ./obj/mandatory
@@ -25,7 +25,7 @@ INC_DIR_M	= ./mandatory/includes
 INC_DIR_B	= ./bonus/includes
 
 INCLUDES_M	= get_next_line.h cub3d.h index.h
-INCLUDES_B	= get_next_line.h cub3d_bonus.h index_bonus.h
+INCLUDES_B	= get_next_line.h cub3d_bonus.h index.h
 
 HEADERS_M	= $(addprefix $(INC_DIR_M), $(INCLUDES_M))
 HEADERS_B	= $(addprefix $(INC_DIR_B), $(INCLUDES_B))

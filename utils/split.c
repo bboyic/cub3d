@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:50:38 by ptopping          #+#    #+#             */
-/*   Updated: 2022/07/30 13:00:24 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/03 00:00:41 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ char	**ft_split(char const *s, char c)
 	{
 		while (strs[++i])
 			free(strs[i]);
+		free(strs);
 		return (0);
 	}
 	fill(strs, s, c);

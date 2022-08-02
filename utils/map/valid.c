@@ -56,32 +56,6 @@ int	ft_check_name(t_map *map_data, char *line, t_list *cleaner)
 	return (0);
 }
 
-int	ft_convert_rgb_num(const char *str)
-{
-	size_t		i;
-	int			nb;
-	int			fl;
-
-	i = 0;
-	nb = 0;
-	fl = 0;
-	while (str[i] == ' ')
-		i++;
-	if (ft_strlen(str + i) > 3) // only *** nums
-		return (-1);
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		nb = (nb * 10) + (str[i]) - 48;
-		fl = 1;
-		i++;
-	}
-	if (str[i] != '\0' || fl == 0)
-		return (-1);
-	if (nb > 255)
-		return (-1);
-	return (nb);
-}
-
 int	ft_border_line(char *line)
 {
 	int	i;
@@ -105,10 +79,10 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 	while (line[++i])
 	{
 		if (line[i] != 'N' && line[i] != 'S' && line[i] != '0'
-			&& line[i] != '\n' && line[i] != 'W' // todo: \n is correct to search
+			&& line[i] != '\n' && line[i] != 'W'
 			&& line[i] != 'E' && line[i] != '1' && line[i] != ' ')
 			return (1);
-		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n') // todo: \n is correct to search
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
 		{
 			if (i == 0 || !line[i + 1])
 				return (1);

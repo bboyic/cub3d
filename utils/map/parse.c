@@ -42,7 +42,6 @@ int	ft_get_rgb(int	(*rgb_int)[], char *line, int *fl)
 		(*rgb_int)[size] = ft_convert_rgb_num(rgb_char[size]); // if white spaces after last num it is not correct right now
 		if ((*rgb_int)[size] < 0)
 		{
-			ft_write(2, "RGB error\n");
 			ft_free_mas(rgb_char);
 			return (1);
 		}
@@ -80,14 +79,16 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]))
 		return (ft_write(2, "Error: Allocate mmap[i]\n"));
 	map_data->mmap[i]->len = ft_strlen(file_data[i]) - 1;
+	if (file_data[i][ft_strlen(file_data[i]) - 1] != '\n')
+		map_data->mmap[i]->len++;
 	map_data->mmap[i]->line
 		= malloc(sizeof(char) * (map_data->mmap[i]->len + 1));
 	if (!map_data->mmap[i]->line
 		|| ft_clslist_add_front(cleaner, map_data->mmap[i]->line))
 		return (ft_write(2, "Error: Allocate line\n"));
-	map_data->mmap[i]->line[map_data->mmap[i]->len] = 0;
 	while (file_data[i][++j])
 		map_data->mmap[i]->line[j] = file_data[i][j];
+	map_data->mmap[i]->line[map_data->mmap[i]->len] = 0;
 	return (0);
 }
 
@@ -115,7 +116,5 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cle
 		if (ft_copy_into_mmap(map_data, file_data, cleaner, i))
 			return (1);
 	}
-	if (file_data[i - 1][map_data->mmap[map_data->height - 1]->len] != '\n')
-		map_data->mmap[map_data->height - 1]->len++;
 	return (0);
 }
