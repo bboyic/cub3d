@@ -122,17 +122,23 @@ void	wall_init(t_vars *game)
 	int	h;
 
 	game->texture.img = mlx_new_image(game->mlx, 512, 512);
-	game->texture.img = mlx_xpm_file_to_image(game->mlx, "wall.xpm", &w, &h);
+	game->map_data->texture_of_north[ft_strlen(game->map_data->texture_of_north) - 1] = 0;
+	game->map_data->texture_of_south[ft_strlen(game->map_data->texture_of_south) - 1] = 0;
+	game->map_data->texture_of_west[ft_strlen(game->map_data->texture_of_west) - 1] = 0;
+	game->map_data->texture_of_east[ft_strlen(game->map_data->texture_of_east) - 1] = 0;
+	printf("%s", game->map_data->texture_of_north);
+	game->texture.img = mlx_xpm_file_to_image(game->mlx, game->map_data->texture_of_north, &w, &h);
 	game->texture.addr = mlx_get_data_addr(game->texture.img, &game->texture.bits_per_pixel, &game->texture.line_length, &game->texture.endian);
 	game->texture1.img = mlx_new_image(game->mlx, 512, 512);
-	game->texture1.img = mlx_xpm_file_to_image(game->mlx, "wall1.xpm", &w, &h);
+	game->texture1.img = mlx_xpm_file_to_image(game->mlx, game->map_data->texture_of_south, &w, &h);
 	game->texture1.addr = mlx_get_data_addr(game->texture1.img, &game->texture1.bits_per_pixel, &game->texture1.line_length, &game->texture1.endian);
 	game->texture2.img = mlx_new_image(game->mlx, 512, 512);
-	game->texture2.img = mlx_xpm_file_to_image(game->mlx, "wall2.xpm", &w, &h);
+	game->texture2.img = mlx_xpm_file_to_image(game->mlx, game->map_data->texture_of_west, &w, &h);
 	game->texture2.addr = mlx_get_data_addr(game->texture2.img, &game->texture2.bits_per_pixel, &game->texture2.line_length, &game->texture2.endian);
 	game->texture3.img = mlx_new_image(game->mlx, 512, 512);
-	game->texture3.img = mlx_xpm_file_to_image(game->mlx, "wall3.xpm", &w, &h);
+	game->texture3.img = mlx_xpm_file_to_image(game->mlx, game->map_data->texture_of_east, &w, &h);
 	game->texture3.addr = mlx_get_data_addr(game->texture3.img, &game->texture3.bits_per_pixel, &game->texture3.line_length, &game->texture3.endian);
+	
 }
 
 void	player_init(t_vars *game)

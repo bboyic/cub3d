@@ -84,9 +84,11 @@ void ray_cast(t_rayinfo ray, int ray_index, t_vars *mlx)
 	int			color2;
 	float 		cubx;
 	float 		cuby;
+	int			texture_aligner;
 	t_data		texture;
 
 	y = 0;
+	texture_aligner = 256;
 	new_wall = 300000 / ray.ray_len;
 	
 	cubx = (ray.x + mlx->player.x) / 512.0 ; // какой куб по Х по счету
@@ -100,6 +102,7 @@ void ray_cast(t_rayinfo ray, int ray_index, t_vars *mlx)
 	// 	printf("-:%f +:%f %f\n", floor(ray.y + 1 + mlx->player.y) / 512, floor(ray.y - 1 + mlx->player.y) / 512, floor(check_border(ray.y, mlx->player.y)));
 	if ((int)floor(ray.y + 1 + mlx->player.y) / 512 == (int)floor(check_border(ray.y, mlx->player.y)) && (int)floor(ray.y - 1 + mlx->player.y) / 512 == (int)floor(check_border(ray.y, mlx->player.y)))
 	{
+		texture_aligner = 0;
 		cubx = cuby;
 		texture = mlx->texture2;
 		if (mlx->player.x > ray.x + mlx->player.x)
@@ -109,7 +112,7 @@ void ray_cast(t_rayinfo ray, int ray_index, t_vars *mlx)
 	while (y < WIN_H - 500 && y < new_wall)
 	{
 		color = get_pixel(&texture, (cubx - floor(cubx)) * 128 ,  (y ) / new_wall * 128);
-		color2 = get_pixel(&texture, (cubx - floor(cubx)) * 128 + 256,  (y ) / new_wall * 128 + 256);
+		color2 = get_pixel(&texture, (cubx - floor(cubx)) * 128,  (y) / new_wall * 128 + texture_aligner);
 		my_mlx_pixel_put(&mlx->img, (ray_index), 500 - y , color);
 		my_mlx_pixel_put(&mlx->img, (ray_index),  500 + y, color2);
 		old_wall = cubx;
