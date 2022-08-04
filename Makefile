@@ -30,27 +30,30 @@ INCLUDES_B	= get_next_line.h cub3d_bonus.h index.h
 HEADERS_M	= $(addprefix $(INC_DIR_M), $(INCLUDES_M))
 HEADERS_B	= $(addprefix $(INC_DIR_B), $(INCLUDES_B))
 
+# leaks -atexit
+# -fsanitize=leak
+
 all: $(NAME)
 
 bonus: $(NAME_BONUS)
 
 $(OBJ_DIR_M)/%.o : %.c
 	@mkdir -p $(OBJ_DIR_M)
-	$(CC) -Imlx -I$(INC_DIR_M) -o $@ -c $<
-# $(CC) -Imlx -I$(INC_DIR_M) -Imlx_linux -O3 -o $@ -c $<
+	$(CC) -Imlx -I$(INC_DIR_M) -Imlx_linux -O3 -o $@ -c $<
+#	$(CC) -Imlx -I$(INC_DIR_M) -o $@ -c $<
 
 $(OBJ_DIR_B)/%.o : %.c
 	@mkdir -p $(OBJ_DIR_B)
-	$(CC) -Imlx -I$(INC_DIR_M) -o $@ -c $<
-#	$(CC) -Imlx -I$(INC_DIR_B) -Imlx_linux -O3 -o $@ -c $<
+	$(CC) -Imlx -I$(INC_DIR_B) -Imlx_linux -O3 -o $@ -c $<
+#	$(CC) -Imlx -I$(INC_DIR_M) -o $@ -c $<
 
 $(NAME): $(OBJS_M)
-	$(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
-# $(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+	$(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -fsanitize=leak -o $@
+# 	$(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
 $(NAME_BONUS): $(OBJS_B)
-	$(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
-# $(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+	$(CC) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+# 	$(CC) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)

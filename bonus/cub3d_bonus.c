@@ -112,6 +112,12 @@ int	main(void)
 		ft_cleaner(cleaner);
 		return (1);
 	}
+	int i = 0;
+	while (map_data->mmap[i]){
+		printf("%s\n", map_data->mmap[i]->line);
+		i++;
+	}
+	printf("\n");
 	my_mlx_init(&game, map_data);
 	return (0);
 }

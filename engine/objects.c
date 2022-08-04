@@ -1,17 +1,25 @@
 #include "index.h"
 #include "time.h"
 
-int	c_rand(int spread, int i)
+int	c_rand(int spread, int i, t_list *cleaner)
 {
-	// TODO: think about time generator
-	time_t t1;
-	srand ( (unsigned) time (&t1) * i);
-	// srand((unsigned int)1);
-	int a = rand() % spread;
+	int	*rand;
+	int	a;
+
+	rand = malloc(sizeof(int) * 1);
+	if (!rand || ft_clslist_add_front(cleaner, rand))
+	{
+		ft_write(2, "Error: Allocate rand\n");
+		return (-1);
+	}
+	printf("p->%p\n", rand);
+	a = (long long)rand % spread;
+	printf("%d\n", a);
+	// free(rand);
 	return (a);
 }
 
-void	add_random(t_vars *game, t_coin *coins, t_door *doors, int d)
+int	add_random_coins(t_vars *game, t_coin *coins, t_list *cleaner)
 {
 	int	i;
 	int	c_i;
@@ -22,7 +30,9 @@ void	add_random(t_vars *game, t_coin *coins, t_door *doors, int d)
 	c_i = 0;
 	while (++i < game->map_data->height)
 	{
-		rand = c_rand(game->coins_count, i + 1);
+		rand = c_rand(game->coins_count, i + 1, cleaner);
+		if (rand == -1)
+			return (1);
 		j = 0;
 		while (j <= c_i && (coins[j].x != coins[rand].x
 			|| coins[j].y != coins[rand].y))
@@ -33,7 +43,34 @@ void	add_random(t_vars *game, t_coin *coins, t_door *doors, int d)
 	if (c_i == 0)
 		c_i = 1;
 	game->coins_count = c_i;
-	game->door = doors[c_rand(d, 1)];
+	return (0);
+}
+
+int	add_random_doors(t_vars *game, t_door *doors, t_list *cleaner)
+{
+	int	i;
+	int	d_i;
+	int	rand;
+	int	j;
+
+	i = -1;
+	d_i = 0;
+	while (++i < game->map_data->height)
+	{
+		rand = c_rand(game->doors_count, i + 1, cleaner);
+		if (rand == -1)
+			return (1);
+		j = 0;
+		while (j <= d_i && (doors[j].x != doors[rand].x
+			|| doors[j].y != doors[rand].y))
+			j++;
+		if (j - 1 == d_i)
+			doors[d_i++] = doors[rand];
+	}
+	if (d_i == 0)
+		d_i = 1;
+	game->doors_count = d_i;
+	return (0);
 }
 
 void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors)
