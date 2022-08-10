@@ -1,7 +1,7 @@
 NAME		= cub3d
 NAME_BONUS	= cub3d_bonus
 
-CC		= gcc -O1 -g
+CC		= gcc -O2 -g
 # CFLAGS	= -Wall -Wextra -Werror
 
 # all files location
@@ -41,7 +41,7 @@ $(OBJ_DIR_M)/%.o : %.c
 
 $(OBJ_DIR_B)/%.o : %.c
 	@mkdir -p $(OBJ_DIR_B)
-	$(CC) -Imlx -I$(INC_DIR_M) -o $@ -c $<
+	$(CC) -Imlx -I$(INC_DIR_B) -o $@ -c $<
 #	$(CC) -Imlx -I$(INC_DIR_B) -Imlx_linux -O3 -o $@ -c $<
 
 $(NAME): $(OBJS_M)

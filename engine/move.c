@@ -5,31 +5,31 @@ void	sample_move(t_vars *mlx)
 	int speed;
 
 	speed = 20;
-	if (mlx->front == 1 && !check_cube(mlx, mlx->player.x + (mlx->player.dx * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dy * 2) * mlx->sprint * speed))
+	if (mlx->front == 1 && check_cube(mlx, mlx->player.x + (mlx->player.dx * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dy * 2) * mlx->sprint * speed) != 1)
 	{
-		if ((!check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) \
-		 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)) \
-		 || (check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed)\
-		 && !check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed))\
-		 || (!check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed)\
-		 && !check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)))
+		if ((check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) != 1 \
+		 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)) == 1 \
+		 || (check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) == 1\
+		 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)) != 1\
+		 || (check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) != 1\
+		 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)) != 1)
 		{
 			mlx->player.x += mlx->player.dx * mlx->sprint * speed; 
 			mlx->player.y -= mlx->player.dy * mlx->sprint * speed;
 		}
 	}
-	if (mlx->back == 1 && !check_cube(mlx, mlx->player.x - (mlx->player.dx * 2) * mlx->sprint * speed, mlx->player.y + (mlx->player.dy * 2) * mlx->sprint * speed))
+	if (mlx->back == 1 && check_cube(mlx, mlx->player.x - (mlx->player.dx * 2) * mlx->sprint * speed, mlx->player.y + (mlx->player.dy * 2) * mlx->sprint * speed) != 1)
 	{
 	
 			mlx->player.x -= mlx->player.dx * mlx->sprint * speed; 
 			mlx->player.y += mlx->player.dy * mlx->sprint * speed;
 	}
-	if (mlx->left == 1 && !check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed))
+	if (mlx->left == 1 && check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) != 1)
 	{
 		mlx->player.x -= mlx->player.dy * mlx->sprint * speed;
 		mlx->player.y -= mlx->player.dx * mlx->sprint * speed;
 	}
-	if (mlx->right == 1 && !check_cube(mlx, mlx->player.x + (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 2) * mlx->sprint * speed))
+	if (mlx->right == 1 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 2) * mlx->sprint * speed) != 1)
 	{
 		mlx->player.x += mlx->player.dy * mlx->sprint * speed;
 		mlx->player.y += mlx->player.dx * mlx->sprint * speed;

@@ -67,6 +67,15 @@ typedef struct s_map
 	int		height;
 }			t_map;
 
+typedef struct s_rayinfo {
+	float	ray_coin_len;
+	float	coin_x;
+	float	coin_y;
+	float	ray_len;
+	float	x;
+	float	y;
+} t_rayinfo;
+
 typedef struct s_vars 
 {
 	int			sky;
@@ -83,6 +92,8 @@ typedef struct s_vars
 	t_data		texture1;
 	t_data		texture2;
 	t_data		texture3;
+	t_data		coin;
+	t_rayinfo	coin_ray;
 	void		*mlx;
 	void		*mlx_win;
 	t_player	player;
@@ -93,10 +104,6 @@ typedef struct s_vars
 	t_data		img;
 }	t_vars;
 
-typedef struct s_rayinfo {
-	float	ray_len;
-	float	x;
-	float	y;
-} t_rayinfo;
+
 
 #endif

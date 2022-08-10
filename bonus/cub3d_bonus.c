@@ -2,6 +2,10 @@
 
 int	check_cube(t_vars *mlx, int x, int y)
 {
+	if (y / 512 < mlx->map_data->height && x / 512 < mlx->map_data->mmap[y/512]->len && mlx->map_data->mmap[y/512]->line[x/512] == 'C')
+	{
+		return (2);
+	}
 	if (y / 512 < mlx->map_data->height && x / 512 < mlx->map_data->mmap[y/512]->len && mlx->map_data->mmap[y/512]->line[x/512] == '1')
 	{
 		// check door or not?
@@ -19,7 +23,6 @@ int	render_next_frame(void *data)
 	game = (t_vars *)data;
 	check_move(game);
 
-	draw_background(game);
 	draw_ray(game);
 	get_money(game);
 	draw_minimap(game);
@@ -33,6 +36,8 @@ void	wall_init(t_vars *game)
 	int	h;
 
 	game->texture.img = mlx_new_image(game->mlx, 512, 512);
+	game->coin.img = mlx_xpm_file_to_image(game->mlx, "coin.xpm", &w, &h);
+	game->coin.addr = mlx_get_data_addr(game->coin.img, &game->coin.bits_per_pixel, &game->coin.line_length, &game->coin.endian);
 	game->texture.img = mlx_xpm_file_to_image(game->mlx, "wall.xpm", &w, &h);
 	game->texture.addr = mlx_get_data_addr(game->texture.img, &game->texture.bits_per_pixel, &game->texture.line_length, &game->texture.endian);
 	game->texture1.img = mlx_new_image(game->mlx, 512, 512);
@@ -61,6 +66,7 @@ void	game_init(t_vars *game)
 	game->turn_left = 0;
 	game->turn_right = 0;
 	game->collected = 0;
+	game->coin_ray.ray_coin_len = 0;
     wall_init(game);
 }
 
