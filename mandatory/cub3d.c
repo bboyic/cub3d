@@ -1,94 +1,4 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// typedef struct temp {
-// 	int	kek;
-// 	char	*lol;
-// 	int	fuck[3];
-// }	t_temp;
-
-// void	change_stat_mas(int (*mas)[])
-// {
-// 	(*mas)[0] = 2;
-// }
-
-// t_temp	*get_temp()
-// {
-// 	t_temp *temp;
-
-// 	temp = malloc(sizeof(t_temp) * 1);
-// 	temp->kek = 5;
-// 	temp->lol = malloc(sizeof(char) * 1);
-// 	temp->lol[0] = 'a';
-// 	temp->fuck[0] = 1;
-// 	printf("(1)%d %s %d\n", temp->kek, temp->lol, temp->fuck[0]);
-// 	change_stat_mas(&temp->fuck);
-// 	printf("(1)%d %s %d\n", temp->kek, temp->lol, temp->fuck[0]);
-// 	return (temp);
-// }
-
-// void	set_temp(t_temp temp)
-// {
-// 	printf("(exp)%d %s\n", temp.kek, temp.lol);
-// }
-
-// int main()
-// {
-// 	// int	lol[3];
-
-// 	// lol[0] = 1;
-// 	// lol[1] = 2;
-// 	// lol[2] = 3;
-// 	// printf("%d %d %d\n", lol[0], lol[1], lol[2]);
-// 	// char *lol = malloc(sizeof(char) * 3);
-// 	// lol[0] = 'a';
-// 	// lol[1] = 'b';
-// 	// lol[2] = 'c';
-// 	// char *kek = lol;
-// 	// // free(kek);
-// 	// printf("%s", lol);
-// 	t_temp *temp = get_temp();
-// 	printf("(2)%d %s %d\n", temp->kek, temp->lol, temp->fuck[0]);
-	
-// 	// t_temp temp;
-
-// 	// temp.kek = 5;
-// 	// temp.lol = malloc(sizeof(char) * 1);
-// 	// temp.lol[0] = 'a';
-// 	// set_temp(temp);
-// 	// printf("(1)%d %s\n", temp.kek, temp.lol);
-// }
-
-// gcc -I mandatory/includes/ utils/map/*.c utils/*.c temp.c
-
-// #include "index.h"
-// #include "mlx.h"
-
-//gcc -I mlx -I mandatory/includes -L mlx temp.c -lmlx -framework OpenGL -framework AppKit utils/*.c utils/map/*.c
-
-// int main()
-// {
-// 	t_list *cleaner;
-
-// 	cleaner = malloc(sizeof(t_list) * 1);
-// 	t_map *map_data = ft_map("beu_map.cub", cleaner);
-// 	if (!map_data)
-// 		return (0);
-// 	printf("%s\n%s\n%s\n%s\n", map_data->texture_of_east, map_data->texture_of_north, map_data->texture_of_south, map_data->texture_of_west);
-// 	printf("floor=%d,%d,%d\n", map_data->rgb_floor[0], map_data->rgb_floor[1], map_data->rgb_floor[2]);
-// 	printf("ceiling=%d,%d,%d\n", map_data->rgb_ceiling[0], map_data->rgb_ceiling[1], map_data->rgb_ceiling[2]);
-// 	int i = 0;
-// 	while (map_data->mmap[i]){
-// 		printf("%s", map_data->mmap[i]->line);
-// 		i++;
-// 	}
-// 	void *mlx = mlx_init();
-// 	void *mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	
-// 	mlx_loop(mlx);
-// }
-
-#include "includes/index.h"
+#include "index.h"
 
 int	check_cube(t_vars *mlx, int x, int y)
 {
@@ -122,14 +32,9 @@ int	render_next_frame(void *data) {
 
 	game = (t_vars *)data;
 	check_move(game);
-
 	draw_background(game);
-	// draw_player(game);
 	draw_ray(game);
-	// draw_sky(game);
-	// add sprite, measure the time; change sprite and reset time after reaching the value
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
-	//mlx_put_image_to_window(game->mlx, game->mlx_win, game->texture.img, 0, 0);
 	return (0);
 }
 
@@ -157,7 +62,7 @@ void	game_init(t_vars *game)
 	int	w;
 	int	h;
 
-	game->sky = 500;// количество неба
+	game->sky = 500;
 	game->degrees = game->player.degrees;
 	game->front = 0;
 	game->back = 0;
@@ -185,23 +90,28 @@ void	my_mlx_init(t_vars *game, t_map *map_data)
 	mlx_loop(game->mlx);
 }
 
-int	main(void)
+int	main(int ar, char *av[])
 {
 	t_vars	game;
 	t_list *cleaner;
 
+	if (ar != 2)
+		return (1);
 	cleaner = malloc(sizeof(t_list) * 1);
 	if (!cleaner)
 		return (1);
+	cleaner->key = 0;
+	cleaner->next = 0;
 	game.player.x = -1;
 	game.player.y = -1;
-	t_map *map_data = ft_map("beu_map.cub", &game.player, cleaner); // todo: check leaks
+	t_map *map_data = ft_map(av[1], &game.player, cleaner);
 	if (!map_data)
 	{
 		ft_cleaner(cleaner);
 		return (0);
 	}
 	game.map_data = map_data;
+	game.cleaner = cleaner;
 	my_mlx_init(&game, map_data);
 	ft_cleaner(cleaner);
 	return (0);

@@ -10,7 +10,7 @@ float	check_border(float y, float yindex) {
 	return ((y + yindex) / TEXTURE_SIZE);
 }
 
-t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y) 
+t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y)
 {
 	float		dx;
 	float		dy;

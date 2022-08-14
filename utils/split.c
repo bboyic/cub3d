@@ -6,12 +6,11 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 16:50:38 by ptopping          #+#    #+#             */
-/*   Updated: 2022/08/03 00:00:41 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/14 16:06:46 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "index.h"
-// TODO: check split mallocs
 
 static int	count_words(const char *s, char c)
 {
@@ -104,8 +103,6 @@ static void	fill(char **strs, const char *s, char c)
 		strs[count][length] = '\0';
 }
 
-//from libft and i guess it isn't perfect ft_split(
-//it is wonderful split❤️
 char	**ft_split(char const *s, char c)
 {
 	int		count;

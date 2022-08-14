@@ -1,20 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 15:41:36 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/14 16:27:11 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define	CUB3D_H
+# define CUB3D_H
 
-typedef struct s_data
-{
-	void *img;
-	char *addr;
-	int bits_per_pixel;
-	int line_length;
-	int endian;
-} t_data;
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_data;
 
-typedef struct s_obj
-{
-	int x;
-	int y;
-}	t_obj;
+typedef struct s_obj {
+	int	x;
+	int	y;
+}		t_obj;
 
 typedef struct s_player {
 	float	x;
@@ -23,23 +33,20 @@ typedef struct s_player {
 	float	dy;
 	float	da;
 	float	degrees;
-}	t_player;
+}			t_player;
 
 // first node is temp for correct order and have null params
-typedef struct s_list
-{
+typedef struct s_list {
 	void			*key;
 	struct s_list	*next;
 }					t_list;
 
-typedef struct s_dict
-{
+typedef struct s_dict {
 	int		len;
 	char	*line;
-}		t_dict;
+}			t_dict;
 
-typedef struct s_map
-{
+typedef struct s_map {
 	char	*texture_of_north;
 	char	*texture_of_south;
 	char	*texture_of_west;
@@ -52,8 +59,7 @@ typedef struct s_map
 	int		height;
 }			t_map;
 
-typedef struct s_vars 
-{
+typedef struct s_vars {
 	int			sky;
 	float		degrees;
 	int			front;
@@ -68,17 +74,17 @@ typedef struct s_vars
 	t_data		texture1;
 	t_data		texture2;
 	t_data		texture3;
-	// char		**map;
 	void		*mlx;
 	void		*mlx_win;
 	t_player	player;
 	t_data		img;
-}	t_vars;
+	t_list		*cleaner;
+}				t_vars;
 
 typedef struct s_rayinfo {
 	float	ray_len;
 	float	x;
 	float	y;
-} t_rayinfo;
+}			t_rayinfo;
 
 #endif

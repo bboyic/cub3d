@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 19:54:32 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/06/19 23:28:37 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/14 15:01:04 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,21 @@ int	line_size(char *ptr, char h)
 	return (i);
 }
 
-int	add(char **ptr, char buf[], int size)
+int	add(char **ptr, char buf[], int size, t_list *cleaner)
 {
 	int		size_ptr;
 	char	*temp;
 	int		i;
 	int		fl;
 
-	i = 0;
+	i = -1;
 	fl = 0;
 	size_ptr = line_size(*ptr, '\0');
 	temp = (char *) malloc(sizeof(char) * (size + size_ptr + 1));
-	while (i < size_ptr)
-	{
+	if (!temp)
+		ft_exit(1, cleaner);
+	while (++i < size_ptr)
 		temp[i] = (*ptr)[i];
-		i++;
-	}
 	while (i < size + size_ptr)
 	{
 		temp[i] = buf[i - size_ptr];
@@ -51,7 +50,7 @@ int	add(char **ptr, char buf[], int size)
 	return (fl);
 }
 
-int	put(int fd, char **ptr)
+int	put(int fd, char **ptr, t_list *cleaner)
 {
 	char	buf[BUFFER_SIZE];
 	int		ret;
@@ -61,21 +60,27 @@ int	put(int fd, char **ptr)
 		ret = read(fd, buf, BUFFER_SIZE);
 		if (ret == 0)
 			return (1);
-		if (add(ptr, buf, ret))
+		if (add(ptr, buf, ret, cleaner))
 			return (0);
 	}
 }
 
-void	allocate(char **ptr, int strlen_n, char **line, char **new_ptr)
+int	allocate(char **ptr, int strlen_n, char **line, char **new_ptr)
 {
 	*line = malloc(sizeof(char) * (strlen_n + 2));
+	if (!*line)
+		return (1);
 	*new_ptr = malloc(sizeof (char) * (line_size(*ptr, '\0') - strlen_n + 1));
-	if (!*line || !*new_ptr)
-		exit(1);
+	if (!*new_ptr)
+	{
+		free(line);
+		return (1);
+	}
 	(*new_ptr[0]) = '\0';
+	return (0);
 }
 
-char	*get_line(char **ptr)
+char	*get_line(char **ptr, t_list *cleaner)
 {
 	int		strlen_n;
 	char	*line;
@@ -84,7 +89,8 @@ char	*get_line(char **ptr)
 
 	i = 0;
 	strlen_n = line_size(*ptr, '\n');
-	allocate(ptr, strlen_n, &line, &new_ptr);
+	if (allocate(ptr, strlen_n, &line, &new_ptr))
+		ft_exit(1, cleaner);
 	while ((*ptr)[i] != '\n' && (*ptr)[i] != '\0')
 	{
 		line[i] = (*ptr)[i];
