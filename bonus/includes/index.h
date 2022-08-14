@@ -133,8 +133,9 @@ void	get_money(t_vars *game);
 /*
 * objects.c
 */
-int		c_rand(int spread, int i);
-void	add_random(t_vars *game, t_coin *coins, t_door *doors, int d);
+int		c_rand(int spread, int i, t_list *cleaner);
+int		add_random_coins(t_vars *game, t_coin *coins, t_list *cleaner);
+int		add_random_doors(t_vars *game, t_door *doors, t_list *cleaner);
 void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors);
 void	objects_count(t_vars *game, int *c, int *d);
 

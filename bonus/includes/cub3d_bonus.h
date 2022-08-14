@@ -30,11 +30,14 @@ typedef struct s_coin {
 	int	y;
 	int	is;
 	// TODO:add field for sprite
+	char	*current_text;
+	int	z;
 }	t_coin;
 
 typedef struct s_door {
 	int		x;
 	int		y;
+	int		real;
 	int		unlock;
 	char	side;
 	// TODO:add field for sprite
@@ -100,7 +103,8 @@ typedef struct s_vars
 	t_coin		*coins;
 	int			coins_count;
 	int			collected;
-	t_door		door;
+	t_door		*doors;
+	int			doors_count;
 	t_data		img;
 }	t_vars;
 
