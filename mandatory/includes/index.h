@@ -20,6 +20,11 @@
 #define WIN_H 1000
 #define WIN_W 1000
 #define BONUS 9
+#define SPEED 20
+#define TEXTURE_SIZE (512.0)
+#define WALL_ALIGN (256)
+#define MAX_RANGE (100000)
+#define RATIO_DISPLAY (300000)
 
 // undefined
 # include <fcntl.h>
@@ -89,11 +94,29 @@ int		draw_sky(t_vars *mlx, float y, int ray_index);
 int		draw_floor(t_vars *mlx, float y, int ray_index);
 
 /*
+    ifs_for_move.c
+*/
+int     front_if(t_vars *mlx);
+int     back_if(t_vars *mlx);
+int     left_if(t_vars *mlx);
+int     right_if(t_vars *mlx);
+int     angle_fix(t_vars *mlx);
+
+/*
 * move.c
 */
 void	sample_move(t_vars *mlx);
 void	turn_move(t_vars *mlx);
 void	check_move(t_vars *mlx);
+
+/*
+* raycast_utils.c
+*/
+float       find_cubx(t_vars *mlx, t_rayinfo ray);
+t_data     	find_texture(t_vars *mlx, t_rayinfo ray);
+int         find_color(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
+int         find_color2(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
+float       draw_wall(t_vars *mlx, int new_wall, t_rayinfo ray, int ray_index);
 
 /*
 * raycast.c

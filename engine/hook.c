@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/15 10:59:25 by aconchit          #+#    #+#             */
+/*   Updated: 2022/08/16 12:20:35 by aconchit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 
 int	key_hook(int keycode, t_vars *game)
 {
-	//printf("%f %f\n", game->player.x, game->player.y);
-    //printf("Hello from key_hook %d!\n", keycode);
 	// linux
 	// if (keycode == 97)
 	// 	game->left = 1;
@@ -41,7 +51,6 @@ int	key_hook(int keycode, t_vars *game)
 
 int	key_down(int keycode, t_vars *game)
 {
-	//printf("Hello from key_hook %d!\n", keycode);
 	// linux
 	// if (keycode == 97)
 	// 	game->left = 0;
@@ -75,11 +84,12 @@ int	key_down(int keycode, t_vars *game)
 	return (0);
 }
 
-int	mouse_hook(int x, int y, t_vars *mlx) {
+int	mouse_hook(int x, int y, t_vars *mlx)
+{
 	static int	mx = 0;
 	static int	my = 0;
 
-	if ( x > 0 && x < 1000 && y > 0 && y < 1000 && x != mx)
+	if (x > 0 && x < 1000 && y > 0 && y < 1000 && x != mx)
 	{
 		mlx->degrees += (x - mx) / 5;
 		mlx->player.dy = cos(mlx->degrees * RAD);

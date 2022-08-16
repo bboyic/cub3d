@@ -7,10 +7,10 @@ CC		= gcc -O2 -g
 # all files location
 VPATH	:= ./mandatory:./utils:./utils/map:./engine:./bonus
 
-SRCS_M	=	cub3d.c \
+SRCS_M	=	cub3d.c ifs_for_move.c raycast_utils.c\
 			map.c parse.c valid.c cleaner.c get_next_line_utils.c get_next_line.c \
-			split.c string.c string_utils.c draw.c hook.c move.c pixel.c raycast.c
-SRCS_B	=	cub3d_bonus.c \
+			split.c string.c string_utils.c draw.c hook.c move.c pixel.c raycast.c 
+SRCS_B	=	cub3d_bonus.c ifs_for_move.c raycast_utils.c\
 			map.c parse.c valid.c cleaner.c get_next_line_utils.c get_next_line.c \
 			split.c string.c string_utils.c draw.c hook.c move.c pixel.c raycast.c objects.c objects_init.c get.c minimap.c
 

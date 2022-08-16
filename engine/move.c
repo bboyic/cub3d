@@ -1,38 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/15 11:01:55 by aconchit          #+#    #+#             */
+/*   Updated: 2022/08/16 12:27:59 by aconchit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 
 void	sample_move(t_vars *mlx)
 {
-	int speed;
+	int	speed;
 
 	speed = 20;
-	if (mlx->front == 1 && check_cube(mlx, mlx->player.x + (mlx->player.dx * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dy * 2) * mlx->sprint * speed) != 1)
+	mlx->player.dy = cos(mlx->degrees * RAD);
+	mlx->player.dx = sin(mlx->degrees * RAD);
+	if (front_if(mlx) && angle_fix(mlx))
 	{
-		if ((check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) != 1 \
-		 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)) == 1 \
-		 || (check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) == 1\
-		 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)) != 1\
-		 || (check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) != 1\
-		 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 5) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 5) * mlx->sprint * speed)) != 1)
-		{
-			mlx->player.x += mlx->player.dx * mlx->sprint * speed; 
-			mlx->player.y -= mlx->player.dy * mlx->sprint * speed;
-		}
+		mlx->player.x += mlx->player.dx * mlx->sprint * SPEED;
+		mlx->player.y -= mlx->player.dy * mlx->sprint * SPEED;
 	}
-	if (mlx->back == 1 && check_cube(mlx, mlx->player.x - (mlx->player.dx * 2) * mlx->sprint * speed, mlx->player.y + (mlx->player.dy * 2) * mlx->sprint * speed) != 1)
+	if (back_if(mlx))
 	{
-	
-			mlx->player.x -= mlx->player.dx * mlx->sprint * speed; 
-			mlx->player.y += mlx->player.dy * mlx->sprint * speed;
+		mlx->player.x -= mlx->player.dx * mlx->sprint * SPEED;
+		mlx->player.y += mlx->player.dy * mlx->sprint * SPEED;
 	}
-	if (mlx->left == 1 && check_cube(mlx, mlx->player.x - (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y - (mlx->player.dx * 2) * mlx->sprint * speed) != 1)
+	if (left_if(mlx))
 	{
-		mlx->player.x -= mlx->player.dy * mlx->sprint * speed;
-		mlx->player.y -= mlx->player.dx * mlx->sprint * speed;
+		mlx->player.x -= mlx->player.dy * mlx->sprint * SPEED;
+		mlx->player.y -= mlx->player.dx * mlx->sprint * SPEED;
 	}
-	if (mlx->right == 1 && check_cube(mlx, mlx->player.x + (mlx->player.dy * 2) * mlx->sprint * speed, mlx->player.y + (mlx->player.dx * 2) * mlx->sprint * speed) != 1)
+	if (right_if(mlx))
 	{
-		mlx->player.x += mlx->player.dy * mlx->sprint * speed;
-		mlx->player.y += mlx->player.dx * mlx->sprint * speed;
+		mlx->player.x += mlx->player.dy * mlx->sprint * SPEED;
+		mlx->player.y += mlx->player.dx * mlx->sprint * SPEED;
 	}
 }
 
