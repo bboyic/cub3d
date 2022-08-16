@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   string.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 15:58:00 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/14 18:00:41 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 
 int	ft_write(int fd, char *message)
@@ -29,8 +41,13 @@ int	ft_rgb_size(char **rgb_char)
 
 int	watch_dogs(char **file_data, int k, int i)
 {
-	if ((ft_strlen(file_data[k - 1]) < i + 2)
-		|| (ft_strlen(file_data[k + 1]) < i + 2))
+	int	fl;
+
+	fl = 0;
+	if (file_data[k + 1][ft_strlen(file_data[k + 1]) - 1] != '\n')
+		fl = 1;
+	if ((ft_strlen(file_data[k - 1]) <= i + 2)
+		|| (ft_strlen(file_data[k + 1]) <= i + 2 - fl))
 		return (1);
 	if (file_data[k - 1][i] == ' ' || file_data[k - 1][i + 1] == ' '
 		|| file_data[k - 1][i - 1] == ' ' || file_data[k][i - 1] == ' '
@@ -44,12 +61,12 @@ int	watch_dogs(char **file_data, int k, int i)
 int	watch_dogs_legion(t_dict **mmap, int height, int k, int i)
 {
 	if (k - 1 > 0 && i < mmap[k - 1]->len && mmap[k - 1]->line[i] == '0')
-		return 'N';
+		return ('N');
 	if (i - 1 > 0 && mmap[k]->line[i - 1] == '0')
-		return 'W';
+		return ('W');
 	if (i + 1 < mmap[k]->len && mmap[k]->line[i + 1] == '0')
-		return 'E';
+		return ('E');
 	if (k + 1 < height && i < mmap[k + 1]->len && mmap[k + 1]->line[i] == '0')
-		return 'S';
+		return ('S');
 	return (0);
 }

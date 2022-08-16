@@ -6,7 +6,7 @@
 /*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 17:24:31 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/16 12:22:23 by aconchit         ###   ########.fr       */
+/*   Updated: 2022/08/16 12:41:33 by aconchit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,23 +112,28 @@ void	my_mlx_init(t_vars *game, t_map *map_data)
 	mlx_loop(game->mlx);
 }
 
-int	main(void)
+int	main(int ar, char *av[])
 {
 	t_vars	game;
 	t_list	*cleaner;
 
+	if (ar != 2)
+		return (1);
 	cleaner = malloc(sizeof(t_list) * 1);
 	if (!cleaner)
 		return (1);
+	cleaner->key = 0;
+	cleaner->next = 0;
 	game.player.x = -1;
 	game.player.y = -1;
-	t_map *map_data = ft_map("beu_map.cub", &game.player, cleaner); // todo: check leaks
+	t_map *map_data = ft_map(av[1], &game.player, cleaner);
 	if (!map_data)
 	{
 		ft_cleaner(cleaner);
 		return (0);
 	}
 	game.map_data = map_data;
+	game.cleaner = cleaner;
 	my_mlx_init(&game, map_data);
 	ft_cleaner(cleaner);
 	return (0);

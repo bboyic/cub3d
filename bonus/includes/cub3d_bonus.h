@@ -1,20 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 18:07:50 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/16 12:33:01 by aconchit         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
-#define	CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
-typedef struct s_data
-{
-	void *img;
-	char *addr;
-	int bits_per_pixel;
-	int line_length;
-	int endian;
-} t_data;
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_data;
 
-typedef struct s_obj
-{
-	int x;
-	int y;
-} t_obj;
+typedef struct s_obj {
+	int	x;
+	int	y;
+}		t_obj;
 
 typedef struct s_player {
 	float	x;
@@ -27,35 +37,34 @@ typedef struct s_player {
 }	t_player;
 
 typedef struct s_coin {
-	int	x;
-	int	y;
-	int	is;
+	int		x;
+	int		y;
+	int		is;
 	// TODO:add field for sprite
-}	t_coin;
+	char	*current_text;
+	int		z;
+}			t_coin;
 
 typedef struct s_door {
 	int		x;
 	int		y;
+	int		real;
 	int		unlock;
 	char	side;
 	// TODO:add field for sprite
-}	t_door;
+}			t_door;
 
-// first node is temp for correct order and have null params
-typedef struct s_list
-{
+typedef struct s_list {
 	void			*key;
 	struct s_list	*next;
 }					t_list;
 
-typedef struct s_dict
-{
+typedef struct s_dict {
 	int		len;
 	char	*line;
-}		t_dict;
+}			t_dict;
 
-typedef struct s_map
-{
+typedef struct s_map {
 	char	*texture_of_north;
 	char	*texture_of_south;
 	char	*texture_of_west;
@@ -75,10 +84,9 @@ typedef struct s_rayinfo {
 	float	ray_len;
 	float	x;
 	float	y;
-} t_rayinfo;
+}			t_rayinfo;
 
-typedef struct s_vars 
-{
+typedef struct s_vars {
 	int			sky;
 	float		degrees;
 	int			front;
@@ -101,10 +109,10 @@ typedef struct s_vars
 	t_coin		*coins;
 	int			coins_count;
 	int			collected;
-	t_door		door;
+	t_door		*doors;
+	int			doors_count;
 	t_data		img;
-}	t_vars;
-
-
+	t_list		*cleaner;
+}				t_vars;
 
 #endif

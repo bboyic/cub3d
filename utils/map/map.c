@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:00:29 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/14 17:44:17 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 
 int	ft_convert_rgb_num(const char *str)
@@ -39,7 +51,7 @@ int	ft_try_open(char *file, int *fd)
 
 // check spaces line
 // check \n lines
-int	ft_get_file_height(char *file, int *height)
+int	ft_get_file_height(char *file, int *height, t_list *cleaner)
 {
 	int		fd;
 	char	*line;
@@ -47,13 +59,13 @@ int	ft_get_file_height(char *file, int *height)
 	if (ft_try_open(file, &fd))
 		return (1);
 	*height = 0;
-	line = get_next_line(fd);
+	line = get_next_line(fd, cleaner);
 	while (line)
 	{
 		if (ft_white(line))
 			(*height)++;
-		free(line); // todo: think about free it after loop!
-		line = get_next_line(fd);
+		free(line);
+		line = get_next_line(fd, cleaner);
 	}
 	close(fd);
 	if (*height < BONUS)
@@ -61,14 +73,15 @@ int	ft_get_file_height(char *file, int *height)
 	return (0);
 }
 
-int	ft_read_file(t_map *map_data, char *file, char ***file_data)
+int	ft_read_file(t_map *map_data, char *file, char ***file_data,
+	t_list *cleaner)
 {
 	int		height;
 	int		length;
 	int		fd;
 	char	*line;
 
-	if (ft_get_file_height(file, &height))
+	if (ft_get_file_height(file, &height, cleaner))
 		return (1);
 	if (ft_try_open(file, &fd))
 		return (1);
@@ -78,14 +91,14 @@ int	ft_read_file(t_map *map_data, char *file, char ***file_data)
 	(*file_data)[height] = 0;
 	map_data->height = height - 6;
 	height = -1;
-	line = get_next_line(fd);
+	line = get_next_line(fd, cleaner);
 	while (line)
 	{
 		if (ft_white(line))
 			(*file_data)[++height] = line;
 		else
 			free(line);
-		line = get_next_line(fd);
+		line = get_next_line(fd, cleaner);
 	}
 	return (0);
 }
@@ -99,7 +112,8 @@ t_map	*ft_map(char *file, t_player *player, t_list *cleaner)
 	if ((!map_data || ft_clslist_add_front(cleaner, map_data))
 		&& ft_write(2, "Error: Allocate map_data\n"))
 		return (0);
-	if (ft_valid_file(file) || ft_read_file(map_data, file, &file_data))
+	if (ft_valid_file(file) || ft_read_file(map_data, file,
+			&file_data, cleaner))
 		return (0);
 	if (ft_get_config(map_data, file_data, cleaner)
 		|| ft_get_mmap(map_data, file_data + 6, player, cleaner))
@@ -108,5 +122,6 @@ t_map	*ft_map(char *file, t_player *player, t_list *cleaner)
 		ft_free_mas(file_data);
 		return (0);
 	}
+	ft_free_mas(file_data);
 	return (map_data);
 }

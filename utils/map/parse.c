@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:00:24 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/14 17:59:27 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 
 int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl)
@@ -6,30 +18,30 @@ int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl)
 	int		fd;
 
 	line += ft_skip_white(line);
-	*texture = malloc(sizeof(char) * (ft_strlen(line))); // todo: check \n in tests
+	*texture = malloc(sizeof(char) * (ft_strlen(line)));
 	if (!(*texture) || ft_clslist_add_front(cleaner, (*texture)))
 		return (1);
 	i = -1;
 	while (line[++i])
 		(*texture)[i] = line[i];
 	(*texture)[ft_strlen(line) - 1] = 0;
-	// fd = open((*texture), O_RDONLY); //todo: uncomment it in real
-	// if (fd == -1)
-	// {
-	// 	ft_write(2, "Can't open the texture");
-	// 	ft_write(2, (*texture));
-	// 	ft_write(2, "\n");
-	// 	free((*texture));
-	// 	return (1);
-	// }
-	// close(fd);
+	fd = open((*texture), O_RDONLY);
+	if (fd == -1)
+	{
+		ft_write(2, "Can't open the texture");
+		ft_write(2, (*texture));
+		ft_write(2, "\n");
+		free((*texture));
+		return (1);
+	}
+	close(fd);
 	*fl = 0;
 	return (0);
 }
 
-int	ft_get_rgb(int	(*rgb_int)[], char *line, int *fl)
+int	ft_get_rgb(int (*rgb_int)[], char *line, int *fl)
 {
-	int	size;
+	int		size;
 	char	**rgb_char;
 
 	rgb_char = ft_split(line + ft_skip_white(line), ',');
@@ -39,7 +51,7 @@ int	ft_get_rgb(int	(*rgb_int)[], char *line, int *fl)
 	size = -1;
 	while (rgb_char[++size])
 	{
-		(*rgb_int)[size] = ft_convert_rgb_num(rgb_char[size]); // if white spaces after last num it is not correct right now
+		(*rgb_int)[size] = ft_convert_rgb_num(rgb_char[size]);
 		if ((*rgb_int)[size] < 0)
 		{
 			ft_free_mas(rgb_char);
@@ -92,7 +104,8 @@ int	ft_copy_into_mmap(t_map *map_data, char **file_data, t_list *cleaner, int i)
 	return (0);
 }
 
-int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player, t_list *cleaner)
+int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player,
+	t_list *cleaner)
 {
 	int	i;
 	int	ct;

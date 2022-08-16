@@ -31,7 +31,7 @@ int	key_hook(int keycode, t_vars *game)
 	// 	game->turn_right = 1;
 	// mac
 	if (keycode == 53) // esc
-		exit(0);
+		ft_exit(1, game->cleaner); // не подходит
 	if (keycode == 0)
 		game->left = 1;
 	if (keycode == 1)

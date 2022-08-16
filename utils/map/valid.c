@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/14 16:01:45 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/14 16:02:13 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 
 int	ft_valid_file(char *file)
@@ -90,9 +102,9 @@ int	ft_inside_line(char **file_data, char *line, int k, t_player *player)
 				return (1);
 		}
 		if ((line[i] == 'N' || line[i] == 'S'
-			|| line[i] == 'W' || line[i] == 'E')
+				|| line[i] == 'W' || line[i] == 'E')
 			&& player_init(player, i, k, &line[i]))
-				return (1);
+			return (1);
 	}
 	return (0);
 }
