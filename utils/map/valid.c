@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:01:45 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/14 16:02:13 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/20 23:38:33 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ft_valid_file(char *file)
 {
 	int	len;
 	int	shift;
-	int	fd;
 
 	shift = ft_pos_strchr(file, '/');
 	len = ft_strlen(file);
@@ -64,7 +63,7 @@ int	ft_check_name(t_map *map_data, char *line, t_list *cleaner)
 		&& ft_get_rgb(&map_data->rgb_ceiling, line + 1, &fl))
 		return (ft_write(2, "Error: Ceiling rgb is incorrect\n"));
 	if (fl)
-		return (1);
+		return (ft_write(2, "Error: Headers incorrect/incomplete\n"));
 	return (0);
 }
 

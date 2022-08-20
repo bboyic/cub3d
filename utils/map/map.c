@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:00:29 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/14 17:44:17 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/21 01:14:50 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_convert_rgb_num(const char *str)
 {
-	size_t		i;
-	int			nb;
-	int			fl;
+	size_t	i;
+	int		nb;
+	int		fl;
 
 	i = 0;
 	nb = 0;
@@ -49,8 +49,6 @@ int	ft_try_open(char *file, int *fd)
 	return (0);
 }
 
-// check spaces line
-// check \n lines
 int	ft_get_file_height(char *file, int *height, t_list *cleaner)
 {
 	int		fd;
@@ -62,7 +60,7 @@ int	ft_get_file_height(char *file, int *height, t_list *cleaner)
 	line = get_next_line(fd, cleaner);
 	while (line)
 	{
-		if (ft_white(line))
+		if (ft_white(line, 0))
 			(*height)++;
 		free(line);
 		line = get_next_line(fd, cleaner);
@@ -70,6 +68,7 @@ int	ft_get_file_height(char *file, int *height, t_list *cleaner)
 	close(fd);
 	if (*height < BONUS)
 		return (ft_write(2, "Error: Map to small\n"));
+	ft_white("kik off", 1);
 	return (0);
 }
 
@@ -77,7 +76,6 @@ int	ft_read_file(t_map *map_data, char *file, char ***file_data,
 	t_list *cleaner)
 {
 	int		height;
-	int		length;
 	int		fd;
 	char	*line;
 
@@ -94,7 +92,7 @@ int	ft_read_file(t_map *map_data, char *file, char ***file_data,
 	line = get_next_line(fd, cleaner);
 	while (line)
 	{
-		if (ft_white(line))
+		if (ft_white(line, 0))
 			(*file_data)[++height] = line;
 		else
 			free(line);
@@ -115,10 +113,13 @@ t_map	*ft_map(char *file, t_player *player, t_list *cleaner)
 	if (ft_valid_file(file) || ft_read_file(map_data, file,
 			&file_data, cleaner))
 		return (0);
+	map_data->texture_of_east = 0;
+	map_data->texture_of_north = 0;
+	map_data->texture_of_south = 0;
+	map_data->texture_of_west = 0;
 	if (ft_get_config(map_data, file_data, cleaner)
 		|| ft_get_mmap(map_data, file_data + 6, player, cleaner))
 	{
-		printf("wrong\n");
 		ft_free_mas(file_data);
 		return (0);
 	}

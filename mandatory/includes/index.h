@@ -1,36 +1,64 @@
-#ifndef MAIN_H
-# define	MAIN_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   index.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/20 22:26:49 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/21 00:48:01 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef INDEX_H
+# define INDEX_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 16
 # endif
 
-#include <unistd.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "cub3d.h"
-#include "mlx.h"
-#define PI 3.14159265359
-#define RAD 0.0174533
-#define START_MAP_X 0
-#define START_MAP_Y 0
-#define BLOCK_SIZE 512
-#define MINI_BLOCK_SIZE 30
-#define MINI_H 6
-#define MINI_W 6
-#define WIN_H 1000
-#define WIN_W 1000
-#define BONUS 9
-#define SPEED 20
-#define TEXTURE_SIZE (512.0)
-#define WALL_ALIGN (256)
-#define MAX_RANGE (100000)
-#define RATIO_DISPLAY (300000)
+# include <unistd.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include "cub3d.h"
+# include "mlx.h"
+
+# define PI 3.14159265359
+# define RAD 0.0174533
+# define START_MAP_X 0
+# define START_MAP_Y 0
+# define BLOCK_SIZE 512
+# define MINI_BLOCK_SIZE 30
+# define MINI_H 6
+# define MINI_W 6
+# define WIN_H 1000
+# define WIN_W 1000
+# define BONUS 9
+# define SPEED 20
+# define TEXTURE_SIZE (512.0)
+# define WALL_ALIGN (256)
+# define MAX_RANGE (100000)
+# define RATIO_DISPLAY (300000)
 
 // undefined
 # include <fcntl.h>
+
+/*
+* cub3d.c
+*/
+int			main(int ar, char *av[]);
+int			render_next_frame(void *data);
+int			check_cube(t_vars *mlx, int x, int y);
+
+/*
+* init.c
+*/
+void		wall_init(t_vars *game);
+void		game_init(t_vars *game);
+void		my_mlx_init(t_vars *game, t_map *map_data);
+int			player_init(t_player *player, int i, int k, char *side);
 
 /*
 * gnl
@@ -54,7 +82,7 @@ void		ft_free_mas(char **mas);
 * string.c
 */
 int			ft_write(int fd, char *message);
-int			ft_white(char *line);
+int			ft_white(char *line, int fl);
 int			watch_dogs(char **file_data, int k, int i);
 int			watch_dogs_legion(t_dict **mmap, int height, int k, int i);
 
@@ -112,13 +140,13 @@ int			draw_sky(t_vars *mlx, float y, int ray_index);
 int			draw_floor(t_vars *mlx, float y, int ray_index);
 
 /*
-    ifs_for_move.c
+*ifs_for_move.c
 */
-int     front_if(t_vars *mlx);
-int     back_if(t_vars *mlx);
-int     left_if(t_vars *mlx);
-int     right_if(t_vars *mlx);
-int     angle_fix(t_vars *mlx);
+int			front_if(t_vars *mlx);
+int			back_if(t_vars *mlx);
+int			left_if(t_vars *mlx);
+int			right_if(t_vars *mlx);
+int			angle_fix(t_vars *mlx);
 
 /*
 * move.c
@@ -130,11 +158,11 @@ void		check_move(t_vars *mlx);
 /*
 * raycast_utils.c
 */
-float       find_cubx(t_vars *mlx, t_rayinfo ray);
-t_data     	find_texture(t_vars *mlx, t_rayinfo ray);
-int         find_color(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
-int         find_color2(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
-float       draw_wall(t_vars *mlx, int new_wall, t_rayinfo ray, int ray_index);
+float		find_cubx(t_vars *mlx, t_rayinfo ray);
+t_data		find_texture(t_vars *mlx, t_rayinfo ray);
+int			find_color(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
+int			find_color2(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
+float		draw_wall(t_vars *mlx, int new_wall, t_rayinfo ray, int ray_index);
 
 /*
 * raycast.c
@@ -157,7 +185,5 @@ int			key_down(int keycode, t_vars *mlx);
 int			mouse_hook(int x, int y, t_vars *mlx);
 
 int			check_cube(t_vars *mlx, int x, int y);
-
-int			player_init(t_player *player, int i, int k, char *side);
 
 #endif

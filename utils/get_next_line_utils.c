@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 19:54:32 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/14 15:01:04 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/20 22:11:08 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	allocate(char **ptr, int strlen_n, char **line, char **new_ptr)
 	*new_ptr = malloc(sizeof (char) * (line_size(*ptr, '\0') - strlen_n + 1));
 	if (!*new_ptr)
 	{
-		free(line);
+		free(*line);
 		return (1);
 	}
 	(*new_ptr[0]) = '\0';

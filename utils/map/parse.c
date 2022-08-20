@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:00:24 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/14 17:59:27 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/21 01:17:02 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl)
 	int		fd;
 
 	line += ft_skip_white(line);
+	if (*texture)
+		return (ft_write(2, "Error: Double allocate\n"));
 	*texture = malloc(sizeof(char) * (ft_strlen(line)));
 	if (!(*texture) || ft_clslist_add_front(cleaner, (*texture)))
 		return (1);
@@ -28,10 +30,9 @@ int	ft_get_texture(char **texture, char *line, t_list *cleaner, int *fl)
 	fd = open((*texture), O_RDONLY);
 	if (fd == -1)
 	{
-		ft_write(2, "Can't open the texture");
+		ft_write(2, "Error: Can't open the texture ");
 		ft_write(2, (*texture));
 		ft_write(2, "\n");
-		free((*texture));
 		return (1);
 	}
 	close(fd);
@@ -108,10 +109,8 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player,
 	t_list *cleaner)
 {
 	int	i;
-	int	ct;
 
 	i = -1;
-	ct = 0;
 	map_data->mmap = malloc(sizeof(t_dict *) * (map_data->height + 1));
 	if (!map_data->mmap || ft_clslist_add_front(cleaner, map_data->mmap))
 		return (ft_write(2, "Error: Allocate mmap\n"));
@@ -124,10 +123,10 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player,
 		if ((i > 0 && file_data[i + 1])
 			&& ft_inside_line(file_data, file_data[i], i, player))
 			return (ft_write(2, "Error: Map get in trouble\n"));
-		if (ct > 1)
-			return (ft_write(2, "Error: Map get in trouble\n"));
 		if (ft_copy_into_mmap(map_data, file_data, cleaner, i))
 			return (1);
 	}
+	if (player->x == -1)
+		return (ft_write(2, "Error: Map get in trouble\n"));
 	return (0);
 }

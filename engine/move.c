@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 11:01:55 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/16 12:27:59 by aconchit         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:23:54 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	sample_move(t_vars *mlx)
 {
-	int	speed;
-
-	speed = 20;
 	mlx->player.dy = cos(mlx->degrees * RAD);
 	mlx->player.dx = sin(mlx->degrees * RAD);
 	if (front_if(mlx) && angle_fix(mlx))

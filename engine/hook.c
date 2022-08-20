@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 10:59:25 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/16 12:20:35 by aconchit         ###   ########.fr       */
+/*   Updated: 2022/08/20 23:09:09 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,79 +15,81 @@
 int	key_hook(int keycode, t_vars *game)
 {
 	// linux
-	// if (keycode == 97)
-	// 	game->left = 1;
-	// if (keycode == 115)
-	// 	game->back = 1;
-	// if (keycode == 100)
-	// 	game->right = 1;
-	// if (keycode == 119)
-	// 	game->front = 1;
-	// if (keycode == 65505)
-	// 	game->sprint = 2;
-	// if (keycode == 113) // q
-	// 	game->turn_left = 1;
-	// if (keycode == 101) // e
-	// 	game->turn_right = 1;
-	// mac
-	if (keycode == 53) // esc
-		ft_exit(1, game->cleaner); // не подходит
-	if (keycode == 0)
+	if (keycode == 97)
 		game->left = 1;
-	if (keycode == 1)
+	if (keycode == 115)
 		game->back = 1;
-	if (keycode == 2)
+	if (keycode == 100)
 		game->right = 1;
-	if (keycode == 13)
+	if (keycode == 119)
 		game->front = 1;
-	if (keycode == 257)
+	if (keycode == 65505)
 		game->sprint = 2;
-	if (keycode == 12)
+	if (keycode == 113) // q
 		game->turn_left = 1;
-	if (keycode == 14)
+	if (keycode == 101) // e
 		game->turn_right = 1;
+	if (keycode == 65307) // esc
+		ft_exit(1, game->cleaner);
+	// mac
+	// if (keycode == 53) // esc
+		// ft_exit(1, game->cleaner); // не подходит
+	// if (keycode == 0)
+	// 	game->left = 1;
+	// if (keycode == 1)
+	// 	game->back = 1;
+	// if (keycode == 2)
+	// 	game->right = 1;
+	// if (keycode == 13)
+	// 	game->front = 1;
+	// if (keycode == 257)
+	// 	game->sprint = 2;
+	// if (keycode == 12)
+	// 	game->turn_left = 1;
+	// if (keycode == 14)
+	// 	game->turn_right = 1;
 	return (0);
 }
 
 int	key_down(int keycode, t_vars *game)
 {
 	// linux
-	// if (keycode == 97)
-	// 	game->left = 0;
-	// if (keycode == 115)
-	// 	game->back = 0;
-	// if (keycode == 100)
-	// 	game->right = 0;
-	// if (keycode == 119)
-	// 	game->front = 0;
-	// if (keycode == 65505)
-	// 	game->sprint = 1;
-	// if (keycode == 113) // q
-	// 	game->turn_left = 0;
-	// if (keycode == 101) // e
-	// 	game->turn_right = 0;
-	// mac
-	if (keycode == 0)
+	if (keycode == 97)
 		game->left = 0;
-	if (keycode == 1)
+	if (keycode == 115)
 		game->back = 0;
-	if (keycode == 2)
+	if (keycode == 100)
 		game->right = 0;
-	if (keycode == 13)
+	if (keycode == 119)
 		game->front = 0;
-	if (keycode == 257)
+	if (keycode == 65505)
 		game->sprint = 1;
-	if (keycode == 12)
+	if (keycode == 113) // q
 		game->turn_left = 0;
-	if (keycode == 14)
+	if (keycode == 101) // e
 		game->turn_right = 0;
+	// mac
+	// if (keycode == 0)
+	// 	game->left = 0;
+	// if (keycode == 1)
+	// 	game->back = 0;
+	// if (keycode == 2)
+	// 	game->right = 0;
+	// if (keycode == 13)
+	// 	game->front = 0;
+	// if (keycode == 257)
+	// 	game->sprint = 1;
+	// if (keycode == 12)
+	// 	game->turn_left = 0;
+	// if (keycode == 14)
+	// 	game->turn_right = 0;
 	return (0);
 }
 
 int	mouse_hook(int x, int y, t_vars *mlx)
 {
 	static int	mx = 0;
-	static int	my = 0;
+	// static int	my = 0;
 
 	if (x > 0 && x < 1000 && y > 0 && y < 1000 && x != mx)
 	{

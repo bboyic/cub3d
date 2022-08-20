@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:06:23 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/15 16:22:37 by aconchit         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:24:11 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_rayinfo	print_line(t_vars *mlx, float degrees, float x, float y)
 	float		dy;
 	float		fish_fix;
 	t_rayinfo	ray;
-	int			color;
 
 	ray.x = 2;
 	ray.y = -2;

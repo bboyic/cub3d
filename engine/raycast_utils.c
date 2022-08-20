@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:16:27 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/15 16:25:01 by aconchit         ###   ########.fr       */
+/*   Updated: 2022/08/20 22:22:09 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_data	find_texture(t_vars *mlx, t_rayinfo ray)
 int	find_color(t_vars *mlx, t_rayinfo ray, float y, int new_wall)
 {
 	float	cubx;
-	int		texture_align;
 	t_data	texture;
 	int		pixel_x;
 	int		pixel_y;
@@ -65,7 +64,6 @@ int	find_color(t_vars *mlx, t_rayinfo ray, float y, int new_wall)
 int	find_color2(t_vars *mlx, t_rayinfo ray, float y, int new_wall)
 {
 	float	cubx;
-	int		texture_align;
 	t_data	texture;
 	int		pixel_x;
 	int		pixel_y;
