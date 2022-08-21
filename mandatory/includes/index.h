@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 22:26:49 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/21 00:48:01 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/21 15:16:46 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int			get_pixel(t_data *img, int x, int y);
 /*
 * hook.c
 */
+int			key_exit(t_vars *game);
 int			key_hook(int keycode, t_vars *mlx);
 int			key_down(int keycode, t_vars *mlx);
 int			mouse_hook(int x, int y, t_vars *mlx);

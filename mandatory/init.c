@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 22:40:50 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/20 22:40:57 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/21 15:16:31 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	my_mlx_init(t_vars *game, t_map *map_data)
 	&(game->img.bits_per_pixel), &(game->img.line_length), &(game->img.endian));
 	game->map_data = map_data;
 	game_init(game);
+	mlx_hook(game->mlx_win, 17, 0, key_exit, game);
 	mlx_hook(game->mlx_win, 2, 1L << 0, key_hook, game);
 	mlx_key_hook(game->mlx_win, key_down, game);
 	mlx_hook(game->mlx_win, 6, 1L << 0, mouse_hook, game);

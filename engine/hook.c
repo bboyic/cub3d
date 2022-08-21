@@ -6,14 +6,22 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 10:59:25 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/20 23:09:09 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/21 15:15:54 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "index.h"
 
+int	key_exit(t_vars *game)
+{
+	ft_cleaner(game->cleaner);
+	printf("Exit with code: %d\n", 0);
+	exit(0);
+}
+
 int	key_hook(int keycode, t_vars *game)
 {
+	printf("keycode->%d\n", keycode);
 	// linux
 	if (keycode == 97)
 		game->left = 1;
@@ -30,7 +38,7 @@ int	key_hook(int keycode, t_vars *game)
 	if (keycode == 101) // e
 		game->turn_right = 1;
 	if (keycode == 65307) // esc
-		ft_exit(1, game->cleaner);
+		ft_exit(0, game->cleaner);
 	// mac
 	// if (keycode == 53) // esc
 		// ft_exit(1, game->cleaner); // не подходит

@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:58:00 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/21 00:47:27 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/21 14:24:14 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_write(int fd, char *message)
 
 int	ft_white(char *line, int fl)
 {
-	static int is_wall;
+	static int	is_wall;
 
 	if (line[0] == '1')
 		is_wall = 1;
