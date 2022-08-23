@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 22:40:50 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/23 20:19:22 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/23 21:31:13 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ void	wall_init(t_vars *game)
 	int	w;
 	int	h;
 
-	game->map_data->texture_of_north[ft_strlen(game->map_data->texture_of_north) - 1] = 0;
-	game->map_data->texture_of_south[ft_strlen(game->map_data->texture_of_south) - 1] = 0;
-	game->map_data->texture_of_west[ft_strlen(game->map_data->texture_of_west) - 1] = 0;
-	game->map_data->texture_of_east[ft_strlen(game->map_data->texture_of_east) - 1] = 0;
+	game->map_data->texture_of_north[ft_strlen(game->map_data->texture_of_north)] = 0;
+	game->map_data->texture_of_south[ft_strlen(game->map_data->texture_of_south)] = 0;
+	game->map_data->texture_of_west[ft_strlen(game->map_data->texture_of_west)] = 0;
+	game->map_data->texture_of_east[ft_strlen(game->map_data->texture_of_east)] = 0;
+	game->texture.img = mlx_new_image(game->mlx, 512, 512);
 	game->texture.img = mlx_xpm_file_to_image(game->mlx, game->map_data->texture_of_north, &w, &h);
 	game->texture.addr = mlx_get_data_addr(game->texture.img, &game->texture.bits_per_pixel, &game->texture.line_length, &game->texture.endian);
 	game->texture1.img = mlx_new_image(game->mlx, 512, 512);
