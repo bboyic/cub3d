@@ -1,5 +1,17 @@
-#ifndef MAIN_BONUS_H
-# define	MAIN_BONUS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   index.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/23 19:25:37 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/23 20:20:22 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef INDEX_H
+# define	INDEX_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 16
@@ -33,6 +45,20 @@
 # include <fcntl.h>
 
 /*
+* cub3d.c
+*/
+int			main(int ar, char *av[]);
+int			render_next_frame(void *data);
+int			check_cube(t_vars *mlx, int x, int y);
+
+/*
+* init.c
+*/
+void		wall_init(t_vars *game);
+void		game_init(t_vars *game);
+void		my_mlx_init(t_vars *game, t_map *map_data);
+
+/*
 * gnl
 */
 char		*get_next_line(int fd, t_list *cleaner);
@@ -54,7 +80,7 @@ void		ft_free_mas(char **mas);
 * string.c
 */
 int			ft_write(int fd, char *message);
-int			ft_white(char *line);
+int			ft_white(char *line, int fl);
 int			watch_dogs(char **file_data, int k, int i);
 int			watch_dogs_legion(t_dict **mmap, int height, int k, int i);
 
@@ -120,13 +146,13 @@ int			draw_sky(t_vars *mlx, float y, int ray_index);
 int			draw_floor(t_vars *mlx, float y, int ray_index);
 
 /*
-    ifs_for_move.c
+*ifs_for_move.c
 */
-int     front_if(t_vars *mlx);
-int     back_if(t_vars *mlx);
-int     left_if(t_vars *mlx);
-int     right_if(t_vars *mlx);
-int     angle_fix(t_vars *mlx);
+int			front_if(t_vars *mlx);
+int			back_if(t_vars *mlx);
+int			left_if(t_vars *mlx);
+int			right_if(t_vars *mlx);
+int			angle_fix(t_vars *mlx);
 
 /*
 * move.c
@@ -138,11 +164,11 @@ void		check_move(t_vars *mlx);
 /*
 * raycast_utils.c
 */
-float       find_cubx(t_vars *mlx, t_rayinfo ray);
-t_data     	find_texture(t_vars *mlx, t_rayinfo ray);
-int         find_color(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
-int         find_color2(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
-float       draw_wall(t_vars *mlx, int new_wall, t_rayinfo ray, int ray_index);
+float		find_cubx(t_vars *mlx, t_rayinfo ray);
+t_data		find_texture(t_vars *mlx, t_rayinfo ray);
+int			find_color(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
+int			find_color2(t_vars *mlx, t_rayinfo ray, float y, int new_wall);
+float		draw_wall(t_vars *mlx, int new_wall, t_rayinfo ray, int ray_index);
 
 /*
 * raycast.c
@@ -160,6 +186,7 @@ int			get_pixel(t_data *img, int x, int y);
 /*
 * hook.c
 */
+int			key_exit(t_vars *game);
 int			key_hook(int keycode, t_vars *mlx);
 int			key_down(int keycode, t_vars *mlx);
 int			mouse_hook(int x, int y, t_vars *mlx);
