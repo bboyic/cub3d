@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 17:17:24 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/23 21:39:04 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/23 21:56:18 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,22 @@ int	render_next_frame(void *data)
 	game = (t_vars *)data;
 	check_move(game);
 	draw_ray(game);
-	printf("get money\n");
 	get_money(game);
-	printf("get minimap\n");
 	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	return (0);
+}
+
+int	god_help(t_vars *game, t_map **map_data, char *file, t_list *cleaner)
+{
+	game->player.x = -1;
+	game->player.y = -1;
+	*map_data = ft_map(file, &game->player, cleaner);
+	if (!(*map_data))
+	{
+		ft_cleaner(cleaner);
+		return (1);
+	}
 }
 
 int	main(int ar, char *av[])
@@ -52,16 +62,8 @@ int	main(int ar, char *av[])
 	cleaner = malloc(sizeof(t_list) * 1);
 	if (!cleaner)
 		return (ft_write(2, "Error: Allocate cleaner\n"));
-	cleaner->key = 0;
 	cleaner->next = 0;
-	game.player.x = -1;
-	game.player.y = -1;
-	map_data = ft_map(av[1], &game.player, cleaner);
-	if (!map_data)
-	{
-		ft_cleaner(cleaner);
-		return (0);
-	}
+	god_help(&game, &map_data, av[1], cleaner);
 	game.map_data = map_data;
 	game.cleaner = cleaner;
 	if (objects_init(&game, cleaner))

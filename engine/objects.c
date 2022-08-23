@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/23 22:12:22 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/23 22:12:23 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 #include "time.h"
 
@@ -32,7 +44,7 @@ int	add_random_coins(t_vars *game, t_coin *coins, t_list *cleaner)
 			return (1);
 		j = 0;
 		while (j <= c_i && (coins[j].x != coins[rand].x
-			|| coins[j].y != coins[rand].y))
+				|| coins[j].y != coins[rand].y))
 			j++;
 		if (j - 1 == c_i)
 			coins[c_i++] = coins[rand];
@@ -59,7 +71,7 @@ int	add_random_doors(t_vars *game, t_door *doors, t_list *cleaner)
 			return (1);
 		j = 0;
 		while (j <= d_i && (doors[j].x != doors[rand].x
-			|| doors[j].y != doors[rand].y))
+				|| doors[j].y != doors[rand].y))
 			j++;
 		if (j - 1 == d_i)
 			doors[d_i++] = doors[rand];
@@ -92,7 +104,7 @@ void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors)
 					game->map_data->height, i, j))
 			{
 				doors[d_i].side = watch_dogs_legion(game->map_data->mmap,
-					game->map_data->height, i, j);
+						game->map_data->height, i, j);
 				door_init(doors, &d_i, j, i);
 			}
 		}

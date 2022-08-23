@@ -6,50 +6,53 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 19:25:37 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/23 20:20:22 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/23 21:57:27 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INDEX_H
-# define	INDEX_H
+# define INDEX_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 16
 # endif
 
-#include <unistd.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "cub3d_bonus.h"
-#include "mlx.h"
-#define PI 3.14159265359
-#define RAD 0.0174533
-#define START_MAP_X 0
-#define START_MAP_Y 0
-#define BLOCK_SIZE 512
-#define MINI_BLOCK_SIZE 30
-#define MINI_H 6
-#define MINI_W 6
-#define WIN_H 1000
-#define WIN_W 1000
-#define BONUS 11
-#define SPEED (20)
-#define TEXTURE_SIZE (512.0)
-#define WALL_ALIGN (256)
-#define MAX_RANGE (100000)
-#define RATIO_DISPLAY (300000)
+# include <unistd.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include "cub3d_bonus.h"
+# include "mlx.h"
+
+# define PI 3.14159265359
+# define RAD 0.0174533
+# define START_MAP_X 0
+# define START_MAP_Y 0
+# define BLOCK_SIZE 512
+# define MINI_BLOCK_SIZE 30
+# define MINI_H 6
+# define MINI_W 6
+# define WIN_H 1000
+# define WIN_W 1000
+# define BONUS 11
+# define SPEED (20)
+# define TEXTURE_SIZE (512.0)
+# define WALL_ALIGN (256)
+# define MAX_RANGE (100000)
+# define RATIO_DISPLAY (300000)
 
 // undefined
 # include <fcntl.h>
 
 /*
-* cub3d.c
+* cub3d_bonus.c
 */
 int			main(int ar, char *av[]);
 int			render_next_frame(void *data);
 int			check_cube(t_vars *mlx, int x, int y);
+int			god_help(t_vars *game, t_map **map_data, char *file,
+				t_list *cleaner);
 
 /*
 * init.c

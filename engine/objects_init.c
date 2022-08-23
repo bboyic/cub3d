@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects_init.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/23 22:12:44 by fmaryam           #+#    #+#             */
+/*   Updated: 2022/08/23 22:12:45 by fmaryam          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "index.h"
 
 void	door_init(t_door *doors, int *current, int j, int i)
@@ -39,7 +51,8 @@ int	objects_init(t_vars *game, t_list *cleaner)
 		game->map_data->mmap[game->coins[i].y]->line[game->coins[i].x] = 'C';
 	i = -1;
 	while (++i < game->doors_count)
-		game->map_data->mmap[game->doors[i].y]->line[game->doors[i].x] = game->doors[i].side;
+		game->map_data->mmap[game->doors[i].y]->line[game->doors[i].x]
+			= game->doors[i].side;
 	return (0);
 }
 

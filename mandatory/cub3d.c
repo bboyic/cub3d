@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 17:24:31 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/20 22:47:38 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/23 21:52:19 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ar, char *av[])
 	if (!map_data)
 	{
 		ft_cleaner(cleaner);
-		return (0);
+		return (1);
 	}
 	game.map_data = map_data;
 	game.cleaner = cleaner;
