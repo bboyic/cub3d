@@ -12,10 +12,7 @@ int	c_rand(int spread, int i, t_list *cleaner)
 		ft_write(2, "Error: Allocate rand\n");
 		return (-1);
 	}
-	printf("p->%p\n", rand);
 	a = (long long)rand % spread;
-	printf("%d\n", a);
-	// free(rand);
 	return (a);
 }
 
@@ -112,7 +109,6 @@ void	objects_count(t_vars *game, int *c, int *d)
 	c_count = 0;
 	d_count = 0;
 	i = -1;
-	printf("%d\n", game->map_data->height);
 	while (++i < game->map_data->height)
 	{
 		j = -1;

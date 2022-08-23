@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 17:17:24 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/23 20:38:45 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/23 21:39:04 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int	render_next_frame(void *data)
 	game = (t_vars *)data;
 	check_move(game);
 	draw_ray(game);
+	printf("get money\n");
 	get_money(game);
+	printf("get minimap\n");
 	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	return (0);
