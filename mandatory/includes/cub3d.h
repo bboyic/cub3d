@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:41:36 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/16 12:32:58 by aconchit         ###   ########.fr       */
+/*   Updated: 2022/08/28 13:36:34 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_player {
 	int		fck_if;
 }	t_player;
 
-// first node is temp for correct order and have null params
 typedef struct s_list {
 	void			*key;
 	struct s_list	*next;

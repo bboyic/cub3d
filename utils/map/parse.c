@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 16:00:24 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/21 01:17:02 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/08/28 13:05:33 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,6 @@ int	ft_get_mmap(t_map *map_data, char **file_data, t_player *player,
 			return (1);
 	}
 	if (player->x == -1)
-		return (ft_write(2, "Error: Map get in trouble\n"));
+		return (ft_write(2, "Error: Where is my hero?\n"));
 	return (0);
 }

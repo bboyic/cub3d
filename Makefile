@@ -37,21 +37,21 @@ bonus: $(NAME_BONUS)
 
 $(OBJ_DIR_M)/%.o : %.c
 	@mkdir -p $(OBJ_DIR_M)
-	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_M) -o $@ -c $<
-#	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_M) -Imlx_linux -O3 -o $@ -c $<
+	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_M) -Imlx_linux -O3 -o $@ -c $<
+#	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_M) -o $@ -c $<
 
 $(OBJ_DIR_B)/%.o : %.c
 	@mkdir -p $(OBJ_DIR_B)
-	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_B) -o $@ -c $<
-#	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_B) -Imlx_linux -O3 -o $@ -c $<
+	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_B) -Imlx_linux -O3 -o $@ -c $<
+#	$(CC) $(CFLAGS) -Imlx -I$(INC_DIR_B) -o $@ -c $<
 
 $(NAME): $(OBJS_M)
-	$(CC) $(CFLAGS) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
-#	$(CC) $(CFLAGS) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+	$(CC) $(CFLAGS) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+#	$(CC) $(CFLAGS) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
 $(NAME_BONUS): $(OBJS_B)
-	$(CC) $(CFLAGS) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
-#	$(CC) $(CFLAGS) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+	$(CC) $(CFLAGS) $^ -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+#	$(CC) $(CFLAGS) $^ -Lmlx -lmlx -framework OpenGL -framework AppKit -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)
