@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 22:12:22 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/23 22:12:23 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/10/16 19:44:49 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,6 @@ void	fill_coins_doors(t_vars *game, t_coin *coins, t_door *doors)
 		{
 			if (game->map_data->mmap[i]->line[j] == '0')
 				coin_init(coins, &c_i, j, i);
-			if (game->map_data->mmap[i]->line[j] == '1'
-				&& watch_dogs_legion(game->map_data->mmap,
-					game->map_data->height, i, j))
-			{
-				doors[d_i].side = watch_dogs_legion(game->map_data->mmap,
-						game->map_data->height, i, j);
-				door_init(doors, &d_i, j, i);
-			}
 		}
 	}
 }

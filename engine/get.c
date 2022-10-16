@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 10:57:58 by aconchit          #+#    #+#             */
-/*   Updated: 2022/08/21 14:25:28 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/10/16 18:53:36 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,3 @@ void	get_money(t_vars *game)
 		}
 	}
 }
-
-// void	get_door(t_vars *game)
-// {
-// 	if (game.door.x == (int)(floor(game->player.x / BLOCK_SIZE))
-// 		&& game.door.x == (int)(floor(game->player.x / BLOCK_SIZE))
-// }

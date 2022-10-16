@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 22:12:44 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/10/16 18:23:27 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/10/16 19:45:15 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,11 @@ int	objects_init(t_vars *game, t_list *cleaner)
 	if (!game->doors || ft_clslist_add_front(cleaner, game->doors))
 		return (1);
 	fill_coins_doors(game, game->coins, game->doors);
-	if (add_random_coins(game, game->coins, cleaner)
-		|| add_random_doors(game, game->doors, cleaner))
+	if (add_random_coins(game, game->coins, cleaner))
 		return (1);
 	i = -1;
 	while (++i < game->coins_count)
 		game->map_data->mmap[game->coins[i].y]->line[game->coins[i].x] = 'C';
-	i = -1;
-	while (++i < game->doors_count)
-		game->map_data->mmap[game->doors[i].y]->line[game->doors[i].x]
-			= game->doors[i].side;
 	return (0);
 }
 
