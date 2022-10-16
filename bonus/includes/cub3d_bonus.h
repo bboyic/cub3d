@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aconchit <aconchit@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:07:50 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/16 12:33:01 by aconchit         ###   ########.fr       */
+/*   Updated: 2022/10/16 18:22:48 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_coin {
 	int		x;
 	int		y;
 	int		is;
-	// TODO:add field for sprite
 	char	*current_text;
 	int		z;
 }			t_coin;
@@ -51,7 +50,6 @@ typedef struct s_door {
 	int		real;
 	int		unlock;
 	char	side;
-	// TODO:add field for sprite
 }			t_door;
 
 typedef struct s_list {

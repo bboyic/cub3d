@@ -6,7 +6,7 @@
 /*   By: fmaryam <fmaryam@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/23 22:12:44 by fmaryam           #+#    #+#             */
-/*   Updated: 2022/08/23 22:12:45 by fmaryam          ###   ########.fr       */
+/*   Updated: 2022/10/16 18:23:27 by fmaryam          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	door_init(t_door *doors, int *current, int j, int i)
 	doors[*current].y = i;
 	doors[*current].real = 0;
 	doors[*current].unlock = 0;
-	// something else
 	(*current)++;
 }
 
@@ -27,7 +26,6 @@ void	coin_init(t_coin *coins, int *current, int j, int i)
 	coins[*current].x = j;
 	coins[*current].y = i;
 	coins[*current].is = 1;
-	// something else
 	(*current)++;
 }
 
